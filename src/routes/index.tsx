@@ -331,60 +331,7 @@ function Index() {
       </section>
 
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
-      <section id="recap" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
-        <div className="px-6 md:px-10">
-          <Label>Last saturday</Label>
-          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-          <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
-            42 SHOWED <span className="underline-sky">UP.</span>
-          </h2>
-
-          {/* Stat row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
-            {[
-              { label: "Runners", value: "42", sub: "VS 38 LAST WK" },
-              { label: "First-timers", value: "09", sub: "WELCOME" },
-              { label: "Miles", value: "210", sub: "TOTAL CLUB" },
-              { label: "Temp", value: "41°F", sub: "CRISP" },
-            ].map((s) => (
-              <div key={s.label} className="bg-bone p-6 md:p-8">
-                <Stat label={s.label} value={s.value} sub={s.sub} />
-              </div>
-            ))}
-          </div>
-
-          {/* Tag cloud of names */}
-          <div className="mt-16 md:mt-24">
-            <Label>On the roster</Label>
-            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-            <p className="font-display text-2xl md:text-4xl leading-tight max-w-5xl">
-              {[
-                ["MAYA", false], ["JON", false], ["PRIYA", true], ["DEV", false],
-                ["ROSA", false], ["SAM", true], ["KOFI", false], ["LENA", false],
-                ["MIKAEL", true], ["JESS", false], ["TONY", false], ["AYA", true],
-                ["HAN", false], ["BEN", false], ["NORA", true], ["ZAK", false],
-                ["ELI", false], ["RUTH", true], ["CARLO", false], ["MEI", false],
-                ["JAS", true], ["OMAR", false], ["LULU", false], ["DREW", true],
-                ["KAI", false], ["VERA", false], ["TEO", false], ["NIA", true],
-                ["ISA", false], ["WILL", false], ["FINN", false], ["AMARA", true],
-              ].map(([name, isFirst], i, arr) => (
-                <span key={name as string} className="inline-block mr-2">
-                  {isFirst ? (
-                    <span className="mark-sky">{name}</span>
-                  ) : (
-                    <span>{name}</span>
-                  )}
-                  {i < arr.length - 1 && <span className="text-ink/25 ml-2">·</span>}
-                </span>
-              ))}
-            </p>
-            <p className="label-meta mt-8 text-ink/60">
-              <span className="inline-block w-3 h-3 bg-sky-brand mr-2 align-middle" />
-              FIRST RUN WITH GRYT
-            </p>
-          </div>
-        </div>
-      </section>
+      <RecapSection />
 
       {/* ═══════════════════════ PR CARD ═══════════════════════ */}
       <section className="bg-bone text-ink pb-20 md:pb-28">
