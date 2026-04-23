@@ -148,7 +148,10 @@ function buildRecapText(r: typeof RECAP, shareUrl: string): string {
 
 function RecapSection() {
   const [copied, setCopied] = useState(false);
-  const text = useMemo(() => buildRecapText(RECAP), []);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [source, setSource] = useState<UtmSource>("instagram");
+  const shareUrl = useMemo(() => buildShareUrl(source), [source]);
+  const text = useMemo(() => buildRecapText(RECAP, shareUrl), [shareUrl]);
 
   const onCopy = async () => {
     try {
@@ -157,6 +160,16 @@ function RecapSection() {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+    }
+  };
+
+  const onCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      setLinkCopied(false);
     }
   };
 
