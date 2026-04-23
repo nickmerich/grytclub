@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { RouteMap } from "@/components/RouteMap";
+import { ElevationChart } from "@/components/ElevationChart";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -494,6 +495,11 @@ function Index() {
                 <Stat label={s.label} value={s.value} sub={s.sub} />
               </div>
             ))}
+          </div>
+
+          {/* Elevation preview */}
+          <div className="mt-8 md:mt-10">
+            <ElevationChart />
           </div>
         </div>
       </section>

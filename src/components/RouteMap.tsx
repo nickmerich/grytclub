@@ -53,22 +53,20 @@ export function RouteMap() {
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
+      // Sky-blue glow underlay — add FIRST so it sits underneath
+      L.polyline(ROUTE_POINTS, {
+        color: "#8FD0EE",
+        weight: 11,
+        opacity: 0.55,
+        lineJoin: "round",
+      }).addTo(map);
+
       const line = L.polyline(ROUTE_POINTS, {
         color: "#0A0A0A",
         weight: 5,
         opacity: 1,
         lineJoin: "round",
       }).addTo(map);
-
-      // Sky-blue glow underlay for brand pop
-      L.polyline(ROUTE_POINTS, {
-        color: "#8FD0EE",
-        weight: 11,
-        opacity: 0.55,
-        lineJoin: "round",
-      })
-        .addTo(map)
-        .bringToBack();
 
       const startIcon = L.divIcon({
         className: "",
