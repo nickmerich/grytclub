@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -67,6 +68,167 @@ function DiagonalSlash({
         transformOrigin: "center",
       }}
     />
+  );
+}
+
+/* ─── Recap data + widget ─── */
+
+type Roster = { name: string; firstTimer: boolean }[];
+
+const RECAP = {
+  date: "SAT 04.19",
+  runners: 42,
+  firstTimers: 9,
+  miles: 210,
+  temp: "41°F",
+  prevWeek: 38,
+  start: "EAST RIVER PARK",
+  after: "SEY COFFEE",
+  roster: [
+    { name: "MAYA", firstTimer: false }, { name: "JON", firstTimer: false },
+    { name: "PRIYA", firstTimer: true }, { name: "DEV", firstTimer: false },
+    { name: "ROSA", firstTimer: false }, { name: "SAM", firstTimer: true },
+    { name: "KOFI", firstTimer: false }, { name: "LENA", firstTimer: false },
+    { name: "MIKAEL", firstTimer: true }, { name: "JESS", firstTimer: false },
+    { name: "TONY", firstTimer: false }, { name: "AYA", firstTimer: true },
+    { name: "HAN", firstTimer: false }, { name: "BEN", firstTimer: false },
+    { name: "NORA", firstTimer: true }, { name: "ZAK", firstTimer: false },
+    { name: "ELI", firstTimer: false }, { name: "RUTH", firstTimer: true },
+    { name: "CARLO", firstTimer: false }, { name: "MEI", firstTimer: false },
+    { name: "JAS", firstTimer: true }, { name: "OMAR", firstTimer: false },
+    { name: "LULU", firstTimer: false }, { name: "DREW", firstTimer: true },
+    { name: "KAI", firstTimer: false }, { name: "VERA", firstTimer: false },
+    { name: "TEO", firstTimer: false }, { name: "NIA", firstTimer: true },
+    { name: "ISA", firstTimer: false }, { name: "WILL", firstTimer: false },
+    { name: "FINN", firstTimer: false }, { name: "AMARA", firstTimer: true },
+  ] as Roster,
+};
+
+function buildRecapText(r: typeof RECAP): string {
+  const firstTimers = r.roster.filter((x) => x.firstTimer).map((x) => x.name);
+  const regulars = r.roster.filter((x) => !x.firstTimer).map((x) => x.name);
+  return [
+    `${r.runners} SHOWED UP.`,
+    ``,
+    `📍 ${r.start} · ${r.date} · ${r.temp}`,
+    `🏃 ${r.runners} runners · ${r.miles} total miles · vs ${r.prevWeek} last week`,
+    ``,
+    `★ FIRST RUN WITH GRYT (${firstTimers.length}):`,
+    firstTimers.map((n) => `★ ${n}`).join("  "),
+    ``,
+    `THE ROSTER:`,
+    regulars.join(" · "),
+    ``,
+    `coffee after at ${r.after}.`,
+    `do hard things together.`,
+    ``,
+    `gryt.run/sat`,
+  ].join("\n");
+}
+
+function RecapSection() {
+  const [copied, setCopied] = useState(false);
+  const text = useMemo(() => buildRecapText(RECAP), []);
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <section id="recap" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
+      <div className="px-6 md:px-10">
+        <Label>Last saturday</Label>
+        <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+        <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
+          {RECAP.runners} SHOWED <span className="underline-sky">UP.</span>
+        </h2>
+
+        {/* Stat row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
+          {[
+            { label: "Runners", value: String(RECAP.runners), sub: `VS ${RECAP.prevWeek} LAST WK` },
+            { label: "First-timers", value: String(RECAP.firstTimers).padStart(2, "0"), sub: "WELCOME" },
+            { label: "Miles", value: String(RECAP.miles), sub: "TOTAL CLUB" },
+            { label: "Temp", value: RECAP.temp, sub: "CRISP" },
+          ].map((s) => (
+            <div key={s.label} className="bg-bone p-6 md:p-8">
+              <Stat label={s.label} value={s.value} sub={s.sub} />
+            </div>
+          ))}
+        </div>
+
+        {/* Tag cloud of names */}
+        <div className="mt-16 md:mt-24">
+          <Label>On the roster</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <p className="font-display text-2xl md:text-4xl leading-tight max-w-5xl">
+            {RECAP.roster.map((r, i, arr) => (
+              <span key={r.name} className="inline-block mr-2">
+                {r.firstTimer ? (
+                  <span className="mark-sky">{r.name}</span>
+                ) : (
+                  <span>{r.name}</span>
+                )}
+                {i < arr.length - 1 && <span className="text-ink/25 ml-2">·</span>}
+              </span>
+            ))}
+          </p>
+          <p className="label-meta mt-8 text-ink/60">
+            <span className="inline-block w-3 h-3 bg-sky-brand mr-2 align-middle" />
+            FIRST RUN WITH GRYT
+          </p>
+        </div>
+
+        {/* ─── Copy-for-social widget ─── */}
+        <div className="mt-16 md:mt-24 relative bg-ink text-bone overflow-hidden">
+          <DiagonalSlash className="top-6 -right-20" thickness={2} length="60%" />
+          <div className="absolute inset-0 dot-grid pointer-events-none" />
+
+          <div className="relative z-10 p-6 md:p-10">
+            <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
+              <div>
+                <Label className="text-bone">Share the recap</Label>
+                <div className="rule-thin bg-bone mt-2 mb-4 max-w-[160px]" />
+                <h3 className="font-display text-3xl md:text-5xl leading-[0.9]">
+                  POST IT.
+                  <br />
+                  <span className="underline-sky">TAG US.</span>
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={onCopy}
+                aria-live="polite"
+                className={`label-meta px-5 py-3 transition-colors ${
+                  copied
+                    ? "bg-sky-brand text-ink"
+                    : "bg-bone text-ink hover:bg-sky-brand"
+                }`}
+              >
+                {copied ? "COPIED ✓" : "COPY TEXT →"}
+              </button>
+            </div>
+
+            <pre
+              className="relative bg-bone text-ink p-5 md:p-6 text-[13px] md:text-sm leading-relaxed whitespace-pre-wrap font-mono max-h-[420px] overflow-auto"
+              aria-label="Recap text ready to copy"
+            >
+{text}
+            </pre>
+
+            <p className="label-meta mt-5 text-bone/60">
+              auto-formatted from saturday's roster · {RECAP.firstTimers} first-timers highlighted
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -330,60 +492,7 @@ function Index() {
       </section>
 
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
-      <section id="recap" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
-        <div className="px-6 md:px-10">
-          <Label>Last saturday</Label>
-          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-          <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
-            42 SHOWED <span className="underline-sky">UP.</span>
-          </h2>
-
-          {/* Stat row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
-            {[
-              { label: "Runners", value: "42", sub: "VS 38 LAST WK" },
-              { label: "First-timers", value: "09", sub: "WELCOME" },
-              { label: "Miles", value: "210", sub: "TOTAL CLUB" },
-              { label: "Temp", value: "41°F", sub: "CRISP" },
-            ].map((s) => (
-              <div key={s.label} className="bg-bone p-6 md:p-8">
-                <Stat label={s.label} value={s.value} sub={s.sub} />
-              </div>
-            ))}
-          </div>
-
-          {/* Tag cloud of names */}
-          <div className="mt-16 md:mt-24">
-            <Label>On the roster</Label>
-            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-            <p className="font-display text-2xl md:text-4xl leading-tight max-w-5xl">
-              {[
-                ["MAYA", false], ["JON", false], ["PRIYA", true], ["DEV", false],
-                ["ROSA", false], ["SAM", true], ["KOFI", false], ["LENA", false],
-                ["MIKAEL", true], ["JESS", false], ["TONY", false], ["AYA", true],
-                ["HAN", false], ["BEN", false], ["NORA", true], ["ZAK", false],
-                ["ELI", false], ["RUTH", true], ["CARLO", false], ["MEI", false],
-                ["JAS", true], ["OMAR", false], ["LULU", false], ["DREW", true],
-                ["KAI", false], ["VERA", false], ["TEO", false], ["NIA", true],
-                ["ISA", false], ["WILL", false], ["FINN", false], ["AMARA", true],
-              ].map(([name, isFirst], i, arr) => (
-                <span key={name as string} className="inline-block mr-2">
-                  {isFirst ? (
-                    <span className="mark-sky">{name}</span>
-                  ) : (
-                    <span>{name}</span>
-                  )}
-                  {i < arr.length - 1 && <span className="text-ink/25 ml-2">·</span>}
-                </span>
-              ))}
-            </p>
-            <p className="label-meta mt-8 text-ink/60">
-              <span className="inline-block w-3 h-3 bg-sky-brand mr-2 align-middle" />
-              FIRST RUN WITH GRYT
-            </p>
-          </div>
-        </div>
-      </section>
+      <RecapSection />
 
       {/* ═══════════════════════ PR CARD ═══════════════════════ */}
       <section className="bg-bone text-ink pb-20 md:pb-28">
