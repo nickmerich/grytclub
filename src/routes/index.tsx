@@ -104,7 +104,27 @@ const RECAP = {
   ] as Roster,
 };
 
-function buildRecapText(r: typeof RECAP): string {
+const SHARE_BASE = "gryt.run/sat";
+
+const UTM_SOURCES = [
+  { id: "instagram", label: "Instagram" },
+  { id: "twitter", label: "X / Twitter" },
+  { id: "strava", label: "Strava" },
+  { id: "text", label: "Text / DM" },
+] as const;
+
+type UtmSource = (typeof UTM_SOURCES)[number]["id"];
+
+function buildShareUrl(source: UtmSource): string {
+  const params = new URLSearchParams({
+    utm_source: source,
+    utm_medium: "social",
+    utm_campaign: "recap_sat",
+  });
+  return `${SHARE_BASE}?${params.toString()}`;
+}
+
+function buildRecapText(r: typeof RECAP, shareUrl: string): string {
   const firstTimers = r.roster.filter((x) => x.firstTimer).map((x) => x.name);
   const regulars = r.roster.filter((x) => !x.firstTimer).map((x) => x.name);
   return [
@@ -122,7 +142,7 @@ function buildRecapText(r: typeof RECAP): string {
     `coffee after at ${r.after}.`,
     `do hard things together.`,
     ``,
-    `gryt.run/sat`,
+    shareUrl,
   ].join("\n");
 }
 
