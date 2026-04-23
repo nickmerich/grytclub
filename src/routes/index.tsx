@@ -104,7 +104,27 @@ const RECAP = {
   ] as Roster,
 };
 
-function buildRecapText(r: typeof RECAP): string {
+const SHARE_BASE = "gryt.run/sat";
+
+const UTM_SOURCES = [
+  { id: "instagram", label: "Instagram" },
+  { id: "twitter", label: "X / Twitter" },
+  { id: "strava", label: "Strava" },
+  { id: "text", label: "Text / DM" },
+] as const;
+
+type UtmSource = (typeof UTM_SOURCES)[number]["id"];
+
+function buildShareUrl(source: UtmSource): string {
+  const params = new URLSearchParams({
+    utm_source: source,
+    utm_medium: "social",
+    utm_campaign: "recap_sat",
+  });
+  return `${SHARE_BASE}?${params.toString()}`;
+}
+
+function buildRecapText(r: typeof RECAP, shareUrl: string): string {
   const firstTimers = r.roster.filter((x) => x.firstTimer).map((x) => x.name);
   const regulars = r.roster.filter((x) => !x.firstTimer).map((x) => x.name);
   return [
@@ -122,13 +142,16 @@ function buildRecapText(r: typeof RECAP): string {
     `coffee after at ${r.after}.`,
     `do hard things together.`,
     ``,
-    `gryt.run/sat`,
+    shareUrl,
   ].join("\n");
 }
 
 function RecapSection() {
   const [copied, setCopied] = useState(false);
-  const text = useMemo(() => buildRecapText(RECAP), []);
+  const [linkCopied, setLinkCopied] = useState(false);
+  const [source, setSource] = useState<UtmSource>("instagram");
+  const shareUrl = useMemo(() => buildShareUrl(source), [source]);
+  const text = useMemo(() => buildRecapText(RECAP, shareUrl), [shareUrl]);
 
   const onCopy = async () => {
     try {
@@ -137,6 +160,16 @@ function RecapSection() {
       setTimeout(() => setCopied(false), 2000);
     } catch {
       setCopied(false);
+    }
+  };
+
+  const onCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      setLinkCopied(false);
     }
   };
 
@@ -222,8 +255,57 @@ function RecapSection() {
 {text}
             </pre>
 
+            {/* ─── Trackable share link ─── */}
+            <div className="mt-6 border-t border-bone/15 pt-6">
+              <div className="flex flex-wrap items-end justify-between gap-3 mb-3">
+                <div>
+                  <Label className="text-bone">Tracked share link</Label>
+                  <div className="rule-thin bg-bone mt-2 max-w-[140px]" />
+                </div>
+                <div className="flex flex-wrap gap-1" role="radiogroup" aria-label="UTM source">
+                  {UTM_SOURCES.map((s) => {
+                    const active = source === s.id;
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        onClick={() => setSource(s.id)}
+                        className={`label-meta px-3 py-2 transition-colors ${
+                          active
+                            ? "bg-sky-brand text-ink"
+                            : "bg-bone/10 text-bone hover:bg-bone/20"
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-px bg-bone/15">
+                <code className="flex-1 bg-bone text-ink px-4 py-3 font-mono text-xs md:text-sm break-all">
+                  {shareUrl}
+                </code>
+                <button
+                  type="button"
+                  onClick={onCopyLink}
+                  aria-live="polite"
+                  className={`label-meta px-5 py-3 whitespace-nowrap transition-colors ${
+                    linkCopied
+                      ? "bg-sky-brand text-ink"
+                      : "bg-bone text-ink hover:bg-sky-brand"
+                  }`}
+                >
+                  {linkCopied ? "COPIED ✓" : "COPY LINK →"}
+                </button>
+              </div>
+            </div>
+
             <p className="label-meta mt-5 text-bone/60">
-              auto-formatted from saturday's roster · {RECAP.firstTimers} first-timers highlighted
+              auto-formatted from saturday's roster · {RECAP.firstTimers} first-timers highlighted · link tracks back via utm
             </p>
           </div>
         </div>
