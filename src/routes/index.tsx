@@ -19,85 +19,146 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-function Label({ children }: { children: React.ReactNode }) {
-  return <div className="label-meta text-current/70">{children}</div>;
+/* ─── Reusable bits ─── */
+
+function Label({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`label-meta opacity-70 ${className}`}>{children}</div>;
 }
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="flex flex-col gap-2">
       <Label>{label}</Label>
       <div className="rule-thin" />
-      <div className="font-display text-2xl md:text-3xl">{value}</div>
+      <div className="font-display text-2xl md:text-3xl leading-none">{value}</div>
+      {sub && <div className="label-meta opacity-50">{sub}</div>}
     </div>
+  );
+}
+
+/* GRYT logo lockup — used in card headers */
+function GrytLogo({ className = "" }: { className?: string }) {
+  return (
+    <span className={`logo-lockup text-lg md:text-xl tracking-tight ${className}`}>
+      GRYT
+    </span>
+  );
+}
+
+/* Diagonal slash — thin sky-blue line at ~15° */
+function DiagonalSlash({
+  className = "",
+  thickness = 4,
+  length = "140%",
+  rotate = -15,
+}: {
+  className?: string;
+  thickness?: number;
+  length?: string;
+  rotate?: number;
+}) {
+  return (
+    <div
+      className={`slash-line ${className}`}
+      style={{
+        width: length,
+        height: `${thickness}px`,
+        transform: `rotate(${rotate}deg)`,
+        transformOrigin: "center",
+      }}
+    />
   );
 }
 
 function Index() {
   return (
     <main className="bg-bone text-ink overflow-hidden">
-      {/* ─────────── HERO ─────────── */}
-      <section className="relative bg-ink text-bone min-h-screen flex flex-col justify-between overflow-hidden">
+      {/* ═══════════════════════ HERO ═══════════════════════ */}
+      <section className="relative bg-ink text-bone min-h-screen flex flex-col overflow-hidden">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
-        <div className="slash-hero" />
 
-        {/* Top bar */}
+        {/* Diagonal slash lines through hero */}
+        <DiagonalSlash className="top-[20%] -left-[20%]" thickness={2} length="160%" />
+        <DiagonalSlash className="top-[55%] -left-[20%] opacity-60" thickness={1} length="160%" />
+        <DiagonalSlash className="top-[80%] -left-[20%] opacity-40" thickness={1} length="160%" />
+
+        {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
-          <div className="font-display text-2xl md:text-3xl tracking-tight lowercase">
-            gryt
-          </div>
-          <div className="label-meta text-bone/70">NYC · EST. RUN</div>
+          <GrytLogo className="text-bone" />
+          <nav className="hidden md:flex items-center gap-10 label-meta">
+            <a href="#runs" className="hover:text-sky-brand transition-colors">RUNS</a>
+            <a href="#how" className="hover:text-sky-brand transition-colors">CLUB</a>
+            <a href="#recap" className="hover:text-sky-brand transition-colors">JOURNAL</a>
+            <a href="#card" className="hover:text-sky-brand transition-colors">MEMBERS</a>
+          </nav>
+          <a href="#rsvp" className="md:hidden label-meta text-sky-brand">RSVP →</a>
         </header>
 
-        {/* Headline */}
-        <div className="relative z-10 px-6 md:px-10 pb-16 md:pb-24 pt-24 md:pt-32">
+        {/* Headline block */}
+        <div className="relative z-10 px-6 md:px-10 pt-20 md:pt-28 pb-12 md:pb-16 flex-1 flex flex-col justify-center">
           <div className="label-meta text-sky-brand mb-6 md:mb-10">
-            ◣ THIS SATURDAY
+            A RUN CLUB · EST. 2024
           </div>
-          <h1 className="font-display text-[18vw] md:text-[14vw] lg:text-[12vw] leading-[0.85]">
-            <span className="block">WE RUN</span>
+          <h1 className="font-display text-[16vw] md:text-[12vw] lg:text-[10.5vw] leading-[0.85]">
+            <span className="block">DO HARD</span>
+            <span className="block">THINGS</span>
             <span className="block">
-              THE <span className="underline-sky">RIVER.</span>
+              <span className="underline-sky">TOGETHER</span>
             </span>
           </h1>
 
-          {/* Meta row + CTA */}
-          <div className="mt-12 md:mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-            <div className="flex flex-col gap-2 max-w-md">
-              <Label>Meet up</Label>
-              <div className="rule-thin bg-bone" />
-              <p className="text-base md:text-lg text-bone/90 leading-snug">
-                gryt.run · this saturday · 6:30 am · east river park.
-                any pace. all welcome.
-              </p>
-            </div>
+          {/* Sub + CTA */}
+          <div className="mt-10 md:mt-14 max-w-xl">
+            <p className="text-base md:text-lg text-bone/85 leading-snug">
+              a run club for everyone who shows up. saturdays, 6:30 am. all paces welcome.
+            </p>
 
-            <a
-              href="#rsvp"
-              className="group inline-flex items-center justify-center bg-bone text-ink px-10 py-5 font-display text-xl md:text-2xl hover:bg-sky-brand transition-colors"
-            >
-              RSVP →
-            </a>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#rsvp"
+                className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+              >
+                JOIN SATURDAY'S RUN →
+              </a>
+              <a
+                href="#how"
+                className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
+              >
+                MEET THE CLUB
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom meta strip */}
+        <div className="relative z-10 border-t border-bone/15 px-6 md:px-10 py-5">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-2 label-meta text-bone/80">
+            <span>FREE</span>
+            <span className="opacity-30">·</span>
+            <span>OPEN TO ALL PACES</span>
+            <span className="opacity-30">·</span>
+            <span>EAST RIVER PARK</span>
+            <span className="opacity-30">·</span>
+            <span>COFFEE AFTER</span>
           </div>
         </div>
       </section>
 
-      {/* ─────────── NEXT RUN CARD ─────────── */}
-      <section className="bg-ink text-bone border-t border-bone/10">
+      {/* ═══════════════════════ NEXT RUN ═══════════════════════ */}
+      <section id="runs" className="bg-ink text-bone border-t border-bone/10">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left: Date */}
           <div className="relative p-8 md:p-12 lg:p-16 border-b md:border-b-0 md:border-r border-bone/15 overflow-hidden">
-            <div className="slash-corner -top-4 -right-10" />
+            <DiagonalSlash className="top-8 -right-20" thickness={3} length="80%" />
             <Label>Next run</Label>
             <div className="rule-thin bg-bone mt-2 mb-8" />
-            <div className="font-display text-7xl md:text-8xl lg:text-[9rem] leading-[0.85]">
-              SAT
-              <span className="text-sky-brand">.</span>
+            <div className="font-display text-7xl md:text-8xl lg:text-[8.5rem] leading-[0.85]">
+              SATURDAY
             </div>
-            <div className="font-display text-4xl md:text-5xl mt-4">
+            <div className="font-display text-5xl md:text-6xl mt-4 text-sky-brand">
               6:30 AM
             </div>
-            <p className="mt-8 text-bone/70 max-w-sm">
+            <p className="mt-10 text-bone/70 max-w-sm leading-snug">
               show up. shut up. run. the river doesn't care if you're tired.
             </p>
           </div>
@@ -107,14 +168,14 @@ function Index() {
             {[
               { label: "Distance", value: "5 MI" },
               { label: "Pace", value: "ANY" },
-              { label: "Start", value: "EAST RIVER PARK" },
-              { label: "After", value: "COFFEE AT SEY" },
+              { label: "Start", value: "EAST RIVER" },
+              { label: "After", value: "SEY COFFEE" },
             ].map((s, i) => (
               <div
                 key={s.label}
                 className={`p-6 md:p-10 ${
-                  i % 2 === 0 ? "border-r" : ""
-                } ${i < 2 ? "border-b" : ""} border-bone/15`}
+                  i % 2 === 0 ? "border-r border-bone/15" : ""
+                } ${i < 2 ? "border-b border-bone/15" : ""}`}
               >
                 <Stat label={s.label} value={s.value} />
               </div>
@@ -123,9 +184,9 @@ function Index() {
         </div>
       </section>
 
-      {/* ─────────── HOW TO SHOW UP ─────────── */}
-      <section className="bg-bone text-ink py-16 md:py-24">
-        <div className="px-6 md:px-10 mb-10 md:mb-14">
+      {/* ═══════════════════════ HOW TO SHOW UP — STORY CARDS ═══════════════════════ */}
+      <section id="how" className="bg-bone text-ink py-20 md:py-28">
+        <div className="px-6 md:px-10 mb-12 md:mb-16">
           <Label>How to show up</Label>
           <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
           <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
@@ -135,68 +196,141 @@ function Index() {
           </h2>
         </div>
 
-        <div className="flex gap-4 md:gap-6 overflow-x-auto px-6 md:px-10 pb-6 snap-x snap-mandatory">
+        <div className="flex gap-4 md:gap-5 overflow-x-auto px-6 md:px-10 pb-6 snap-x snap-mandatory">
           {[
             {
-              n: "1/4",
+              n: "EP 012",
+              tag: "A FIRST RUN",
+              tagColor: "text-sky-brand",
               bg: "bg-ink",
               fg: "text-bone",
-              title: "JUST COME",
-              body: "no rsvp form. no group chat tax. you saw the post, you're invited.",
+              title: "MAYA'S",
+              titleLine2: "FIRST 5",
+              titleLine3: "MILES.",
+              underline: true,
+              meta: "SAT · 04.19 · 54°",
+              duration: "0:47",
+              dotted: "dot-grid",
             },
             {
-              n: "2/4",
+              n: "EP 013",
+              tag: "WHAT TO WEAR",
+              tagColor: "text-ink/70",
               bg: "bg-sky-brand",
               fg: "text-ink",
-              title: "ANY PACE",
-              body: "front of the pack, back of the pack, walking it in. all the same to us.",
+              title: "IN",
+              titleInline: "54°.",
+              underline: true,
+              inlineUnderline: true,
+              meta: "A 40-SECOND GUIDE",
+              duration: "0:38",
+              dotted: "dot-grid-sky",
             },
             {
-              n: "3/4",
-              bg: "bg-bone border border-ink",
+              n: "EP 014",
+              tag: "MILE 3",
+              tagColor: "text-ink/70",
+              bg: "bg-bone border border-ink/15",
               fg: "text-ink",
-              title: "RUN HARD",
-              body: "soft is fine. easy is fine. but pick one mile and try.",
+              title: "WHERE",
+              titleLine2: "EVERYONE",
+              titleLine3: "CRACKS.",
+              underline: true,
+              meta: "A VERY HONEST STRETCH",
+              duration: "1:02",
+              dotted: "dot-grid-bone",
             },
             {
-              n: "4/4",
+              n: "EP 015",
+              tag: "AFTER",
+              tagColor: "text-sky-brand",
               bg: "bg-ink",
               fg: "text-bone",
-              title: "STAY FOR COFFEE",
-              body: "the run is half of it. meet someone. talk. then go live your life.",
+              title: "COFFEE",
+              titleLine2: "AT SEY,",
+              titleLine3: "ALWAYS.",
+              underline: true,
+              meta: "THE REAL CLUB",
+              duration: "0:55",
+              dotted: "dot-grid",
             },
-          ].map((card) => (
-            <article
-              key={card.n}
-              className={`relative shrink-0 snap-start w-[80vw] sm:w-[60vw] md:w-[360px] aspect-[9/14] ${card.bg} ${card.fg} p-6 md:p-8 flex flex-col justify-between overflow-hidden`}
-            >
-              {card.bg.includes("ink") && (
-                <div className="absolute inset-0 dot-grid pointer-events-none" />
-              )}
-              <div className="relative z-10 flex items-start justify-between">
-                <div className="label-meta">GRYT · STORY</div>
-                <div className="font-display text-2xl">{card.n}</div>
-              </div>
-              <div className="relative z-10">
-                <h3 className="font-display text-4xl md:text-5xl leading-[0.9]">
-                  {card.title}
-                </h3>
-                <div
-                  className={`h-[3px] w-16 my-5 ${
-                    card.bg.includes("sky") ? "bg-ink" : "bg-sky-brand"
-                  }`}
-                />
-                <p className="text-base leading-snug max-w-[28ch]">
-                  {card.body}
-                </p>
-              </div>
-            </article>
-          ))}
+          ].map((c, i) => {
+            const isSky = c.bg.includes("sky");
+            return (
+              <article
+                key={i}
+                className={`relative shrink-0 snap-start w-[78vw] sm:w-[58vw] md:w-[340px] aspect-[9/16] ${c.bg} ${c.fg} flex flex-col overflow-hidden`}
+              >
+                <div className={`absolute inset-0 ${c.dotted} pointer-events-none`} />
+
+                {/* Header */}
+                <div className="relative z-10 flex items-start justify-between p-5">
+                  <GrytLogo className={c.fg} />
+                  <div className="label-meta opacity-80">{c.n}</div>
+                </div>
+
+                {/* Title block */}
+                <div className="relative z-10 px-5 mt-8 flex-1">
+                  <div className={`label-meta mb-4 ${c.tagColor}`}>{c.tag}</div>
+                  <h3 className="font-display text-[44px] md:text-[52px] leading-[0.88]">
+                    {c.titleInline ? (
+                      <span>
+                        {c.title}{" "}
+                        <span className={c.inlineUnderline ? "underline-sky" : ""}>
+                          {c.titleInline}
+                        </span>
+                      </span>
+                    ) : (
+                      <>
+                        <span className="block">{c.title}</span>
+                        {c.titleLine2 && <span className="block">{c.titleLine2}</span>}
+                        {c.titleLine3 && (
+                          <span className="block">
+                            {c.underline ? (
+                              <span className="underline-sky">{c.titleLine3}</span>
+                            ) : (
+                              c.titleLine3
+                            )}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </h3>
+
+                  {/* Play button */}
+                  <button
+                    aria-label="Play"
+                    className={`mt-6 w-12 h-12 rounded-full border-2 flex items-center justify-center ${
+                      isSky ? "border-ink" : "border-current"
+                    }`}
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </button>
+
+                  {/* Mid meta */}
+                  <div className="label-meta mt-5 opacity-80">{c.meta}</div>
+                </div>
+
+                {/* Footer duration chip */}
+                <div className="relative z-10 flex justify-end p-5">
+                  <span
+                    className={`font-display text-lg px-2 py-0.5 ${
+                      isSky ? "bg-ink text-bone" : "bg-current/10"
+                    }`}
+                  >
+                    {c.duration}
+                  </span>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {/* ─────────── RECAP STRIP ─────────── */}
-      <section className="bg-bone text-ink py-16 md:py-24 border-t border-ink/10">
+      {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
+      <section id="recap" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
         <div className="px-6 md:px-10">
           <Label>Last saturday</Label>
           <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
@@ -205,81 +339,133 @@ function Index() {
           </h2>
 
           {/* Stat row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-12 md:mt-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
             {[
-              { label: "Runners", value: "42" },
-              { label: "First-timers", value: "09" },
-              { label: "Miles", value: "210" },
-              { label: "Temp", value: "41°F" },
+              { label: "Runners", value: "42", sub: "VS 38 LAST WK" },
+              { label: "First-timers", value: "09", sub: "WELCOME" },
+              { label: "Miles", value: "210", sub: "TOTAL CLUB" },
+              { label: "Temp", value: "41°F", sub: "CRISP" },
             ].map((s) => (
               <div key={s.label} className="bg-bone p-6 md:p-8">
-                <Stat label={s.label} value={s.value} />
+                <Stat label={s.label} value={s.value} sub={s.sub} />
               </div>
             ))}
           </div>
 
           {/* Tag cloud of names */}
-          <div className="mt-14 md:mt-20">
+          <div className="mt-16 md:mt-24">
             <Label>On the roster</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-            <p className="font-display text-2xl md:text-4xl leading-tight max-w-5xl flex flex-wrap gap-x-3 gap-y-2">
+            <p className="font-display text-2xl md:text-4xl leading-tight max-w-5xl">
               {[
-                ["MAYA", false],
-                ["JON", false],
-                ["PRIYA", true],
-                ["DEV", false],
-                ["ROSA", false],
-                ["SAM", true],
-                ["KOFI", false],
-                ["LENA", false],
-                ["MIKAEL", true],
-                ["JESS", false],
-                ["TONY", false],
-                ["AYA", true],
-                ["HAN", false],
-                ["BEN", false],
-                ["NORA", true],
-                ["ZAK", false],
-                ["ELI", false],
-                ["RUTH", true],
-                ["CARLO", false],
-                ["MEI", false],
-                ["JAS", true],
-                ["OMAR", false],
-                ["LULU", false],
-                ["DREW", true],
-                ["KAI", false],
-                ["VERA", false],
-                ["TEO", false],
-                ["NIA", true],
-                ["ISA", false],
-                ["WILL", false],
-                ["FINN", false],
-                ["AMARA", true],
-              ].map(([name, isFirst]) => (
-                <span key={name as string}>
+                ["MAYA", false], ["JON", false], ["PRIYA", true], ["DEV", false],
+                ["ROSA", false], ["SAM", true], ["KOFI", false], ["LENA", false],
+                ["MIKAEL", true], ["JESS", false], ["TONY", false], ["AYA", true],
+                ["HAN", false], ["BEN", false], ["NORA", true], ["ZAK", false],
+                ["ELI", false], ["RUTH", true], ["CARLO", false], ["MEI", false],
+                ["JAS", true], ["OMAR", false], ["LULU", false], ["DREW", true],
+                ["KAI", false], ["VERA", false], ["TEO", false], ["NIA", true],
+                ["ISA", false], ["WILL", false], ["FINN", false], ["AMARA", true],
+              ].map(([name, isFirst], i, arr) => (
+                <span key={name as string} className="inline-block mr-2">
                   {isFirst ? (
                     <span className="mark-sky">{name}</span>
                   ) : (
                     <span>{name}</span>
                   )}
-                  <span className="text-ink/30">·</span>
+                  {i < arr.length - 1 && <span className="text-ink/25 ml-2">·</span>}
                 </span>
               ))}
             </p>
-            <p className="label-meta mt-6 text-ink/60">
-              ◣ HIGHLIGHTED = FIRST RUN WITH GRYT
+            <p className="label-meta mt-8 text-ink/60">
+              <span className="inline-block w-3 h-3 bg-sky-brand mr-2 align-middle" />
+              FIRST RUN WITH GRYT
             </p>
           </div>
         </div>
       </section>
 
-      {/* ─────────── MEMBERSHIP CARD ─────────── */}
+      {/* ═══════════════════════ PR CARD ═══════════════════════ */}
+      <section className="bg-bone text-ink pb-20 md:pb-28">
+        <div className="px-6 md:px-10">
+          <Label>Personal record</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <h2 className="font-display text-5xl md:text-7xl mb-12 md:mb-16 max-w-3xl">
+            BEAT YOUR <span className="underline-sky">SELF.</span>
+          </h2>
+
+          {/* Square share card */}
+          <div className="relative max-w-xl bg-sky-brand text-ink p-7 md:p-9 aspect-square flex flex-col overflow-hidden">
+            <div className="absolute inset-0 dot-grid-sky pointer-events-none" />
+
+            {/* Header */}
+            <div className="relative z-10 flex items-start justify-between">
+              <GrytLogo />
+              <div className="bg-ink text-bone label-meta px-3 py-1.5">
+                PERSONAL RECORD
+              </div>
+            </div>
+
+            {/* Name */}
+            <div className="relative z-10 mt-6 md:mt-8">
+              <div className="font-display text-3xl md:text-4xl">MAYA OKONKWO</div>
+              <div className="text-sm font-semibold mt-1">5 mile · saturday long run</div>
+            </div>
+
+            {/* Massive time */}
+            <div className="relative z-10 flex-1 flex items-center">
+              <div className="font-display text-[22vw] md:text-[10rem] leading-[0.85] tracking-tighter">
+                46:32
+              </div>
+            </div>
+
+            <div className="relative z-10 rule-thick bg-ink mb-4" />
+
+            {/* Stats row */}
+            <div className="relative z-10 grid grid-cols-3 gap-4 mb-6">
+              {[
+                { l: "PREV BEST", v: "49:10", s: "03.15.26" },
+                { l: "IMPROVEMENT", v: "−2:38", s: "5.4% FASTER" },
+                { l: "AVG PACE", v: "9:19/MI", s: "NEW BEST" },
+              ].map((x) => (
+                <div key={x.l}>
+                  <div className="label-meta opacity-70">{x.l}</div>
+                  <div className="font-display text-xl md:text-2xl mt-1">{x.v}</div>
+                  <div className="label-meta mt-1 opacity-50">{x.s}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Footer with diagonal slash */}
+            <div className="relative z-10 flex items-end justify-between">
+              <div>
+                <DiagonalSlash
+                  className="-mb-3 -ml-2 relative"
+                  thickness={2}
+                  length="60px"
+                  rotate={-45}
+                />
+                <div className="font-display text-base md:text-lg mt-2">
+                  DO HARD THINGS <span className="underline-sky">TOGETHER.</span>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="label-meta">04.19.26</div>
+                <div className="label-meta">RUN 28</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ MEMBERSHIP CARD ═══════════════════════ */}
       <section
-        id="rsvp"
-        className="bg-ink text-bone py-20 md:py-28 relative overflow-hidden"
+        id="card"
+        className="bg-ink text-bone py-20 md:py-28 relative overflow-hidden border-t border-bone/10"
       >
         <div className="absolute inset-0 dot-grid pointer-events-none" />
+        <DiagonalSlash className="top-[15%] -right-[20%]" thickness={2} length="80%" />
+
         <div className="px-6 md:px-10 relative z-10">
           <Label>Membership · free forever</Label>
           <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
@@ -287,62 +473,74 @@ function Index() {
             CARRY THE <span className="underline-sky">CARD.</span>
           </h2>
 
-          {/* Card mockup */}
-          <div className="relative max-w-xl bg-bone text-ink p-7 md:p-9 aspect-[1.6/1] flex flex-col justify-between shadow-[12px_12px_0_0_var(--sky)] overflow-hidden">
-            <div className="absolute -top-6 -right-12 w-2/3 h-12 bg-sky-brand -rotate-[15deg]" />
-            <div className="relative z-10 flex items-start justify-between">
-              <div className="font-display text-4xl lowercase tracking-tight">
-                gryt
-              </div>
-              <div className="label-meta text-ink/60">NO. 0042</div>
-            </div>
+          {/* Card mockup — credit card aspect */}
+          <div
+            id="rsvp"
+            className="relative max-w-md bg-bone text-ink aspect-[1.586/1] flex flex-col shadow-[10px_10px_0_0_var(--sky)]"
+          >
+            {/* Magstripe */}
+            <div className="h-7 bg-ink mt-5" />
 
-            <div className="relative z-10">
-              <Label>Member</Label>
-              <div className="rule-thin bg-ink mt-1 mb-2" />
-              <div className="font-display text-2xl md:text-3xl">
-                ____________________
+            {/* Body */}
+            <div className="flex-1 px-6 py-5 flex flex-col justify-between">
+              {/* Username field */}
+              <div className="border border-ink px-3 py-2">
+                <span className="font-mono italic text-sm md:text-base">maya.okonkwo</span>
               </div>
-            </div>
 
-            <div className="relative z-10">
-              <p className="font-display text-sm md:text-base leading-tight max-w-[28ch]">
-                DO HARD THINGS{" "}
-                <span className="underline-sky">TOGETHER.</span>
-              </p>
-              <p className="label-meta mt-4 text-ink/60 leading-relaxed">
-                IF FOUND, RETURN TO GRYT
-                <br />
-                EAST RIVER PARK · NYC
-              </p>
+              {/* Tagline */}
+              <div>
+                <div className="font-display text-xl md:text-2xl leading-[0.95]">
+                  DO HARD THINGS
+                  <br />
+                  <span className="underline-sky">TOGETHER.</span>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex items-end justify-between">
+                <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
+                  IF FOUND, RETURN TO GRYT · EAST RIVER PARK · NYC
+                </div>
+                <div className="font-display text-2xl">G</div>
+              </div>
             </div>
           </div>
 
-          <a
-            href="#"
-            className="inline-flex items-center justify-center bg-sky-brand text-ink px-10 py-5 mt-12 font-display text-xl md:text-2xl hover:bg-bone transition-colors"
-          >
-            CLAIM YOUR CARD →
-          </a>
+          <div className="mt-12 flex flex-wrap gap-3">
+            <a
+              href="#"
+              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+            >
+              CLAIM YOUR CARD →
+            </a>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
+            >
+              ABOUT MEMBERSHIP
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* ─────────── FOOTER ─────────── */}
+      {/* ═══════════════════════ FOOTER ═══════════════════════ */}
       <footer className="bg-ink text-bone pt-20 pb-10 relative overflow-hidden border-t border-bone/10">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
-        <div className="slash-corner -bottom-4 -left-10" />
+        <DiagonalSlash className="bottom-[40%] -left-[20%] opacity-50" thickness={1} length="160%" />
 
         <div className="relative z-10 px-6 md:px-10">
-          <h3 className="font-display lowercase text-[28vw] md:text-[20vw] leading-[0.8] tracking-tighter">
+          <h3 className="wordmark text-[32vw] md:text-[24vw] leading-[0.78] -ml-[1vw]">
             gryt
           </h3>
 
-          <div className="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
             <div>
               <Label>Tagline</Label>
               <div className="rule-thin bg-bone mt-2 mb-4" />
-              <p className="font-display text-2xl md:text-3xl leading-tight">
-                DO HARD THINGS{" "}
+              <p className="font-display text-2xl md:text-3xl leading-[0.95]">
+                DO HARD THINGS
+                <br />
                 <span className="underline-sky">TOGETHER.</span>
               </p>
             </div>
@@ -351,21 +549,9 @@ function Index() {
               <Label>Find us</Label>
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <ul className="space-y-2 text-base">
-                <li>
-                  <a href="#" className="hover:text-sky-brand">
-                    instagram / @gryt.run
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-sky-brand">
-                    strava / gryt nyc
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-sky-brand">
-                    email / hi@gryt.run
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">instagram / @gryt.run</a></li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt nyc</a></li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">email / hi@gryt.run</a></li>
               </ul>
             </div>
 
@@ -374,11 +560,11 @@ function Index() {
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <a
                 href="#"
-                className="font-display text-3xl md:text-4xl hover:text-sky-brand"
+                className="font-display text-3xl md:text-4xl hover:text-sky-brand transition-colors"
               >
                 gryt.run/sat →
               </a>
-              <p className="text-bone/60 mt-3 text-sm">
+              <p className="text-bone/60 mt-3 text-sm leading-snug">
                 drop your email. one note a week. nothing else.
               </p>
             </div>
