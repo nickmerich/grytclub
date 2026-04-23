@@ -429,6 +429,75 @@ function Index() {
         </div>
       </section>
 
+      {/* ═══════════════════════ ROUTE MAP ═══════════════════════ */}
+      <section id="route" className="bg-bone text-ink border-t border-ink/10">
+        <div className="px-6 md:px-10 pt-20 md:pt-28 pb-10 md:pb-14">
+          <Label>Saturday's route</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
+              FIVE MILES.
+              <br />
+              <span className="underline-sky">MT LEBANON.</span>
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="#rsvp"
+                className="inline-flex items-center justify-center bg-ink text-bone px-5 py-3 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+              >
+                RSVP →
+              </a>
+              <a
+                href="https://www.openstreetmap.org/?mlat=40.3776&mlon=-80.0497#map=15/40.3790/-80.0480"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
+              >
+                OPEN IN MAP
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Map frame */}
+        <div className="px-6 md:px-10 pb-20 md:pb-28">
+          <div className="relative border border-ink/15 overflow-hidden">
+            <RouteMap />
+
+            {/* Corner badge */}
+            <div className="absolute top-4 left-4 z-[400] bg-ink text-bone label-meta px-3 py-2 pointer-events-none">
+              ROUTE · DRAFT
+            </div>
+
+            {/* Legend */}
+            <div className="absolute bottom-4 left-4 z-[400] bg-bone border border-ink/20 px-3 py-2 flex items-center gap-4 label-meta text-ink pointer-events-none">
+              <span className="flex items-center gap-2">
+                <span className="inline-block w-3 h-3 rounded-full bg-sky-brand border-2 border-ink" />
+                START
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="inline-block w-3 h-3 bg-ink" />
+                FINISH
+              </span>
+            </div>
+          </div>
+
+          {/* Stat strip under map */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-px">
+            {[
+              { label: "Distance", value: "5.0 MI", sub: "OUT & BACK" },
+              { label: "Elev gain", value: "210 FT", sub: "ROLLING" },
+              { label: "Surface", value: "ROAD", sub: "+ PARK PATH" },
+              { label: "Pace groups", value: "ALL", sub: "NO ONE LEFT" },
+            ].map((s) => (
+              <div key={s.label} className="bg-bone p-6 md:p-8">
+                <Stat label={s.label} value={s.value} sub={s.sub} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════ HOW TO SHOW UP — STORY CARDS ═══════════════════════ */}
       <section id="how" className="bg-bone text-ink py-20 md:py-28">
         <div className="px-6 md:px-10 mb-12 md:mb-16">
