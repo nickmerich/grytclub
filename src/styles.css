@@ -42,11 +42,11 @@
 :root {
   --radius: 0;
 
-  /* GRYT palette */
-  --ink: oklch(0.15 0 0);          /* #0A0A0A */
-  --bone: oklch(0.94 0.012 85);    /* #F4F0E8 */
-  --sky: oklch(0.85 0.07 230);     /* #8FD0EE */
-  --pure: oklch(1 0 0);            /* #FFFFFF */
+  /* GRYT palette — exact spec */
+  --ink: #0A0A0A;
+  --bone: #F4F0E8;
+  --sky: #8FD0EE;
+  --pure: #FFFFFF;
 
   --background: var(--bone);
   --foreground: var(--ink);
@@ -86,9 +86,10 @@
   body {
     background-color: var(--bone);
     color: var(--ink);
-    font-family: var(--font-sans);
+    font-family: "Inter", system-ui, sans-serif;
     font-feature-settings: "ss01", "cv11";
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
@@ -107,84 +108,104 @@
   .border-bone { border-color: var(--bone); }
   .border-sky-brand { border-color: var(--sky); }
 
-  /* Display headline style */
+  /* Display headline style - GRYT signature */
   .font-display {
-    font-family: var(--font-display);
+    font-family: "Inter", system-ui, sans-serif;
     font-weight: 900;
     letter-spacing: -0.03em;
     line-height: 0.9;
     text-transform: uppercase;
   }
 
-  .label-meta {
-    font-family: var(--font-sans);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 11px;
+  /* GRYT logo wordmark - lowercase, tight */
+  .wordmark {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    text-transform: lowercase;
+    line-height: 0.85;
   }
 
-  /* Sky blue underline emphasis under last word */
+  /* UI label - the 'GRYT' uppercase logo lockup */
+  .logo-lockup {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .label-meta {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  /* Sky blue underline emphasis - thick block sitting behind word */
   .underline-sky {
     position: relative;
     display: inline-block;
+    z-index: 1;
   }
   .underline-sky::after {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -0.05em;
-    height: 6px;
+    left: -0.04em;
+    right: -0.04em;
+    bottom: 0.06em;
+    height: 0.18em;
     background-color: var(--sky);
     z-index: -1;
+  }
+
+  /* Smaller variant for body-scale text */
+  .underline-sky-sm::after {
+    height: 6px;
+    bottom: -2px;
   }
 
   /* Sky highlighter marker behind text */
   .mark-sky {
     background-color: var(--sky);
     color: var(--ink);
-    padding: 0 0.25em;
+    padding: 0.05em 0.25em;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
 
-  /* Diagonal sky slash motif */
-  .slash-hero {
+  /* Diagonal slash — thin angled line (signature motif) */
+  .slash-line {
     position: absolute;
-    top: 50%;
-    left: -10%;
-    width: 130%;
-    height: 80px;
     background-color: var(--sky);
-    transform: rotate(-15deg);
-    transform-origin: center;
-    pointer-events: none;
-  }
-
-  .slash-corner {
-    position: absolute;
-    width: 60%;
-    height: 40px;
-    background-color: var(--sky);
-    transform: rotate(-15deg);
     pointer-events: none;
   }
 
   /* Dot grid texture for dark panels */
   .dot-grid {
-    background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1px);
-    background-size: 16px 16px;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 14px 14px;
   }
 
-  .dot-grid-dark {
-    background-image: radial-gradient(rgba(10,10,10,0.12) 1px, transparent 1px);
-    background-size: 16px 16px;
+  .dot-grid-sky {
+    background-image: radial-gradient(rgba(10,10,10,0.10) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  .dot-grid-bone {
+    background-image: radial-gradient(rgba(10,10,10,0.08) 1px, transparent 1px);
+    background-size: 14px 14px;
   }
 
   .rule-thin {
     height: 1px;
     background-color: currentColor;
-    opacity: 0.3;
+    opacity: 0.25;
+  }
+
+  .rule-thick {
+    height: 2px;
+    background-color: currentColor;
   }
 }
