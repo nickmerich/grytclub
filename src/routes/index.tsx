@@ -496,6 +496,11 @@ function Index() {
               </div>
             ))}
           </div>
+
+          {/* Elevation preview */}
+          <div className="mt-8 md:mt-10">
+            <ElevationChart />
+          </div>
         </div>
       </section>
 
