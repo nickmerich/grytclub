@@ -1,100 +1,48 @@
+## Goal
 
+Keep the elevation chart legible on phones without compromising the editorial GRYT spacing on desktop. Today the SVG uses `preserveAspectRatio="none"`, which stretches text horizontally on narrow screens, and renders an X label every mile (6 labels packed into ~340px on a 360px viewport).
 
-## Where we are
+## Changes (single file: `src/components/ElevationChart.tsx`)
 
-Lovable Cloud is enabled. Leaflet still needs installing, Strava secrets still need adding, and no server functions exist yet. Here's what to ship next, in order.
+### 1. Stop distorting text
 
-## Next steps
+Switch the SVG from `preserveAspectRatio="none"` to `preserveAspectRatio="xMinYMid meet"` so glyphs scale uniformly. Drop the fixed `h-[180px] md:h-[220px]` heights in favor of an `aspect-[1000/220]` (desktop) / `aspect-[5/3]` (mobile) wrapper so the chart breathes proportionally with width.
 
-### 1. Add Strava credentials (you do this)
+### 2. Adaptive tick density
 
-I'll request three secrets via the secrets tool. You'll paste:
+Add a tiny SSR-safe `useIsNarrow()` hook (matches `(max-width: 767px)`). Use it to:
 
-- `STRAVA_CLIENT_ID` — from https://www.strava.com/settings/api
-- `STRAVA_CLIENT_SECRET` — same page
-- `STRAVA_REFRESH_TOKEN` — generated via OAuth (one-time: visit `https://www.strava.com/oauth/authorize?client_id=YOUR_ID&response_type=code&redirect_uri=http://localhost&approval_prompt=force&scope=read,activity:read,profile:read_all`, grab the `code`, then `curl -X POST https://www.strava.com/oauth/token -d client_id=... -d client_secret=... -d code=... -d grant_type=authorization_code` and save the `refresh_token`)
+- **X-axis labels**: show every mile on desktop, every other mile on mobile (`0 MI`, `2 MI`, `4 MI`). Tick *marks* still render at every mile so the rhythm reads; only the text labels thin out.
+- **Y-axis labels**: 5 ticks on desktop, 3 ticks on mobile. Gridlines stay at all 5 positions for visual rhythm.
 
-I'll write a short README snippet with these exact steps.
+### 3. Scale font sizes for SVG text
 
-### 2. Database: cache table
+Bump SVG label font size from `10` to `11` on desktop, `13` on mobile (when narrow), since mobile renders the SVG smaller per-pixel. Tighten letter-spacing on mobile from `0.18em` to `0.12em` so labels don't run into adjacent ticks.
 
-One table to avoid hammering Strava's rate limit (200 req/15min):
+### 4. Slightly larger bottom padding on mobile
 
-```text
-strava_cache
-  key         text primary key   -- 'next_event' | 'latest_activity' | 'leaderboard' | 'club_stats'
-  payload     jsonb
-  fetched_at  timestamptz
-```
+Bump `PAD_B` from `28` to `34` when narrow so the larger MI labels have room and don't clip against the footer rule.
 
-RLS: deny all (server-only via service role).
+### 5. Footer legend hides earlier
 
-### 3. Server functions (`src/utils/strava.functions.ts`)
+Currently the swatch legend hides under `md:`. Keep that — it's already correct — but compact the "mocked profile" caption: stack vertically on `<sm` so it doesn't crowd into the right edge.
 
-All use `createServerFn`, share a `getStravaAccessToken()` helper that refreshes via `STRAVA_REFRESH_TOKEN`, and wrap each call in a 10-min cache read/write against `strava_cache`:
+### 6. Stat header — already correct, no change
 
-- `getNextEvent()` → club 1708552 group events, returns next upcoming
-- `getLatestActivity()` → most recent club activity with polyline, distance, pace, elevation
-- `getLeaderboard()` → top 5 by distance this week
-- `getClubStats()` → member count, YTD miles aggregate
+The 4-column stat grid already collapses to `col-span-4` on mobile (3 stats per row + label row). Verified — leave it alone.
 
-Each returns `{ data, error, stale }` shape so the UI can degrade gracefully.
+## Brand spacing preserved
 
-### 4. Frontend installs
+- Outer `px-5 md:px-8 py-5 md:py-6` paddings unchanged.
+- Top/bottom border-2 ink rules unchanged.
+- Sky highlight on GAIN stat unchanged.
+- Underlined "profile" wordmark unchanged.
+- Hard-left alignment unchanged.
 
-- `leaflet` + `@types/leaflet` for maps
-- `polyline-encoded` to decode Strava's polyline strings
+## Out of scope
 
-### 5. UI build (single pass through `src/routes/index.tsx` + new components)
-
-```text
-src/components/
-  StickyRibbon.tsx          NEXT RUN · SAT 7AM + JOIN/CALENDAR buttons
-  HeroCTAs.tsx              3-button stack (Strava / Route / SMS)
-  FromTheClub.tsx           3 tiles: NextEvent, LastSaturday, Leaderboard
-  RouteOfTheWeek.tsx        Leaflet map + GPX download
-  RulesCarousel.tsx         scroll-snap mobile carousel
-  WallOfMiles.tsx           count-up stats + testimonials
-  SmsOptInModal.tsx         stub posting to /api/sms-optin
-  Footer.tsx                strava/IG/email/location
-
-src/lib/
-  ics.ts                    .ics generator for Saturday 7am
-  utm.ts                    URL builder (already partial in index.tsx)
-  analytics.ts              dataLayer.push wrapper (stub-safe)
-  polyline.ts               decoder helper
-
-src/routes/api/public/
-  sms-optin.ts              POST stub → logs + returns ok
-  newsletter.ts             POST stub → logs + returns ok
-  gpx.$route.ts             returns GPX file for route
-
-src/routes/thanks.tsx       post-SMS confirmation page
-```
-
-### 6. SEO + a11y pass
-
-- `head()` per route with JSON-LD (Event, SportsClub, VideoObject)
-- `prefers-reduced-motion` guard around count-up + carousel autoplay
-- Strava orange (`#FC4C02`) ONLY on Strava-deep-link buttons
-- Focus rings, aria-labels on icon buttons
-
-### 7. After build, I'll output
-
-- Env var checklist
-- Where to paste each Strava credential
-- CMS-ish edit points (route GPX, testimonials — stored as TS constants for now, no CMS)
-- QA checklist (Lighthouse, keyboard nav, Strava fallback, calendar download, copy-to-clipboard)
-
-## Order of execution
-
-1. Request Strava secrets (blocks #3)
-2. While you paste: install Leaflet, build database migration, write all UI components against mock data
-3. Once secrets land: wire server functions, swap mocks for live data
-4. SEO + a11y + analytics pass
-5. Output the checklist
+No layout/structure changes outside the chart component. No new dependencies.
 
 ## Approve to proceed
 
-Hit approve and I'll start with the secrets request + Leaflet install in parallel.
-
+Approve and I'll make these edits in one pass and verify with `tsc --noEmit`.

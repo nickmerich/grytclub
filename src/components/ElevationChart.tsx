@@ -6,7 +6,22 @@
  * Strava `streams.altitude` once the integration is wired.
  */
 
+import { useEffect, useState } from "react";
+
 type Pt = { mi: number; ft: number };
+
+/** SSR-safe matchMedia hook. Returns true under 768px. */
+function useIsNarrow() {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setNarrow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return narrow;
+}
 
 const ELEVATION: Pt[] = [
   { mi: 0.0, ft: 1180 },
@@ -30,12 +45,22 @@ const ELEVATION: Pt[] = [
 ];
 
 export function ElevationChart() {
+  const narrow = useIsNarrow();
+
   const W = 1000;
   const H = 220;
-  const PAD_L = 44;
+  const PAD_L = narrow ? 38 : 44;
   const PAD_R = 16;
   const PAD_T = 18;
-  const PAD_B = 28;
+  const PAD_B = narrow ? 36 : 28;
+
+  // Adaptive tick density
+  const yLabelStep = narrow ? 2 : 1; // show every other Y label on mobile
+  const xLabelStep = narrow ? 2 : 1; // show every other X label on mobile
+
+  // Adaptive font sizing — SVG renders smaller per-px on phones
+  const tickFontSize = narrow ? 13 : 11;
+  const tickLetterSpacing = narrow ? "0.12em" : "0.18em";
 
   const minMi = ELEVATION[0].mi;
   const maxMi = ELEVATION[ELEVATION.length - 1].mi;
@@ -125,11 +150,11 @@ export function ElevationChart() {
           viewBox={`0 0 ${W} ${H}`}
           role="img"
           aria-label={`Elevation profile chart. Total gain ${Math.round(gain)} feet. Range ${minFt} to ${maxFt} feet over ${maxMi} miles.`}
-          className="w-full h-[180px] md:h-[220px] block"
-          preserveAspectRatio="none"
+          className="w-full block aspect-[5/3] md:aspect-[1000/220]"
+          preserveAspectRatio="xMinYMid meet"
         >
-          {/* Horizontal grid + y labels */}
-          {yTickVals.map((v) => (
+          {/* Horizontal grid + y labels (gridlines always; labels thinned on mobile) */}
+          {yTickVals.map((v, i) => (
             <g key={`y-${v}`}>
               <line
                 x1={PAD_L}
@@ -140,23 +165,25 @@ export function ElevationChart() {
                 strokeOpacity="0.08"
                 strokeWidth="1"
               />
-              <text
-                x={PAD_L - 8}
-                y={y(v) + 3}
-                textAnchor="end"
-                fontSize="10"
-                fontFamily="Inter, system-ui, sans-serif"
-                fontWeight="700"
-                letterSpacing="0.18em"
-                fill="#0A0A0A"
-                fillOpacity="0.55"
-              >
-                {v}
-              </text>
+              {i % yLabelStep === 0 && (
+                <text
+                  x={PAD_L - 8}
+                  y={y(v) + 3}
+                  textAnchor="end"
+                  fontSize={tickFontSize}
+                  fontFamily="Inter, system-ui, sans-serif"
+                  fontWeight="700"
+                  letterSpacing={tickLetterSpacing}
+                  fill="#0A0A0A"
+                  fillOpacity="0.55"
+                >
+                  {v}
+                </text>
+              )}
             </g>
           ))}
 
-          {/* X tick marks + labels */}
+          {/* X tick marks every mile; labels thinned on mobile */}
           {xTickVals.map((mi) => (
             <g key={`x-${mi}`}>
               <line
@@ -168,19 +195,21 @@ export function ElevationChart() {
                 strokeOpacity="0.45"
                 strokeWidth="1"
               />
-              <text
-                x={x(mi)}
-                y={H - PAD_B + 17}
-                textAnchor="middle"
-                fontSize="10"
-                fontFamily="Inter, system-ui, sans-serif"
-                fontWeight="700"
-                letterSpacing="0.18em"
-                fill="#0A0A0A"
-                fillOpacity="0.6"
-              >
-                {mi} MI
-              </text>
+              {mi % xLabelStep === 0 && (
+                <text
+                  x={x(mi)}
+                  y={H - PAD_B + (narrow ? 22 : 17)}
+                  textAnchor="middle"
+                  fontSize={tickFontSize}
+                  fontFamily="Inter, system-ui, sans-serif"
+                  fontWeight="700"
+                  letterSpacing={tickLetterSpacing}
+                  fill="#0A0A0A"
+                  fillOpacity="0.65"
+                >
+                  {mi} MI
+                </text>
+              )}
             </g>
           ))}
 
@@ -227,8 +256,8 @@ export function ElevationChart() {
         </svg>
       </div>
 
-      {/* Footer caption strip — hard-left, underlined accent */}
-      <div className="border-t border-ink/20 px-5 md:px-8 py-3 flex items-center justify-between gap-4">
+      {/* Footer caption strip — hard-left, stacks on mobile */}
+      <div className="border-t border-ink/20 px-5 md:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
         <div className="label-meta text-ink/55">
           Mocked profile · swap with Strava altitude stream
         </div>
