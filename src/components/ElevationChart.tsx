@@ -256,8 +256,8 @@ export function ElevationChart() {
         </svg>
       </div>
 
-      {/* Footer caption strip — hard-left, underlined accent */}
-      <div className="border-t border-ink/20 px-5 md:px-8 py-3 flex items-center justify-between gap-4">
+      {/* Footer caption strip — hard-left, stacks on mobile */}
+      <div className="border-t border-ink/20 px-5 md:px-8 py-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4">
         <div className="label-meta text-ink/55">
           Mocked profile · swap with Strava altitude stream
         </div>
