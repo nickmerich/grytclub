@@ -45,12 +45,22 @@ const ELEVATION: Pt[] = [
 ];
 
 export function ElevationChart() {
+  const narrow = useIsNarrow();
+
   const W = 1000;
   const H = 220;
-  const PAD_L = 44;
+  const PAD_L = narrow ? 38 : 44;
   const PAD_R = 16;
   const PAD_T = 18;
-  const PAD_B = 28;
+  const PAD_B = narrow ? 36 : 28;
+
+  // Adaptive tick density
+  const yLabelStep = narrow ? 2 : 1; // show every other Y label on mobile
+  const xLabelStep = narrow ? 2 : 1; // show every other X label on mobile
+
+  // Adaptive font sizing — SVG renders smaller per-px on phones
+  const tickFontSize = narrow ? 13 : 11;
+  const tickLetterSpacing = narrow ? "0.12em" : "0.18em";
 
   const minMi = ELEVATION[0].mi;
   const maxMi = ELEVATION[ELEVATION.length - 1].mi;
