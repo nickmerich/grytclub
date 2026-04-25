@@ -150,11 +150,11 @@ export function ElevationChart() {
           viewBox={`0 0 ${W} ${H}`}
           role="img"
           aria-label={`Elevation profile chart. Total gain ${Math.round(gain)} feet. Range ${minFt} to ${maxFt} feet over ${maxMi} miles.`}
-          className="w-full h-[180px] md:h-[220px] block"
-          preserveAspectRatio="none"
+          className="w-full block aspect-[5/3] md:aspect-[1000/220]"
+          preserveAspectRatio="xMinYMid meet"
         >
-          {/* Horizontal grid + y labels */}
-          {yTickVals.map((v) => (
+          {/* Horizontal grid + y labels (gridlines always; labels thinned on mobile) */}
+          {yTickVals.map((v, i) => (
             <g key={`y-${v}`}>
               <line
                 x1={PAD_L}
@@ -165,23 +165,25 @@ export function ElevationChart() {
                 strokeOpacity="0.08"
                 strokeWidth="1"
               />
-              <text
-                x={PAD_L - 8}
-                y={y(v) + 3}
-                textAnchor="end"
-                fontSize="10"
-                fontFamily="Inter, system-ui, sans-serif"
-                fontWeight="700"
-                letterSpacing="0.18em"
-                fill="#0A0A0A"
-                fillOpacity="0.55"
-              >
-                {v}
-              </text>
+              {i % yLabelStep === 0 && (
+                <text
+                  x={PAD_L - 8}
+                  y={y(v) + 3}
+                  textAnchor="end"
+                  fontSize={tickFontSize}
+                  fontFamily="Inter, system-ui, sans-serif"
+                  fontWeight="700"
+                  letterSpacing={tickLetterSpacing}
+                  fill="#0A0A0A"
+                  fillOpacity="0.55"
+                >
+                  {v}
+                </text>
+              )}
             </g>
           ))}
 
-          {/* X tick marks + labels */}
+          {/* X tick marks every mile; labels thinned on mobile */}
           {xTickVals.map((mi) => (
             <g key={`x-${mi}`}>
               <line
@@ -193,19 +195,21 @@ export function ElevationChart() {
                 strokeOpacity="0.45"
                 strokeWidth="1"
               />
-              <text
-                x={x(mi)}
-                y={H - PAD_B + 17}
-                textAnchor="middle"
-                fontSize="10"
-                fontFamily="Inter, system-ui, sans-serif"
-                fontWeight="700"
-                letterSpacing="0.18em"
-                fill="#0A0A0A"
-                fillOpacity="0.6"
-              >
-                {mi} MI
-              </text>
+              {mi % xLabelStep === 0 && (
+                <text
+                  x={x(mi)}
+                  y={H - PAD_B + (narrow ? 22 : 17)}
+                  textAnchor="middle"
+                  fontSize={tickFontSize}
+                  fontFamily="Inter, system-ui, sans-serif"
+                  fontWeight="700"
+                  letterSpacing={tickLetterSpacing}
+                  fill="#0A0A0A"
+                  fillOpacity="0.65"
+                >
+                  {mi} MI
+                </text>
+              )}
             </g>
           ))}
 
