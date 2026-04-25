@@ -6,7 +6,22 @@
  * Strava `streams.altitude` once the integration is wired.
  */
 
+import { useEffect, useState } from "react";
+
 type Pt = { mi: number; ft: number };
+
+/** SSR-safe matchMedia hook. Returns true under 768px. */
+function useIsNarrow() {
+  const [narrow, setNarrow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setNarrow(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return narrow;
+}
 
 const ELEVATION: Pt[] = [
   { mi: 0.0, ft: 1180 },
