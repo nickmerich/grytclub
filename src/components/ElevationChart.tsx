@@ -143,7 +143,7 @@ export function ElevationChart() {
   );
 
   return (
-    <section className="bg-bone border-t-2 border-b-2 border-ink">
+    <section ref={sectionRef} className="bg-bone border-t-2 border-b-2 border-ink">
       {/* Header strip — hard-left, underlined label, sky highlight on gain */}
       <div className="border-b border-ink/20 px-0">
         <div className="grid grid-cols-12 gap-0">
