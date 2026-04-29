@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { RouteMap } from "@/components/RouteMap";
 import { ElevationChart } from "@/components/ElevationChart";
+import { HowToShowUpCarousel } from "@/components/HowToShowUpCarousel";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -504,150 +505,8 @@ function Index() {
         </div>
       </section>
 
-      {/* ═══════════════════════ HOW TO SHOW UP — STORY CARDS ═══════════════════════ */}
-      <section id="how" className="bg-bone text-ink py-20 md:py-28">
-        <div className="px-6 md:px-10 mb-12 md:mb-16">
-          <Label>How to show up</Label>
-          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-          <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
-            FOUR RULES.
-            <br />
-            THAT'S <span className="underline-sky">IT.</span>
-          </h2>
-        </div>
-
-        <div className="flex gap-4 md:gap-5 overflow-x-auto px-6 md:px-10 pb-6 snap-x snap-mandatory">
-          {[
-            {
-              n: "EP 012",
-              tag: "A FIRST RUN",
-              tagColor: "text-sky-brand",
-              bg: "bg-ink",
-              fg: "text-bone",
-              title: "MAYA'S",
-              titleLine2: "FIRST 5",
-              titleLine3: "MILES.",
-              underline: true,
-              meta: "SAT · 04.19 · 54°",
-              duration: "0:47",
-              dotted: "dot-grid",
-            },
-            {
-              n: "EP 013",
-              tag: "WHAT TO WEAR",
-              tagColor: "text-ink/70",
-              bg: "bg-sky-brand",
-              fg: "text-ink",
-              title: "IN",
-              titleInline: "54°.",
-              underline: true,
-              inlineUnderline: true,
-              meta: "A 40-SECOND GUIDE",
-              duration: "0:38",
-              dotted: "dot-grid-sky",
-            },
-            {
-              n: "EP 014",
-              tag: "MILE 3",
-              tagColor: "text-ink/70",
-              bg: "bg-bone border border-ink/15",
-              fg: "text-ink",
-              title: "WHERE",
-              titleLine2: "EVERYONE",
-              titleLine3: "CRACKS.",
-              underline: true,
-              meta: "A VERY HONEST STRETCH",
-              duration: "1:02",
-              dotted: "dot-grid-bone",
-            },
-            {
-              n: "EP 015",
-              tag: "AFTER",
-              tagColor: "text-sky-brand",
-              bg: "bg-ink",
-              fg: "text-bone",
-              title: "COFFEE",
-              titleLine2: "AT SEY,",
-              titleLine3: "ALWAYS.",
-              underline: true,
-              meta: "THE REAL CLUB",
-              duration: "0:55",
-              dotted: "dot-grid",
-            },
-          ].map((c, i) => {
-            const isSky = c.bg.includes("sky");
-            return (
-              <article
-                key={i}
-                className={`relative shrink-0 snap-start w-[78vw] sm:w-[58vw] md:w-[340px] aspect-[9/16] ${c.bg} ${c.fg} flex flex-col overflow-hidden`}
-              >
-                <div className={`absolute inset-0 ${c.dotted} pointer-events-none`} />
-
-                {/* Header */}
-                <div className="relative z-10 flex items-start justify-between p-5">
-                  <GrytLogo className={c.fg} />
-                  <div className="label-meta opacity-80">{c.n}</div>
-                </div>
-
-                {/* Title block */}
-                <div className="relative z-10 px-5 mt-8 flex-1">
-                  <div className={`label-meta mb-4 ${c.tagColor}`}>{c.tag}</div>
-                  <h3 className="font-display text-[44px] md:text-[52px] leading-[0.88]">
-                    {c.titleInline ? (
-                      <span>
-                        {c.title}{" "}
-                        <span className={c.inlineUnderline ? "underline-sky" : ""}>
-                          {c.titleInline}
-                        </span>
-                      </span>
-                    ) : (
-                      <>
-                        <span className="block">{c.title}</span>
-                        {c.titleLine2 && <span className="block">{c.titleLine2}</span>}
-                        {c.titleLine3 && (
-                          <span className="block">
-                            {c.underline ? (
-                              <span className="underline-sky">{c.titleLine3}</span>
-                            ) : (
-                              c.titleLine3
-                            )}
-                          </span>
-                        )}
-                      </>
-                    )}
-                  </h3>
-
-                  {/* Play button */}
-                  <button
-                    aria-label="Play"
-                    className={`mt-6 w-12 h-12 rounded-full border-2 flex items-center justify-center ${
-                      isSky ? "border-ink" : "border-current"
-                    }`}
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </button>
-
-                  {/* Mid meta */}
-                  <div className="label-meta mt-5 opacity-80">{c.meta}</div>
-                </div>
-
-                {/* Footer duration chip */}
-                <div className="relative z-10 flex justify-end p-5">
-                  <span
-                    className={`font-display text-lg px-2 py-0.5 ${
-                      isSky ? "bg-ink text-bone" : "bg-current/10"
-                    }`}
-                  >
-                    {c.duration}
-                  </span>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      {/* ═══════════════════════ HOW TO SHOW UP — STORY CAROUSEL ═══════════════════════ */}
+      <HowToShowUpCarousel />
 
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
