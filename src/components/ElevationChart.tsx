@@ -254,20 +254,43 @@ export function ElevationChart() {
             </g>
           ))}
 
-          {/* Area fill (sky) */}
-          <path d={areaPath} fill="#8FD0EE" fillOpacity="0.55" />
-
-          {/* Profile line (ink) */}
+          {/* Area fill (sky) — fades + grows up from baseline */}
           <path
+            d={areaPath}
+            fill="#8FD0EE"
+            fillOpacity="0.55"
+            style={{
+              transformBox: "fill-box",
+              transformOrigin: "50% 100%",
+              transform: inView ? "scaleY(1)" : "scaleY(0)",
+              opacity: inView ? 1 : 0,
+              transition:
+                "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 120ms, opacity 600ms ease-out 120ms",
+            }}
+          />
+
+          {/* Profile line (ink) — draws in left to right */}
+          <path
+            ref={lineRef}
             d={linePath}
             fill="none"
             stroke="#0A0A0A"
             strokeWidth="2.5"
             strokeLinejoin="miter"
             strokeLinecap="butt"
+            style={
+              lineLen > 0
+                ? {
+                    strokeDasharray: lineLen,
+                    strokeDashoffset: inView ? 0 : lineLen,
+                    transition:
+                      "stroke-dashoffset 1200ms cubic-bezier(0.65, 0, 0.35, 1) 200ms",
+                  }
+                : undefined
+            }
           />
 
-          {/* Start dot — sky w/ ink ring (no border-radius elsewhere; circle is data, allowed) */}
+          {/* Start dot — sky w/ ink ring */}
           <circle
             cx={x(ELEVATION[0].mi)}
             cy={y(ELEVATION[0].ft)}
@@ -275,6 +298,10 @@ export function ElevationChart() {
             fill="#8FD0EE"
             stroke="#0A0A0A"
             strokeWidth="2"
+            style={{
+              opacity: inView ? 1 : 0,
+              transition: "opacity 300ms ease-out 300ms",
+            }}
           />
           {/* Finish — ink square */}
           <rect
@@ -283,6 +310,10 @@ export function ElevationChart() {
             width="10"
             height="10"
             fill="#0A0A0A"
+            style={{
+              opacity: inView ? 1 : 0,
+              transition: "opacity 300ms ease-out 1300ms",
+            }}
           />
 
           {/* Baseline */}
