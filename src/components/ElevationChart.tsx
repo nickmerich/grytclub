@@ -6,7 +6,7 @@
  * Strava `streams.altitude` once the integration is wired.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Pt = { mi: number; ft: number };
 
