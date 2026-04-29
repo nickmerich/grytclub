@@ -837,7 +837,63 @@ function Index() {
             </div>
           </div>
 
-          <div className="mt-16 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
+          {/* ─── Records / credits strip ─── */}
+          <div className="mt-16 border-t border-bone/15 pt-10">
+            <div className="grid grid-cols-12 gap-0 border border-bone/20">
+              {/* Imprint label */}
+              <div className="col-span-12 md:col-span-4 border-b md:border-b-0 md:border-r border-bone/20 p-6 md:p-8">
+                <Label className="text-bone">Imprint · Fig. 03</Label>
+                <div className="rule-thin bg-bone mt-2 mb-4 max-w-[120px]" />
+                <h4 className="font-display text-3xl md:text-4xl leading-[0.9]">
+                  DO HARD THINGS
+                  <br />
+                  <span className="underline-sky">TOGETHER</span>
+                  <br />
+                  RECORDS
+                </h4>
+                <p className="label-meta text-bone/60 mt-4">
+                  A GRYT IMPRINT · EAST RIVER · NYC
+                </p>
+              </div>
+
+              {/* Artist 1 */}
+              <div className="col-span-12 md:col-span-4 border-b md:border-b-0 md:border-r border-bone/20 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <Label className="text-bone">Side A</Label>
+                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
+                </div>
+                <div>
+                  <div className="font-display text-2xl md:text-3xl leading-none">
+                    <span className="mark-sky">YUNG SPIELBERG</span>
+                  </div>
+                  <p className="label-meta text-bone/60 mt-3">
+                    DIRECTOR · MILE-MARKER FILMS
+                  </p>
+                </div>
+              </div>
+
+              {/* Artist 2 */}
+              <div className="col-span-12 md:col-span-4 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                  <Label className="text-bone">Side B</Label>
+                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
+                </div>
+                <div>
+                  <div className="font-display text-2xl md:text-3xl leading-none">
+                    <span className="mark-sky">NICK MERICH</span>
+                  </div>
+                  <p className="label-meta text-bone/60 mt-3">
+                    SOUND · ORIGINAL SCORES FOR THE LONG RUN
+                  </p>
+                </div>
+              </div>
+            </div>
+            <p className="label-meta text-bone/55 mt-4">
+              ALL TRACKS RECORDED ON THE PAVEMENT · MIXED AT 6:30 AM
+            </p>
+          </div>
+
+          <div className="mt-12 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
             <div>© GRYT · NYC · {new Date().getFullYear()}</div>
             <div>BUILT ON THE EAST RIVER</div>
           </div>
