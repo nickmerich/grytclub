@@ -6,7 +6,7 @@
  * Strava `streams.altitude` once the integration is wired.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Pt = { mi: number; ft: number };
 
@@ -46,6 +46,47 @@ const ELEVATION: Pt[] = [
 
 export function ElevationChart() {
   const narrow = useIsNarrow();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const lineRef = useRef<SVGPathElement | null>(null);
+  const [inView, setInView] = useState(false);
+  const [lineLen, setLineLen] = useState(0);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  // Measure path length once mounted (and when narrow flips, since geometry changes).
+  useEffect(() => {
+    if (lineRef.current) {
+      try {
+        setLineLen(lineRef.current.getTotalLength());
+      } catch {
+        setLineLen(0);
+      }
+    }
+  }, [narrow]);
+
+  // Trigger when section enters view.
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    if (prefersReducedMotion) {
+      setInView(true);
+      return;
+    }
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [prefersReducedMotion]);
 
   const W = 1000;
   const H = 220;
@@ -102,7 +143,7 @@ export function ElevationChart() {
   );
 
   return (
-    <section className="bg-bone border-t-2 border-b-2 border-ink">
+    <section ref={sectionRef} className="bg-bone border-t-2 border-b-2 border-ink">
       {/* Header strip — hard-left, underlined label, sky highlight on gain */}
       <div className="border-b border-ink/20 px-0">
         <div className="grid grid-cols-12 gap-0">
@@ -213,20 +254,43 @@ export function ElevationChart() {
             </g>
           ))}
 
-          {/* Area fill (sky) */}
-          <path d={areaPath} fill="#8FD0EE" fillOpacity="0.55" />
-
-          {/* Profile line (ink) */}
+          {/* Area fill (sky) — fades + grows up from baseline */}
           <path
+            d={areaPath}
+            fill="#8FD0EE"
+            fillOpacity="0.55"
+            style={{
+              transformBox: "fill-box",
+              transformOrigin: "50% 100%",
+              transform: inView ? "scaleY(1)" : "scaleY(0)",
+              opacity: inView ? 1 : 0,
+              transition:
+                "transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1) 120ms, opacity 600ms ease-out 120ms",
+            }}
+          />
+
+          {/* Profile line (ink) — draws in left to right */}
+          <path
+            ref={lineRef}
             d={linePath}
             fill="none"
             stroke="#0A0A0A"
             strokeWidth="2.5"
             strokeLinejoin="miter"
             strokeLinecap="butt"
+            style={
+              lineLen > 0
+                ? {
+                    strokeDasharray: lineLen,
+                    strokeDashoffset: inView ? 0 : lineLen,
+                    transition:
+                      "stroke-dashoffset 1200ms cubic-bezier(0.65, 0, 0.35, 1) 200ms",
+                  }
+                : undefined
+            }
           />
 
-          {/* Start dot — sky w/ ink ring (no border-radius elsewhere; circle is data, allowed) */}
+          {/* Start dot — sky w/ ink ring */}
           <circle
             cx={x(ELEVATION[0].mi)}
             cy={y(ELEVATION[0].ft)}
@@ -234,6 +298,10 @@ export function ElevationChart() {
             fill="#8FD0EE"
             stroke="#0A0A0A"
             strokeWidth="2"
+            style={{
+              opacity: inView ? 1 : 0,
+              transition: "opacity 300ms ease-out 300ms",
+            }}
           />
           {/* Finish — ink square */}
           <rect
@@ -242,6 +310,10 @@ export function ElevationChart() {
             width="10"
             height="10"
             fill="#0A0A0A"
+            style={{
+              opacity: inView ? 1 : 0,
+              transition: "opacity 300ms ease-out 1300ms",
+            }}
           />
 
           {/* Baseline */}
