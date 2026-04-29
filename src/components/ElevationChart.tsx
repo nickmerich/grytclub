@@ -46,6 +46,47 @@ const ELEVATION: Pt[] = [
 
 export function ElevationChart() {
   const narrow = useIsNarrow();
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const lineRef = useRef<SVGPathElement | null>(null);
+  const [inView, setInView] = useState(false);
+  const [lineLen, setLineLen] = useState(0);
+  const prefersReducedMotion =
+    typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+  // Measure path length once mounted (and when narrow flips, since geometry changes).
+  useEffect(() => {
+    if (lineRef.current) {
+      try {
+        setLineLen(lineRef.current.getTotalLength());
+      } catch {
+        setLineLen(0);
+      }
+    }
+  }, [narrow]);
+
+  // Trigger when section enters view.
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    if (prefersReducedMotion) {
+      setInView(true);
+      return;
+    }
+    const el = sectionRef.current;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [prefersReducedMotion]);
 
   const W = 1000;
   const H = 220;
