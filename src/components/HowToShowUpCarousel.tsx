@@ -300,7 +300,7 @@ export function HowToShowUpCarousel() {
                           )}
                         </h3>
 
-                        <p className="mt-5 text-base md:text-lg leading-snug normal-case lowercase opacity-85 max-w-md">
+                        <p className="mt-5 text-base md:text-lg leading-snug lowercase opacity-85 max-w-md">
                           {c.meta}
                         </p>
                       </div>
