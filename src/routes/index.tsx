@@ -12,12 +12,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GRYT is an NYC run club. We meet at the river. Saturdays, 6:30 AM. Any pace. Coffee after.",
+          "GRYT is an NYC run club. We meet at the river. Saturdays, 7:00 AM. Any pace. Coffee after.",
       },
       { property: "og:title", content: "GRYT — DO HARD THINGS TOGETHER" },
       {
         property: "og:description",
-        content: "NYC run club. East River Park. Saturdays 6:30 AM.",
+        content: "NYC run club. Montour Trail/Valley Brook. Saturdays 7:00 AM.",
       },
     ],
   }),
@@ -80,16 +80,16 @@ type Roster = { name: string; firstTimer: boolean }[];
 
 const RECAP = {
   date: "SAT 04.19",
-  runners: 42,
+  runners: 18,
   firstTimers: 9,
   miles: 210,
   temp: "41°F",
-  prevWeek: 38,
-  start: "EAST RIVER PARK",
+  prevWeek: "WEEK 3",
+  start: "MONTOUR TRAIL/VALLEY BROOK",
   after: "SEY COFFEE",
   roster: [
-    { name: "MAYA", firstTimer: false }, { name: "JON", firstTimer: false },
-    { name: "PRIYA", firstTimer: true }, { name: "DEV", firstTimer: false },
+    { name: "MAIZE", firstTimer: false }, { name: "JON", firstTimer: false },
+    { name: "MOE", firstTimer: true }, { name: "DEV", firstTimer: false },
     { name: "ROSA", firstTimer: false }, { name: "SAM", firstTimer: true },
     { name: "KOFI", firstTimer: false }, { name: "LENA", firstTimer: false },
     { name: "MIKAEL", firstTimer: true }, { name: "JESS", firstTimer: false },
@@ -131,10 +131,10 @@ function buildRecapText(r: typeof RECAP, shareUrl: string): string {
   const firstTimers = r.roster.filter((x) => x.firstTimer).map((x) => x.name);
   const regulars = r.roster.filter((x) => !x.firstTimer).map((x) => x.name);
   return [
-    `${r.runners} SHOWED UP.`,
+    `${r.runners}`,
     ``,
     `📍 ${r.start} · ${r.date} · ${r.temp}`,
-    `🏃 ${r.runners} runners · ${r.miles} total miles · vs ${r.prevWeek} last week`,
+    `🏃 ${r.runners} runners · ${r.miles} total miles · ${r.prevWeek}`,
     ``,
     `★ FIRST RUN WITH GRYT (${firstTimers.length}):`,
     firstTimers.map((n) => `★ ${n}`).join("  "),
@@ -182,13 +182,13 @@ function RecapSection() {
         <Label>Last saturday</Label>
         <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
         <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
-          {RECAP.runners} SHOWED <span className="underline-sky">UP.</span>
+          {RECAP.runners}
         </h2>
 
         {/* Stat row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
           {[
-            { label: "Runners", value: String(RECAP.runners), sub: `VS ${RECAP.prevWeek} LAST WK` },
+            { label: "Runners", value: String(RECAP.runners), sub: String(RECAP.prevWeek) },
             { label: "First-timers", value: String(RECAP.firstTimers).padStart(2, "0"), sub: "WELCOME" },
             { label: "Miles", value: String(RECAP.miles), sub: "TOTAL CLUB" },
             { label: "Temp", value: RECAP.temp, sub: "CRISP" },
@@ -364,7 +364,7 @@ function Index() {
           {/* Sub + CTA */}
           <div className="mt-10 md:mt-14 max-w-xl">
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              a run club for everyone who shows up. saturdays, 6:30 am. all paces welcome.
+              A run club for everyone who shows up. saturdays @ 7 am. all paces welcome.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -395,7 +395,7 @@ function Index() {
             <span className="opacity-30">·</span>
             <span>OPEN TO ALL PACES</span>
             <span className="opacity-30">·</span>
-            <span>EAST RIVER PARK</span>
+            <span>MONTOUR TRAIL/VALLEY BROOK</span>
             <span className="opacity-30">·</span>
             <span>COFFEE AFTER</span>
           </div>
@@ -414,10 +414,10 @@ function Index() {
               SATURDAY
             </div>
             <div className="font-display text-5xl md:text-6xl mt-4 text-sky-brand">
-              6:30 AM
+              7:00 AM
             </div>
             <p className="mt-10 text-bone/70 max-w-sm leading-snug">
-              show up. shut up. run. the river doesn't care if you're tired.
+              show up. shut up. run. 
             </p>
           </div>
 
@@ -426,8 +426,8 @@ function Index() {
             {[
               { label: "Distance", value: "5 MI" },
               { label: "Pace", value: "ANY" },
-              { label: "Start", value: "EAST RIVER" },
-              { label: "After", value: "SEY COFFEE" },
+              { label: "Start", value: "18" },
+              { label: "After", value: "\n" },
             ].map((s, i) => (
               <div
                 key={s.label}
@@ -445,13 +445,15 @@ function Index() {
       {/* ═══════════════════════ ROUTE MAP ═══════════════════════ */}
       <section id="route" className="bg-bone text-ink border-t border-ink/10">
         <div className="px-6 md:px-10 pt-20 md:pt-28 pb-10 md:pb-14">
-          <Label>Saturday's route</Label>
+          <Label>TOTAL MEMBERS</Label>
           <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
               FIVE MILES.
               <br />
-              <span className="underline-sky">MT LEBANON.</span>
+              BEADLING.
+              <br />
+              <span className="underline-sky">PETERS TOWNSHIP</span>
             </h2>
             <div className="flex flex-wrap gap-3">
               <a
@@ -547,7 +549,7 @@ function Index() {
 
             {/* Name */}
             <div className="relative z-10 mt-6 md:mt-8">
-              <div className="font-display text-3xl md:text-4xl">MAYA OKONKWO</div>
+              <div className="font-display text-3xl md:text-4xl">MAIZE OKONKWO</div>
               <div className="text-sm font-semibold mt-1">5 mile · saturday long run</div>
             </div>
 
@@ -639,7 +641,7 @@ function Index() {
               {/* Footer */}
               <div className="flex items-end justify-between">
                 <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
-                  IF FOUND, RETURN TO GRYT · EAST RIVER PARK · NYC
+                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL/VALLEY BROOK · NYC
                 </div>
                 <div className="font-display text-2xl">G</div>
               </div>
@@ -724,7 +726,7 @@ function Index() {
                   RECORDS
                 </h4>
                 <p className="label-meta text-bone/60 mt-4">
-                  A GRYT IMPRINT · EAST RIVER · NYC
+                  A GRYT IMPRINT · 18 · NYC
                 </p>
               </div>
 
@@ -761,13 +763,13 @@ function Index() {
               </div>
             </div>
             <p className="label-meta text-bone/55 mt-4">
-              ALL TRACKS RECORDED ON THE PAVEMENT · MIXED AT 6:30 AM
+              ALL TRACKS RECORDED ON THE PAVEMENT · MIXED AT 7:00 AM
             </p>
           </div>
 
           <div className="mt-12 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
             <div>© GRYT · NYC · {new Date().getFullYear()}</div>
-            <div>BUILT ON THE EAST RIVER</div>
+            <div>BUILT ON THE 18</div>
           </div>
         </div>
       </footer>
