@@ -338,7 +338,14 @@ function Index() {
             <a href="#recap" className="hover:text-sky-brand transition-colors">JOURNAL</a>
             <a href="#card" className="hover:text-sky-brand transition-colors">MEMBERS</a>
           </nav>
-          <a href="#rsvp" className="md:hidden label-meta text-sky-brand">RSVP →</a>
+          <a 
+            href="https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA==" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="md:hidden label-meta text-sky-brand"
+          >
+            RSVP →
+          </a>
         </header>
 
         {/* Headline block */}
