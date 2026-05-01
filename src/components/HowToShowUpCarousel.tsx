@@ -45,7 +45,7 @@ const PANELS: Panel[] = [
     titleLine2: "FIRST 5",
     titleLine3: "MILES.",
     underline: true,
-    meta: "SAT · 04.19 · 54°",
+    meta: "saturday morning, 54° and a little nervous.",
     duration: "0:47",
     dotted: "dot-grid",
   },
@@ -59,7 +59,7 @@ const PANELS: Panel[] = [
     titleInline: "54°.",
     underline: true,
     inlineUnderline: true,
-    meta: "A 40-SECOND GUIDE",
+    meta: "a forty-second guide to dressing for the weather.",
     duration: "0:38",
     dotted: "dot-grid-sky",
   },
@@ -73,7 +73,7 @@ const PANELS: Panel[] = [
     titleLine2: "EVERYONE",
     titleLine3: "CRACKS.",
     underline: true,
-    meta: "A VERY HONEST STRETCH",
+    meta: "a very honest stretch of road, told plainly.",
     duration: "1:02",
     dotted: "dot-grid-bone",
   },
@@ -87,7 +87,7 @@ const PANELS: Panel[] = [
     titleLine2: "AT SEY,",
     titleLine3: "ALWAYS.",
     underline: true,
-    meta: "THE REAL CLUB",
+    meta: "the real club meets after the run, every time.",
     duration: "0:55",
     dotted: "dot-grid",
   },
@@ -300,7 +300,9 @@ export function HowToShowUpCarousel() {
                           )}
                         </h3>
 
-                        <div className="label-meta mt-5 opacity-80">{c.meta}</div>
+                        <p className="mt-5 text-base md:text-lg leading-snug normal-case lowercase opacity-85 max-w-md">
+                          {c.meta}
+                        </p>
                       </div>
 
                       <div className="flex md:flex-col items-center md:items-end justify-between md:justify-end gap-4">
