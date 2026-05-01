@@ -344,7 +344,7 @@ function Index() {
         {/* Headline block */}
         <div className="relative z-10 px-6 md:px-10 pt-20 md:pt-28 pb-12 md:pb-16 flex-1 flex flex-col justify-center">
           <div className="label-meta text-sky-brand mb-6 md:mb-10">
-            A RUN CLUB · EST. 2024
+            A RUN CLUB · EST. 2026
           </div>
           <h1 className="font-display text-[16vw] md:text-[12vw] lg:text-[10.5vw] leading-[0.85]">
             <span className="block">DO HARD</span>
