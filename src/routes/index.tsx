@@ -131,10 +131,10 @@ function buildRecapText(r: typeof RECAP, shareUrl: string): string {
   const firstTimers = r.roster.filter((x) => x.firstTimer).map((x) => x.name);
   const regulars = r.roster.filter((x) => !x.firstTimer).map((x) => x.name);
   return [
-    `${r.runners} SHOWED UP.`,
+    `${r.runners}`,
     ``,
     `📍 ${r.start} · ${r.date} · ${r.temp}`,
-    `🏃 ${r.runners} runners · ${r.miles} total miles · vs ${r.prevWeek} last week`,
+    `🏃 ${r.runners} runners · ${r.miles} total miles · ${r.prevWeek}`,
     ``,
     `★ FIRST RUN WITH GRYT (${firstTimers.length}):`,
     firstTimers.map((n) => `★ ${n}`).join("  "),
@@ -182,13 +182,13 @@ function RecapSection() {
         <Label>Last saturday</Label>
         <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
         <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
-          {RECAP.runners} SHOWED <span className="underline-sky">UP.</span>
+          {RECAP.runners}
         </h2>
 
         {/* Stat row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-14 md:mt-20">
           {[
-            { label: "Runners", value: String(RECAP.runners), sub: `VS ${RECAP.prevWeek} LAST WK` },
+            { label: "Runners", value: String(RECAP.runners), sub: String(RECAP.prevWeek) },
             { label: "First-timers", value: String(RECAP.firstTimers).padStart(2, "0"), sub: "WELCOME" },
             { label: "Miles", value: String(RECAP.miles), sub: "TOTAL CLUB" },
             { label: "Temp", value: RECAP.temp, sub: "CRISP" },
@@ -427,7 +427,7 @@ function Index() {
               { label: "Distance", value: "5 MI" },
               { label: "Pace", value: "ANY" },
               { label: "Start", value: "18" },
-              { label: "After", value: "SEY COFFEE" },
+              { label: "After", value: "\n" },
             ].map((s, i) => (
               <div
                 key={s.label}
