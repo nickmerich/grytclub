@@ -300,7 +300,9 @@ export function HowToShowUpCarousel() {
                           )}
                         </h3>
 
-                        <div className="label-meta mt-5 opacity-80">{c.meta}</div>
+                        <p className="mt-5 text-base md:text-lg leading-snug normal-case lowercase opacity-85 max-w-md">
+                          {c.meta}
+                        </p>
                       </div>
 
                       <div className="flex md:flex-col items-center md:items-end justify-between md:justify-end gap-4">
