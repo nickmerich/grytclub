@@ -455,7 +455,9 @@ function Index() {
             </h2>
             <div className="flex flex-wrap gap-3">
               <a
-                href="#rsvp"
+                href="https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA=="
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-ink text-bone px-5 py-3 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
               >
                 RSVP →
