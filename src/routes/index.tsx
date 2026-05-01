@@ -368,10 +368,12 @@ function Index() {
                 JOIN SATURDAY'S RUN →
               </a>
               <a
-                href="#how"
+                href="https://grytmarathonguide.netlify.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                MEET THE CLUB
+                DOWNLOAD MARATHON GUIDE
               </a>
             </div>
           </div>
