@@ -20,6 +20,63 @@ export const Route = createFileRoute("/")({
         content: "NYC run club. Montour Trail/Valley Brook. Saturdays 7:00 AM.",
       },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SportsClub",
+          name: "GRYT",
+          alternateName: "GRYT Run Club",
+          description:
+            "A run club for everyone who shows up. Saturdays at 7:00 AM. All paces welcome.",
+          url: "https://gryt.run/",
+          sport: "Running",
+          slogan: "DO HARD THINGS TOGETHER",
+          foundingDate: "2026",
+          areaServed: {
+            "@type": "Place",
+            name: "Peters Township, Pennsylvania",
+          },
+          location: {
+            "@type": "Place",
+            name: "Montour Trail / Valley Brook",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Peters Township",
+              addressRegion: "PA",
+              addressCountry: "US",
+            },
+          },
+          event: {
+            "@type": "SportsEvent",
+            name: "GRYT Saturday Run",
+            description:
+              "Weekly group run on the Montour Trail starting at Valley Brook. All paces welcome.",
+            eventSchedule: {
+              "@type": "Schedule",
+              repeatFrequency: "P1W",
+              byDay: "https://schema.org/Saturday",
+              startTime: "07:00",
+            },
+            location: {
+              "@type": "Place",
+              name: "Montour Trail / Valley Brook",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Peters Township",
+                addressRegion: "PA",
+                addressCountry: "US",
+              },
+            },
+            organizer: { "@type": "Organization", name: "GRYT" },
+          },
+          sameAs: [
+            "https://www.strava.com/clubs/1708552",
+          ],
+        }),
+      },
+    ],
   }),
 });
 
