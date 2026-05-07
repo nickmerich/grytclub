@@ -43,6 +43,7 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
     ],
     links: [
+      { rel: "canonical", href: "https://gryt.run/" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
