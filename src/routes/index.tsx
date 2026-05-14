@@ -8,18 +8,21 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT — DO HARD THINGS TOGETHER" },
+      { title: "GRYT Run Club — Do Hard Things Together" },
       {
         name: "description",
         content:
-          "GRYT is an NYC run club. We meet at the river. Saturdays, 7:00 AM. Any pace. Coffee after.",
+          "GRYT is a free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail at Valley Brook. All paces welcome.",
       },
-      { property: "og:title", content: "GRYT — DO HARD THINGS TOGETHER" },
+      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
       {
         property: "og:description",
-        content: "NYC run club. Montour Trail/Valley Brook. Saturdays 7:00 AM.",
+        content:
+          "Free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail. All paces welcome.",
       },
+      { property: "og:url", content: "https://gryt.club/" },
     ],
+    links: [{ rel: "canonical", href: "https://gryt.club/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -239,7 +242,9 @@ function RecapSection() {
         <Label>Last saturday</Label>
         <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
         <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
+          <span className="sr-only">Last Saturday recap — </span>
           {RECAP.runners}
+          <span className="sr-only"> runners showed up</span>
         </h2>
 
         {/* Stat row */}
@@ -525,11 +530,13 @@ function Index() {
             A RUN CLUB · EST. 2026
           </div>
           <h1 className="font-display text-[16vw] md:text-[12vw] lg:text-[10.5vw] leading-[0.85]">
-            <span className="block">DO HARD</span>
-            <span className="block">THINGS</span>
-            <span className="block">
+            <span className="sr-only">GRYT Run Club — </span>
+            <span className="block" aria-hidden="true">DO HARD</span>
+            <span className="block" aria-hidden="true">THINGS</span>
+            <span className="block" aria-hidden="true">
               <span className="underline-sky">TOGETHER</span>
             </span>
+            <span className="sr-only">Do Hard Things Together</span>
           </h1>
 
           {/* Sub + CTA */}

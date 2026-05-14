@@ -1,0 +1,13 @@
+# GRYT Run Club
+
+> A free run club in Peters Township, PA. We meet Saturdays at 7:00 AM on the Montour Trail at Valley Brook. All paces welcome. Coffee after.
+
+GRYT is a community-driven Saturday run club. The site shares the weekly route, recent recaps, member highlights, and how to show up. Tagline: "Do Hard Things Together."
+
+## Pages
+
+- [Home](/): Run club overview, next Saturday's run, route map, weekly recap, and how to join.
+
+## Optional
+
+- [Strava Club](https://www.strava.com/clubs/1708552): Live activity feed for GRYT members.
