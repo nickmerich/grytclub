@@ -583,6 +583,9 @@ function Index() {
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
 
+      {/* ═══════════════════════ STRAVA CLUB ═══════════════════════ */}
+      <StravaClubSection />
+
       {/* ═══════════════════════ PR CARD ═══════════════════════ */}
       <section className="bg-bone text-ink pb-20 md:pb-28">
         <div className="px-6 md:px-10">
