@@ -487,6 +487,8 @@ function StravaClubSection() {
     </section>
   );
 }
+
+function Index() {
   return (
     <main className="bg-bone text-ink overflow-hidden">
       {/* ═══════════════════════ HERO ═══════════════════════ */}
