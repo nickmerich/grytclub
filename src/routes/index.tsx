@@ -8,18 +8,21 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT — DO HARD THINGS TOGETHER" },
+      { title: "GRYT Run Club — Do Hard Things Together" },
       {
         name: "description",
         content:
-          "GRYT is an NYC run club. We meet at the river. Saturdays, 7:00 AM. Any pace. Coffee after.",
+          "GRYT is a free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail at Valley Brook. All paces welcome.",
       },
-      { property: "og:title", content: "GRYT — DO HARD THINGS TOGETHER" },
+      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
       {
         property: "og:description",
-        content: "NYC run club. Montour Trail/Valley Brook. Saturdays 7:00 AM.",
+        content:
+          "Free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail. All paces welcome.",
       },
+      { property: "og:url", content: "https://gryt.club/" },
     ],
+    links: [{ rel: "canonical", href: "https://gryt.club/" }],
     scripts: [
       {
         type: "application/ld+json",
