@@ -528,11 +528,13 @@ function Index() {
             A RUN CLUB · EST. 2026
           </div>
           <h1 className="font-display text-[16vw] md:text-[12vw] lg:text-[10.5vw] leading-[0.85]">
-            <span className="block">DO HARD</span>
-            <span className="block">THINGS</span>
-            <span className="block">
+            <span className="sr-only">GRYT Run Club — </span>
+            <span className="block" aria-hidden="true">DO HARD</span>
+            <span className="block" aria-hidden="true">THINGS</span>
+            <span className="block" aria-hidden="true">
               <span className="underline-sky">TOGETHER</span>
             </span>
+            <span className="sr-only">Do Hard Things Together</span>
           </h1>
 
           {/* Sub + CTA */}
