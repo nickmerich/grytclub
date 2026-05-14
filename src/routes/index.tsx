@@ -242,7 +242,9 @@ function RecapSection() {
         <Label>Last saturday</Label>
         <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
         <h2 className="font-display text-6xl md:text-8xl lg:text-9xl">
+          <span className="sr-only">Last Saturday recap — </span>
           {RECAP.runners}
+          <span className="sr-only"> runners showed up</span>
         </h2>
 
         {/* Stat row */}
