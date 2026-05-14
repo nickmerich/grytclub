@@ -374,6 +374,120 @@ function RecapSection() {
   );
 }
 
+/* ─── Strava club embed ─── */
+
+const STRAVA_CLUB_ID = "1708552";
+const STRAVA_CLUB_URL = `https://www.strava.com/clubs/${STRAVA_CLUB_ID}`;
+// To activate the live activity feed: grab the embed token from
+// strava.com/clubs/1708552/edit → "Embed" / "Widget" and paste the
+// long string after `/latest-rides/` in the iframe src here.
+const STRAVA_EMBED_TOKEN = "";
+
+function StravaClubSection() {
+  const embedSrc = STRAVA_EMBED_TOKEN
+    ? `https://www.strava.com/clubs/${STRAVA_CLUB_ID}/latest-rides/${STRAVA_EMBED_TOKEN}`
+    : null;
+
+  return (
+    <section
+      id="strava"
+      className="bg-ink text-bone py-20 md:py-28 relative overflow-hidden border-t border-bone/10"
+    >
+      <div className="absolute inset-0 dot-grid pointer-events-none" />
+      <DiagonalSlash className="top-[20%] -right-[20%]" thickness={2} length="80%" />
+      <DiagonalSlash className="bottom-[15%] -left-[20%] opacity-50" thickness={1} length="80%" />
+
+      <div className="relative z-10 px-6 md:px-10">
+        <Label className="text-bone">On Strava</Label>
+        <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
+          <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
+            FOLLOW THE <span className="underline-sky">CLUB.</span>
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={STRAVA_CLUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+            >
+              JOIN ON STRAVA →
+            </a>
+            <a
+              href={`${STRAVA_CLUB_URL}/recent_activity`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
+            >
+              RECENT ACTIVITY
+            </a>
+          </div>
+        </div>
+
+        {/* Club identity card */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-bone/15 mb-10">
+          <div className="bg-ink p-6 md:p-8">
+            <Label className="text-bone">Club</Label>
+            <div className="rule-thin bg-bone mt-2 mb-4" />
+            <div className="font-display text-3xl md:text-4xl leading-none">GRYT</div>
+            <div className="label-meta mt-3 text-bone/60">ID · {STRAVA_CLUB_ID}</div>
+          </div>
+          <div className="bg-ink p-6 md:p-8">
+            <Label className="text-bone">Members</Label>
+            <div className="rule-thin bg-bone mt-2 mb-4" />
+            <div className="font-display text-3xl md:text-4xl leading-none">{RECAP.runners}+</div>
+            <div className="label-meta mt-3 text-bone/60">AND COUNTING</div>
+          </div>
+          <div className="bg-ink p-6 md:p-8">
+            <Label className="text-bone">Cadence</Label>
+            <div className="rule-thin bg-bone mt-2 mb-4" />
+            <div className="font-display text-3xl md:text-4xl leading-none">SAT · 7AM</div>
+            <div className="label-meta mt-3 text-bone/60">WEEKLY · ALL PACES</div>
+          </div>
+        </div>
+
+        {/* Live activity feed (or fallback) */}
+        <div className="relative bg-bone text-ink border border-bone/20 overflow-hidden">
+          {embedSrc ? (
+            <iframe
+              title="GRYT Strava club latest activity"
+              src={embedSrc}
+              loading="lazy"
+              className="w-full"
+              style={{ height: 460, border: 0 }}
+              allowTransparency
+            />
+          ) : (
+            <div className="p-8 md:p-12 flex flex-col items-start gap-6">
+              <div className="label-meta opacity-70">Latest club activity</div>
+              <div className="rule-thin bg-ink max-w-[120px]" />
+              <p className="font-display text-2xl md:text-3xl leading-tight max-w-2xl">
+                live feed lives on strava. <span className="underline-sky">tap in.</span>
+              </p>
+              <p className="text-sm md:text-base text-ink/70 max-w-xl leading-snug">
+                see every saturday run, every PR, every first-timer. join the club
+                to log your miles with the rest of GRYT.
+              </p>
+              <a
+                href={STRAVA_CLUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+              >
+                OPEN GRYT ON STRAVA →
+              </a>
+            </div>
+          )}
+        </div>
+
+        <p className="label-meta mt-5 text-bone/55">
+          STRAVA CLUB · {STRAVA_CLUB_ID} · ALL ATHLETES, ALL PACES
+        </p>
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <main className="bg-bone text-ink overflow-hidden">
@@ -582,6 +696,9 @@ function Index() {
 
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
+
+      {/* ═══════════════════════ STRAVA CLUB ═══════════════════════ */}
+      <StravaClubSection />
 
       {/* ═══════════════════════ PR CARD ═══════════════════════ */}
       <section className="bg-bone text-ink pb-20 md:pb-28">
