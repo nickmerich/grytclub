@@ -389,7 +389,10 @@ const STRAVA_CLUB_URL = `https://www.strava.com/clubs/${STRAVA_CLUB_ID}`;
 // long string after `/latest-rides/` in the iframe src here.
 const STRAVA_EMBED_TOKEN = "";
 
+type StravaModal = null | "join" | "activity";
+
 function StravaClubSection() {
+  const [modal, setModal] = useState<StravaModal>(null);
   const embedSrc = STRAVA_EMBED_TOKEN
     ? `https://www.strava.com/clubs/${STRAVA_CLUB_ID}/latest-rides/${STRAVA_EMBED_TOKEN}`
     : null;
@@ -411,22 +414,20 @@ function StravaClubSection() {
             FOLLOW THE <span className="underline-sky">CLUB.</span>
           </h2>
           <div className="flex flex-wrap gap-3">
-            <a
-              href={STRAVA_CLUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => setModal("join")}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
               JOIN ON STRAVA →
-            </a>
-            <a
-              href={`${STRAVA_CLUB_URL}/recent_activity`}
-              target="_blank"
-              rel="noopener noreferrer"
+            </button>
+            <button
+              type="button"
+              onClick={() => setModal("activity")}
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
               RECENT ACTIVITY
-            </a>
+            </button>
           </div>
         </div>
 
@@ -452,14 +453,18 @@ function StravaClubSection() {
           </div>
         </div>
 
-        {/* Live activity feed (or fallback) */}
-        <div className="relative bg-bone text-ink border border-bone/20 overflow-hidden">
+        {/* Live activity feed (or fallback) — also opens lightbox on click */}
+        <button
+          type="button"
+          onClick={() => setModal("activity")}
+          className="block w-full text-left relative bg-bone text-ink border border-bone/20 overflow-hidden group"
+        >
           {embedSrc ? (
             <iframe
               title="GRYT Strava club latest activity"
               src={embedSrc}
               loading="lazy"
-              className="w-full"
+              className="w-full pointer-events-none"
               style={{ height: 460, border: 0 }}
               allowTransparency
             />
@@ -474,23 +479,90 @@ function StravaClubSection() {
                 see every saturday run, every PR, every first-timer. join the club
                 to log your miles with the rest of GRYT.
               </p>
-              <a
-                href={STRAVA_CLUB_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
-              >
+              <span className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta group-hover:bg-sky-brand group-hover:text-ink transition-colors">
                 OPEN GRYT ON STRAVA →
-              </a>
+              </span>
             </div>
           )}
-        </div>
+        </button>
 
         <p className="label-meta mt-5 text-bone/55">
           STRAVA CLUB · {STRAVA_CLUB_ID} · ALL ATHLETES, ALL PACES
         </p>
       </div>
+
+      <StravaLightbox modal={modal} onClose={() => setModal(null)} embedSrc={embedSrc} />
     </section>
+  );
+}
+
+function StravaLightbox({
+  modal,
+  onClose,
+  embedSrc,
+}: {
+  modal: StravaModal;
+  onClose: () => void;
+  embedSrc: string | null;
+}) {
+  const open = modal !== null;
+  const isActivity = modal === "activity";
+  const title = isActivity ? "GRYT — Recent Activity" : "Join GRYT on Strava";
+  const description = isActivity
+    ? "Latest rides and runs from the GRYT club, live from Strava."
+    : "Strava blocks embedding the join page directly. Use the button below to open the club on Strava.";
+
+  return (
+    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-4xl w-[95vw] p-0 bg-ink text-bone border-bone/20 overflow-hidden">
+        <div className="px-6 pt-6 pb-4 border-b border-bone/15">
+          <Label className="text-bone">On Strava</Label>
+          <div className="rule-thin bg-bone mt-2 mb-3 max-w-[80px]" />
+          <DialogTitle className="font-display text-2xl md:text-3xl leading-none">
+            {title}
+          </DialogTitle>
+          <DialogDescription className="text-bone/60 mt-2 text-sm">
+            {description}
+          </DialogDescription>
+        </div>
+
+        <div className="bg-bone text-ink">
+          {isActivity && embedSrc ? (
+            <iframe
+              title="GRYT Strava club latest activity"
+              src={embedSrc}
+              loading="lazy"
+              className="w-full"
+              style={{ height: 560, border: 0 }}
+              allowTransparency
+            />
+          ) : (
+            <div className="p-8 md:p-10 flex flex-col items-start gap-5">
+              <p className="font-display text-2xl md:text-3xl leading-tight max-w-xl">
+                {isActivity ? (
+                  <>live feed lives on <span className="underline-sky">strava</span>.</>
+                ) : (
+                  <>one tap. <span className="underline-sky">you're in.</span></>
+                )}
+              </p>
+              <p className="text-sm md:text-base text-ink/70 max-w-xl leading-snug">
+                {isActivity
+                  ? "the live widget needs an embed token. in the meantime, jump straight to the club feed on strava."
+                  : "request to join the GRYT club on strava — saturday 7am, all paces, every week."}
+              </p>
+              <a
+                href={isActivity ? `${STRAVA_CLUB_URL}/recent_activity` : STRAVA_CLUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+              >
+                {isActivity ? "OPEN RECENT ACTIVITY →" : "OPEN GRYT ON STRAVA →"}
+              </a>
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
