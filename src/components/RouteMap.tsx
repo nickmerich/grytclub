@@ -2,11 +2,11 @@ import { useEffect, useRef } from "react";
 
 /**
  * Placeholder route for the upcoming Saturday run.
- * Mt Lebanon, PA — a simple ~5mi loop sketch around the village center.
+ * Montour Trail near Canonsburg, PA — a simple ~4mi out-and-back sketch.
  * Swap this polyline with a real GPX-decoded route once Strava data is wired.
  */
 const ROUTE_POINTS: [number, number][] = [
-  [40.3776, -80.0497], // start: Mt Lebanon Park
+  [40.3776, -80.0497], // start: Montour Trail trailhead
   [40.3795, -80.0512],
   [40.3820, -80.0530],
   [40.3838, -80.0508],
@@ -87,7 +87,7 @@ export function RouteMap() {
         iconAnchor: [9, 9],
       });
 
-      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Mt Lebanon Park");
+      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail");
       L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Coffee after");
 
       map.fitBounds(line.getBounds(), { padding: [32, 32] });
@@ -105,7 +105,7 @@ export function RouteMap() {
     <div
       ref={containerRef}
       role="img"
-      aria-label="Map of Saturday's run route in Mt Lebanon, PA"
+      aria-label="Map of Saturday's run route on the Montour Trail near Canonsburg, PA"
       className="w-full h-[420px] md:h-[520px] bg-bone"
     />
   );

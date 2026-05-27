@@ -9,17 +9,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT Run Club — Do Hard Things Together" },
+      { title: "GRYT — Pittsburgh Run Club for Parents & Adults 30+" },
       {
         name: "description",
         content:
-          "GRYT is a free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail at Valley Brook. All paces welcome.",
+          "GRYT is a Pittsburgh, PA run club for parents and adults 30+. Saturdays at 7:00 AM on the Montour Trail in Canonsburg. All paces welcome. Coffee after.",
       },
-      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
+      { property: "og:title", content: "GRYT — Pittsburgh Run Club" },
       {
         property: "og:description",
         content:
-          "Free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail. All paces welcome.",
+          "Pittsburgh's run club for parents and adults 30+ who want to do hard things together. Saturdays · 7 AM · Montour Trail.",
       },
       { property: "og:url", content: "https://gryt.club/" },
     ],
@@ -33,30 +33,31 @@ export const Route = createFileRoute("/")({
           name: "GRYT",
           alternateName: "GRYT Run Club",
           description:
-            "A run club for everyone who shows up. Saturdays at 7:00 AM. All paces welcome.",
-          url: "https://gryt.run/",
+            "Pittsburgh, PA run club for parents and adults 30+ looking for community. Just show up and grind.",
+          url: "https://gryt.club/",
           sport: "Running",
           slogan: "DO HARD THINGS TOGETHER",
           foundingDate: "2026",
-          areaServed: {
-            "@type": "Place",
-            name: "Peters Township, Pennsylvania",
-          },
+          founders: [
+            { "@type": "Person", name: "Laura Merich" },
+            { "@type": "Person", name: "Nick Merich" },
+          ],
+          areaServed: { "@type": "Place", name: "Pittsburgh, Pennsylvania" },
           location: {
             "@type": "Place",
-            name: "Montour Trail / Valley Brook",
+            name: "Montour Trail — Canonsburg, PA",
             address: {
               "@type": "PostalAddress",
-              addressLocality: "Peters Township",
+              addressLocality: "Canonsburg",
               addressRegion: "PA",
+              postalCode: "15317",
               addressCountry: "US",
             },
           },
           event: {
             "@type": "SportsEvent",
             name: "GRYT Saturday Run",
-            description:
-              "Weekly group run on the Montour Trail starting at Valley Brook. All paces welcome.",
+            description: "Weekly group run on the Montour Trail. All paces welcome. Coffee after.",
             eventSchedule: {
               "@type": "Schedule",
               repeatFrequency: "P1W",
@@ -65,19 +66,18 @@ export const Route = createFileRoute("/")({
             },
             location: {
               "@type": "Place",
-              name: "Montour Trail / Valley Brook",
+              name: "Montour Trail — Canonsburg, PA",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Peters Township",
+                addressLocality: "Canonsburg",
                 addressRegion: "PA",
+                postalCode: "15317",
                 addressCountry: "US",
               },
             },
             organizer: { "@type": "Organization", name: "GRYT" },
           },
-          sameAs: [
-            "https://www.strava.com/clubs/1708552",
-          ],
+          sameAs: ["https://www.strava.com/clubs/1708552"],
         }),
       },
     ],
@@ -141,34 +141,24 @@ type Roster = { name: string; firstTimer: boolean }[];
 
 const RECAP = {
   date: "SAT 04.19",
-  runners: 18,
-  firstTimers: 9,
+  runners: 11,
+  firstTimers: 2,
   miles: 210,
   temp: "41°F",
   prevWeek: "WEEK 3",
-  start: "MONTOUR TRAIL/VALLEY BROOK",
-  after: "SEY COFFEE",
+  start: "MONTOUR TRAIL · CANONSBURG",
+  after: "COFFEE LOCAL",
   roster: [
+    { name: "LAURA", firstTimer: false }, { name: "NICK", firstTimer: false },
     { name: "MAIZE", firstTimer: false }, { name: "JON", firstTimer: false },
     { name: "MOE", firstTimer: true }, { name: "DEV", firstTimer: false },
     { name: "ROSA", firstTimer: false }, { name: "SAM", firstTimer: true },
     { name: "KOFI", firstTimer: false }, { name: "LENA", firstTimer: false },
-    { name: "MIKAEL", firstTimer: true }, { name: "JESS", firstTimer: false },
-    { name: "TONY", firstTimer: false }, { name: "AYA", firstTimer: true },
-    { name: "HAN", firstTimer: false }, { name: "BEN", firstTimer: false },
-    { name: "NORA", firstTimer: true }, { name: "ZAK", firstTimer: false },
-    { name: "ELI", firstTimer: false }, { name: "RUTH", firstTimer: true },
-    { name: "CARLO", firstTimer: false }, { name: "MEI", firstTimer: false },
-    { name: "JAS", firstTimer: true }, { name: "OMAR", firstTimer: false },
-    { name: "LULU", firstTimer: false }, { name: "DREW", firstTimer: true },
-    { name: "KAI", firstTimer: false }, { name: "VERA", firstTimer: false },
-    { name: "TEO", firstTimer: false }, { name: "NIA", firstTimer: true },
-    { name: "ISA", firstTimer: false }, { name: "WILL", firstTimer: false },
-    { name: "FINN", firstTimer: false }, { name: "AMARA", firstTimer: true },
+    { name: "JESS", firstTimer: false },
   ] as Roster,
 };
 
-const SHARE_BASE = "gryt.run/sat";
+const SHARE_BASE = "gryt.club/sat";
 
 const UTM_SOURCES = [
   { id: "instagram", label: "Instagram" },
@@ -566,14 +556,17 @@ function StravaLightbox({
   );
 }
 
+const RSVP_URL =
+  "https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA==";
+const DIRECTIONS_URL =
+  "https://www.google.com/maps/dir/?api=1&destination=Montour+Trail+Canonsburg+PA+15317";
+
 function Index() {
   return (
     <main className="bg-bone text-ink overflow-hidden">
       {/* ═══════════════════════ HERO ═══════════════════════ */}
       <section className="relative bg-ink text-bone min-h-screen flex flex-col overflow-hidden">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
-
-        {/* Diagonal slash lines through hero */}
         <DiagonalSlash className="top-[20%] -left-[20%]" thickness={2} length="160%" />
         <DiagonalSlash className="top-[55%] -left-[20%] opacity-60" thickness={1} length="160%" />
         <DiagonalSlash className="top-[80%] -left-[20%] opacity-40" thickness={1} length="160%" />
@@ -581,46 +574,52 @@ function Index() {
         {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
           <GrytLogo className="text-bone" />
-          <nav className="hidden md:flex items-center gap-10 label-meta">
-            <a href="#runs" className="hover:text-sky-brand transition-colors">RUNS</a>
-            <a href="#how" className="hover:text-sky-brand transition-colors">CLUB</a>
-            <a href="#recap" className="hover:text-sky-brand transition-colors">JOURNAL</a>
-            <a href="#card" className="hover:text-sky-brand transition-colors">MEMBERS</a>
+          <nav className="hidden md:flex items-center gap-8 label-meta">
+            <a href="#run-club" className="hover:text-sky-brand transition-colors">RUN CLUB</a>
+            <a href="#members" className="hover:text-sky-brand transition-colors">MEMBERS</a>
+            <a href="#journal" className="hover:text-sky-brand transition-colors">JOURNAL</a>
+            <a href="#shop" className="hover:text-sky-brand transition-colors">SHOP</a>
+            <a href="#about" className="hover:text-sky-brand transition-colors">ABOUT</a>
           </nav>
-          <a 
-            href="https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA==" 
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
+          >
+            JOIN SATURDAY →
+          </a>
+          <a
+            href={RSVP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="md:hidden label-meta text-sky-brand"
           >
-            RSVP →
+            JOIN →
           </a>
         </header>
 
         {/* Headline block */}
-        <div className="relative z-10 px-6 md:px-10 pt-20 md:pt-28 pb-12 md:pb-16 flex-1 flex flex-col justify-center">
-          <div className="label-meta text-sky-brand mb-6 md:mb-10">
-            A RUN CLUB · EST. 2026
+        <div className="relative z-10 px-6 md:px-10 pt-16 md:pt-24 pb-12 md:pb-16 flex-1 flex flex-col justify-center max-w-6xl">
+          <div className="label-meta text-sky-brand mb-6 md:mb-8">
+            A RUN CLUB · PITTSBURGH, PA
           </div>
-          <h1 className="font-display text-[16vw] md:text-[12vw] lg:text-[10.5vw] leading-[0.85]">
+          <h1 className="font-display text-[11vw] md:text-[7.5vw] lg:text-[6.2vw] leading-[0.9] max-w-5xl">
             <span className="sr-only">GRYT Run Club — </span>
-            <span className="block" aria-hidden="true">DO HARD</span>
-            <span className="block" aria-hidden="true">THINGS</span>
-            <span className="block" aria-hidden="true">
-              <span className="underline-sky">TOGETHER</span>
-            </span>
-            <span className="sr-only">Do Hard Things Together</span>
+            Pittsburgh's run club for{" "}
+            <span className="underline-sky">parents and adults 30+</span>{" "}
+            who want to do hard things together.
           </h1>
 
-          {/* Sub + CTA */}
-          <div className="mt-10 md:mt-14 max-w-xl">
+          <div className="mt-10 md:mt-12 max-w-2xl">
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              A run club for everyone who shows up. saturdays @ 7 am. all paces welcome.
+              Join us every Saturday at 7:00 AM for a community run on the Montour Trail.
+              All paces welcome. Show up, meet good people, run at your pace, and grab coffee after.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href="https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA=="
+                href={RSVP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
@@ -628,38 +627,37 @@ function Index() {
                 JOIN SATURDAY'S RUN →
               </a>
               <a
-                href="https://grytmarathonguide.netlify.app/"
+                href="https://www.strava.com/clubs/1708552"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                DOWNLOAD MARATHON GUIDE
+                JOIN THE STRAVA CLUB
               </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom meta strip */}
+        {/* Proof strip */}
         <div className="relative z-10 border-t border-bone/15 px-6 md:px-10 py-5">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-2 label-meta text-bone/80">
-            <span>FREE</span>
+            <span>25 MEMBERS</span>
             <span className="opacity-30">·</span>
-            <span>OPEN TO ALL PACES</span>
+            <span>WEEKLY SATURDAY RUNS</span>
             <span className="opacity-30">·</span>
-            <span>MONTOUR TRAIL/VALLEY BROOK</span>
+            <span>PITTSBURGH, PA</span>
             <span className="opacity-30">·</span>
-            <span>COFFEE AFTER</span>
+            <span>ALL PACES WELCOME</span>
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ NEXT RUN ═══════════════════════ */}
-      <section id="runs" className="bg-ink text-bone border-t border-bone/10">
+      {/* ═══════════════════════ THIS SATURDAY ═══════════════════════ */}
+      <section id="run-club" className="bg-ink text-bone border-t border-bone/10">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          {/* Left: Date */}
           <div className="relative p-8 md:p-12 lg:p-16 border-b md:border-b-0 md:border-r border-bone/15 overflow-hidden">
             <DiagonalSlash className="top-8 -right-20" thickness={3} length="80%" />
-            <Label>Next run</Label>
+            <Label>This Saturday</Label>
             <div className="rule-thin bg-bone mt-2 mb-8" />
             <div className="font-display text-7xl md:text-8xl lg:text-[8.5rem] leading-[0.85]">
               SATURDAY
@@ -667,26 +665,48 @@ function Index() {
             <div className="font-display text-5xl md:text-6xl mt-4 text-sky-brand">
               7:00 AM
             </div>
-            <p className="mt-10 text-bone/70 max-w-sm leading-snug">
-              show up. shut up. run. 
+            <p className="mt-8 text-bone/80 max-w-md leading-snug">
+              Montour Trail · Canonsburg, PA 15317.
+              Run + social, ~4 miles, mixed terrain, all paces.
             </p>
+            <p className="mt-4 text-bone/65 text-sm max-w-md leading-snug">
+              New here? Come a few minutes early and we'll help you find your pace group.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href={RSVP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-sky-brand text-ink px-5 py-3 label-meta hover:bg-bone transition-colors"
+              >
+                RSVP ON STRAVA →
+              </a>
+              <a
+                href={DIRECTIONS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center border border-bone/60 text-bone px-5 py-3 label-meta hover:bg-bone hover:text-ink transition-colors"
+              >
+                GET DIRECTIONS
+              </a>
+            </div>
           </div>
 
-          {/* Right: 2x2 grid */}
           <div className="grid grid-cols-2 text-bone">
             {[
-              { label: "Distance", value: "5 MI" },
-              { label: "Pace", value: "ANY" },
-              { label: "Start", value: "18" },
-              { label: "After", value: "\n" },
+              { label: "Distance", value: "4.0 MI", sub: "OUT & BACK" },
+              { label: "Pace", value: "ANY", sub: "ALL WELCOME" },
+              { label: "Format", value: "RUN + SOCIAL", sub: "COFFEE AFTER" },
+              { label: "Terrain", value: "MIXED", sub: "TRAIL + PATH" },
             ].map((s, i) => (
               <div
                 key={s.label}
-                className={`p-6 md:p-10 ${
-                  i % 2 === 0 ? "border-r border-bone/15" : ""
-                } ${i < 2 ? "border-b border-bone/15" : ""}`}
+                className={`p-6 md:p-10 ${i % 2 === 0 ? "border-r border-bone/15" : ""} ${
+                  i < 2 ? "border-b border-bone/15" : ""
+                }`}
               >
-                <Stat label={s.label} value={s.value} />
+                <Stat label={s.label} value={s.value} sub={s.sub} />
               </div>
             ))}
           </div>
@@ -695,20 +715,20 @@ function Index() {
 
       {/* ═══════════════════════ ROUTE MAP ═══════════════════════ */}
       <section id="route" className="bg-bone text-ink border-t border-ink/10">
-        <div className="px-6 md:px-10 pt-20 md:pt-28 pb-10 md:pb-14">
-          <Label>TOTAL MEMBERS</Label>
+        <div className="px-6 md:px-10 pt-20 md:pt-24 pb-10 md:pb-14">
+          <Label>The route</Label>
           <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
           <div className="flex flex-wrap items-end justify-between gap-6">
             <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
-              FIVE MILES.
+              FOUR MILES.
               <br />
-              BEADLING.
+              MONTOUR TRAIL.
               <br />
-              <span className="underline-sky">PETERS TOWNSHIP</span>
+              <span className="underline-sky">CANONSBURG, PA</span>
             </h2>
             <div className="flex flex-wrap gap-3">
               <a
-                href="https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA=="
+                href={RSVP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-ink text-bone px-5 py-3 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
@@ -716,28 +736,23 @@ function Index() {
                 RSVP →
               </a>
               <a
-                href="https://www.openstreetmap.org/?mlat=40.3776&mlon=-80.0497#map=15/40.3790/-80.0480"
+                href={DIRECTIONS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
               >
-                OPEN IN MAP
+                OPEN IN MAPS
               </a>
             </div>
           </div>
         </div>
 
-        {/* Map frame */}
-        <div className="px-6 md:px-10 pb-20 md:pb-28">
+        <div className="px-6 md:px-10 pb-20 md:pb-24">
           <div className="relative border border-ink/15 overflow-hidden">
             <RouteMap />
-
-            {/* Corner badge */}
             <div className="absolute top-4 left-4 z-[400] bg-ink text-bone label-meta px-3 py-2 pointer-events-none">
-              ROUTE · DRAFT
+              ROUTE · MONTOUR TRAIL
             </div>
-
-            {/* Legend */}
             <div className="absolute bottom-4 left-4 z-[400] bg-bone border border-ink/20 px-3 py-2 flex items-center gap-4 label-meta text-ink pointer-events-none">
               <span className="flex items-center gap-2">
                 <span className="inline-block w-3 h-3 rounded-full bg-sky-brand border-2 border-ink" />
@@ -750,12 +765,11 @@ function Index() {
             </div>
           </div>
 
-          {/* Stat strip under map */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 mt-px">
             {[
-              { label: "Distance", value: "5.0 MI", sub: "OUT & BACK" },
-              { label: "Elev gain", value: "210 FT", sub: "ROLLING" },
-              { label: "Surface", value: "ROAD", sub: "+ PARK PATH" },
+              { label: "Distance", value: "4.0 MI", sub: "OUT & BACK" },
+              { label: "Elev gain", value: "~150 FT", sub: "GENTLE" },
+              { label: "Surface", value: "CRUSHED", sub: "RAIL TRAIL" },
               { label: "Pace groups", value: "ALL", sub: "NO ONE LEFT" },
             ].map((s) => (
               <div key={s.label} className="bg-bone p-6 md:p-8">
@@ -764,15 +778,184 @@ function Index() {
             ))}
           </div>
 
-          {/* Elevation preview */}
           <div className="mt-8 md:mt-10">
             <ElevationChart />
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ HOW TO SHOW UP — STORY CAROUSEL ═══════════════════════ */}
+      {/* ═══════════════════════ WHY PEOPLE JOIN ═══════════════════════ */}
+      <section id="why" className="bg-ink text-bone py-20 md:py-28 relative overflow-hidden border-t border-bone/10">
+        <div className="absolute inset-0 dot-grid pointer-events-none" />
+        <div className="relative z-10 px-6 md:px-10">
+          <Label>Why people join</Label>
+          <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
+          <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+            Why people keep <span className="underline-sky">showing up.</span>
+          </h2>
+
+          <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-bone/15">
+            {[
+              {
+                tag: "01 · PARENTS",
+                title: "Built-in accountability before the kids wake up.",
+                body: "Saturday at 7 AM is early enough to be home for breakfast. The standing time is the trick — it's already on the calendar, the group is already there, and showing up is easier than not.",
+              },
+              {
+                tag: "02 · ADULTS 30+",
+                title: "Real community, not a workout class.",
+                body: "Most of us are over 30, carrying a full life. We run, we talk, we get coffee. Friendships happen at mile two and stick after the run is over.",
+              },
+              {
+                tag: "03 · RETURNING RUNNERS",
+                title: "Come back at whatever pace you have today.",
+                body: "Haven't run in a year? Two? Five? Walk-run it. We hang at every regroup. There is no back of the pack here — we are the pack.",
+              },
+              {
+                tag: "04 · CONSISTENCY",
+                title: "One small commitment that compounds.",
+                body: "You don't need a plan. You need a Saturday. Stack twelve of them and you'll notice. Stack fifty and people start asking what changed.",
+              },
+            ].map((c) => (
+              <div key={c.tag} className="bg-ink p-7 md:p-10">
+                <div className="label-meta text-sky-brand">{c.tag}</div>
+                <h3 className="font-display text-2xl md:text-3xl mt-3 leading-[1.05]">
+                  {c.title}
+                </h3>
+                <p className="mt-4 text-bone/75 leading-snug">{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ SOCIAL PROOF ═══════════════════════ */}
+      <section className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
+        <div className="px-6 md:px-10">
+          <Label>The club, by the numbers</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+            Small, steady, <span className="underline-sky">growing.</span>
+          </h2>
+          <p className="mt-6 max-w-2xl text-ink/70 leading-snug">
+            We're not chasing a number. We're chasing a habit. Here's what the last few Saturdays
+            actually looked like on the trail and on Strava.
+          </p>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-px bg-ink/15 mt-12">
+            {[
+              { label: "Members", value: "25", sub: "AND COUNTING" },
+              { label: "Cadence", value: "WEEKLY", sub: "EVERY SATURDAY" },
+              { label: "Last Saturday", value: "11", sub: "RUNNERS" },
+              { label: "First-timers", value: "02", sub: "WELCOMED" },
+              { label: "Club miles", value: "210", sub: "RECENT RECAP" },
+            ].map((s) => (
+              <div key={s.label} className="bg-bone p-6 md:p-8">
+                <Stat label={s.label} value={s.value} sub={s.sub} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ HOW TO SHOW UP ═══════════════════════ */}
       <HowToShowUpCarousel />
+
+      {/* ═══════════════════════ MEMBERS SPOTLIGHT ═══════════════════════ */}
+      <section id="members" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden">
+        <div className="px-6 md:px-10 relative z-10">
+          <Label>Meet the club</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+            Real people. Real <span className="underline-sky">miles.</span>
+          </h2>
+          <p className="mt-6 max-w-2xl text-ink/70 leading-snug">
+            GRYT was started by Laura and Nick Merich in Pittsburgh because they wanted a Saturday
+            morning that was bigger than them. The club has grown one runner at a time.
+          </p>
+
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15">
+            {[
+              {
+                name: "LAURA MERICH",
+                role: "Co-founder · Pace setter",
+                quote: "I started GRYT because I needed a reason to be on the trail at 7 AM — turns out everyone else did too.",
+                stat: "Runs: 28",
+              },
+              {
+                name: "NICK MERICH",
+                role: "Co-founder · Coffee captain",
+                quote: "It's not about how fast you go. It's about who's there when you finish.",
+                stat: "Runs: 28",
+              },
+              {
+                name: "MOE",
+                role: "First-timer · April",
+                quote: "Hadn't run in three years. Showed up, walked half, nobody cared. I'm back this Saturday.",
+                stat: "Runs: 4",
+              },
+            ].map((m) => (
+              <div key={m.name} className="bg-bone p-7 md:p-10 flex flex-col justify-between min-h-[280px]">
+                <div>
+                  <div className="label-meta opacity-60">{m.role}</div>
+                  <div className="font-display text-2xl md:text-3xl mt-2">{m.name}</div>
+                </div>
+                <p className="mt-6 text-ink/80 leading-snug italic">&ldquo;{m.quote}&rdquo;</p>
+                <div className="mt-6 pt-4 border-t border-ink/15 label-meta opacity-70">
+                  {m.stat}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Membership card — supporting motif */}
+          <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+            <div>
+              <Label>Membership · free forever</Label>
+              <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+              <h3 className="font-display text-4xl md:text-5xl leading-[0.95]">
+                Show up three Saturdays, you're <span className="underline-sky">in.</span>
+              </h3>
+              <p className="mt-5 text-ink/70 leading-snug max-w-md">
+                No fees, no forms. Just the trail, the people, and a card that
+                says you're part of the pack.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={RSVP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center bg-ink text-bone px-5 py-3 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+                >
+                  JOIN THE CLUB →
+                </a>
+              </div>
+            </div>
+
+            <div className="relative max-w-md md:ml-auto bg-bone text-ink aspect-[1.586/1] flex flex-col border border-ink/15 shadow-[10px_10px_0_0_var(--sky)]">
+              <div className="h-7 bg-ink mt-5" />
+              <div className="flex-1 px-6 py-5 flex flex-col justify-between">
+                <div className="border border-ink px-3 py-2">
+                  <span className="font-mono italic text-sm md:text-base">your.name</span>
+                </div>
+                <div>
+                  <div className="font-display text-xl md:text-2xl leading-[0.95]">
+                    DO HARD THINGS
+                    <br />
+                    <span className="underline-sky">TOGETHER.</span>
+                  </div>
+                </div>
+                <div className="flex items-end justify-between">
+                  <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
+                    IF FOUND, RETURN TO GRYT · MONTOUR TRAIL · PITTSBURGH, PA
+                  </div>
+                  <div className="font-display text-2xl">G</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
@@ -780,147 +963,184 @@ function Index() {
       {/* ═══════════════════════ STRAVA CLUB ═══════════════════════ */}
       <StravaClubSection />
 
-      {/* ═══════════════════════ PR CARD ═══════════════════════ */}
-      <section className="bg-bone text-ink pb-20 md:pb-28">
+      {/* ═══════════════════════ JOURNAL ═══════════════════════ */}
+      <section id="journal" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
         <div className="px-6 md:px-10">
-          <Label>Personal record</Label>
-          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
-          <h2 className="font-display text-5xl md:text-7xl mb-12 md:mb-16 max-w-3xl">
-            BEAT YOUR <span className="underline-sky">SELF.</span>
-          </h2>
-
-          {/* Square share card */}
-          <div className="relative max-w-xl bg-sky-brand text-ink p-7 md:p-9 aspect-square flex flex-col overflow-hidden">
-            <div className="absolute inset-0 dot-grid-sky pointer-events-none" />
-
-            {/* Header */}
-            <div className="relative z-10 flex items-start justify-between">
-              <GrytLogo />
-              <div className="bg-ink text-bone label-meta px-3 py-1.5">
-                PERSONAL RECORD
-              </div>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Label>Journal</Label>
+              <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+              <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
+                Notes from the <span className="underline-sky">trail.</span>
+              </h2>
             </div>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
+            >
+              READ THE JOURNAL →
+            </a>
+          </div>
 
-            {/* Name */}
-            <div className="relative z-10 mt-6 md:mt-8">
-              <div className="font-display text-3xl md:text-4xl">MAIZE OKONKWO</div>
-              <div className="text-sm font-semibold mt-1">5 mile · saturday long run</div>
-            </div>
-
-            {/* Massive time */}
-            <div className="relative z-10 flex-1 flex items-center">
-              <div className="font-display text-[22vw] md:text-[10rem] leading-[0.85] tracking-tighter">
-                46:32
-              </div>
-            </div>
-
-            <div className="relative z-10 rule-thick bg-ink mb-4" />
-
-            {/* Stats row */}
-            <div className="relative z-10 grid grid-cols-3 gap-4 mb-6">
-              {[
-                { l: "PREV BEST", v: "49:10", s: "03.15.26" },
-                { l: "IMPROVEMENT", v: "−2:38", s: "5.4% FASTER" },
-                { l: "AVG PACE", v: "9:19/MI", s: "NEW BEST" },
-              ].map((x) => (
-                <div key={x.l}>
-                  <div className="label-meta opacity-70">{x.l}</div>
-                  <div className="font-display text-xl md:text-2xl mt-1">{x.v}</div>
-                  <div className="label-meta mt-1 opacity-50">{x.s}</div>
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15">
+            {[
+              {
+                tag: "Saturday recap · 04.19",
+                title: "Last Saturday: 11 runners, 2 first-timers, 41°F.",
+                body: "A cold start, a warm trail, and the longest post-run coffee yet.",
+                href: "#recap",
+              },
+              {
+                tag: "Member story",
+                title: "First run with GRYT: what to actually expect.",
+                body: "Where to park, what to wear, how the pace groups work, and why you'll stay for coffee.",
+                href: "#",
+              },
+              {
+                tag: "Training · Free",
+                title: "The GRYT marathon guide.",
+                body: "A simple, honest training plan for working adults. No fluff, no jargon.",
+                href: "https://grytmarathonguide.netlify.app/",
+                external: true,
+              },
+            ].map((p) => (
+              <a
+                key={p.title}
+                href={p.href}
+                target={p.external ? "_blank" : undefined}
+                rel={p.external ? "noopener noreferrer" : undefined}
+                className="bg-bone p-7 md:p-10 group hover:bg-ink hover:text-bone transition-colors flex flex-col min-h-[260px]"
+              >
+                <div className="label-meta opacity-60 group-hover:text-sky-brand group-hover:opacity-100">
+                  {p.tag}
                 </div>
-              ))}
-            </div>
-
-            {/* Footer with diagonal slash */}
-            <div className="relative z-10 flex items-end justify-between">
-              <div>
-                <DiagonalSlash
-                  className="-mb-3 -ml-2 relative"
-                  thickness={2}
-                  length="60px"
-                  rotate={-45}
-                />
-                <div className="font-display text-base md:text-lg mt-2">
-                  DO HARD THINGS <span className="underline-sky">TOGETHER.</span>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="label-meta">04.19.26</div>
-                <div className="label-meta">RUN 28</div>
-              </div>
-            </div>
+                <h3 className="font-display text-2xl md:text-3xl mt-4 leading-[1.05] flex-1">
+                  {p.title}
+                </h3>
+                <p className="mt-4 opacity-70 leading-snug">{p.body}</p>
+                <div className="mt-6 label-meta">READ →</div>
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════ MEMBERSHIP CARD ═══════════════════════ */}
-      <section
-        id="card"
-        className="bg-ink text-bone py-20 md:py-28 relative overflow-hidden border-t border-bone/10"
-      >
+      {/* ═══════════════════════ SHOP + RESOURCES ═══════════════════════ */}
+      <section id="shop" className="bg-ink text-bone border-t border-bone/10 relative overflow-hidden">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
-        <DiagonalSlash className="top-[15%] -right-[20%]" thickness={2} length="80%" />
-
-        <div className="px-6 md:px-10 relative z-10">
-          <Label>Membership · free forever</Label>
+        <div className="relative z-10 px-6 md:px-10 pt-20 md:pt-24 pb-6">
+          <Label>Tools for the long run</Label>
           <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
-          <h2 className="font-display text-5xl md:text-7xl mb-12 md:mb-16 max-w-3xl">
-            CARRY THE <span className="underline-sky">CARD.</span>
+          <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+            A little gear. A few <span className="underline-sky">guides.</span>
           </h2>
+        </div>
 
-          {/* Card mockup — credit card aspect */}
-          <div
-            id="rsvp"
-            className="relative max-w-md bg-bone text-ink aspect-[1.586/1] flex flex-col shadow-[10px_10px_0_0_var(--sky)]"
+        <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 border-t border-bone/15">
+          <div className="p-8 md:p-12 lg:p-16 border-b md:border-b-0 md:border-r border-bone/15">
+            <div className="label-meta text-sky-brand">SHOP</div>
+            <h3 className="font-display text-3xl md:text-4xl mt-3 leading-[1.05]">
+              Club tees, hats, stickers, and small-batch gear.
+            </h3>
+            <ul className="mt-8 space-y-3 text-bone/85">
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>GRYT tee · ink</span>
+                <span className="label-meta">$28</span>
+              </li>
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>Saturday cap · bone</span>
+                <span className="label-meta">$24</span>
+              </li>
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>Sticker pack · 3 ct</span>
+                <span className="label-meta">$6</span>
+              </li>
+            </ul>
+            <a
+              href="#"
+              className="mt-10 inline-flex items-center justify-center border border-bone/60 text-bone px-5 py-3 label-meta hover:bg-bone hover:text-ink transition-colors"
+            >
+              VISIT THE SHOP →
+            </a>
+          </div>
+
+          <div className="p-8 md:p-12 lg:p-16">
+            <div className="label-meta text-sky-brand">RESOURCES</div>
+            <h3 className="font-display text-3xl md:text-4xl mt-3 leading-[1.05]">
+              Free guides for showing up, training up, and racing.
+            </h3>
+            <ul className="mt-8 space-y-3 text-bone/85">
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>Marathon guide</span>
+                <a
+                  href="https://grytmarathonguide.netlify.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label-meta text-sky-brand hover:text-bone"
+                >
+                  DOWNLOAD →
+                </a>
+              </li>
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>Beginner plan · 8 weeks</span>
+                <span className="label-meta opacity-60">SOON</span>
+              </li>
+              <li className="flex items-baseline justify-between border-b border-bone/15 pb-3">
+                <span>Race-day checklist</span>
+                <span className="label-meta opacity-60">SOON</span>
+              </li>
+            </ul>
+            <a
+              href="https://grytmarathonguide.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-10 inline-flex items-center justify-center bg-sky-brand text-ink px-5 py-3 label-meta hover:bg-bone transition-colors"
+            >
+              GET THE MARATHON GUIDE →
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ EMAIL CAPTURE ═══════════════════════ */}
+      <section className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
+        <div className="px-6 md:px-10 grid grid-cols-1 md:grid-cols-12 gap-10 items-end">
+          <div className="md:col-span-7">
+            <Label>The weekly note</Label>
+            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+            <h2 className="font-display text-5xl md:text-6xl leading-[0.95]">
+              Get the <span className="underline-sky">weekly note.</span>
+            </h2>
+            <p className="mt-6 max-w-xl text-ink/70 leading-snug">
+              One email a week. Next Saturday's details, a quick recap of the last one,
+              and a couple of useful things for the long run. Nothing else.
+            </p>
+          </div>
+
+          <form
+            className="md:col-span-5 flex flex-col sm:flex-row gap-3"
+            onSubmit={(e) => e.preventDefault()}
           >
-            {/* Magstripe */}
-            <div className="h-7 bg-ink mt-5" />
-
-            {/* Body */}
-            <div className="flex-1 px-6 py-5 flex flex-col justify-between">
-              {/* Username field */}
-              <div className="border border-ink px-3 py-2">
-                <span className="font-mono italic text-sm md:text-base">maya.okonkwo</span>
-              </div>
-
-              {/* Tagline */}
-              <div>
-                <div className="font-display text-xl md:text-2xl leading-[0.95]">
-                  DO HARD THINGS
-                  <br />
-                  <span className="underline-sky">TOGETHER.</span>
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-end justify-between">
-                <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
-                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL / VALLEY BROOK · PITTSBURGH, PA
-                </div>
-                <div className="font-display text-2xl">G</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-12 flex flex-wrap gap-3">
-            <a
-              href="#"
-              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+            <label htmlFor="email" className="sr-only">Email address</label>
+            <input
+              id="email"
+              type="email"
+              required
+              placeholder="you@gryt.club"
+              className="flex-1 bg-bone border border-ink px-4 py-3.5 label-meta placeholder:opacity-50 focus:outline-none focus:bg-ink focus:text-bone"
+            />
+            <button
+              type="submit"
+              className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
             >
-              CLAIM YOUR CARD →
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
-            >
-              ABOUT MEMBERSHIP
-            </a>
-          </div>
+              SUBSCRIBE →
+            </button>
+          </form>
         </div>
       </section>
 
       {/* ═══════════════════════ FOOTER ═══════════════════════ */}
-      <footer className="bg-ink text-bone pt-20 pb-10 relative overflow-hidden border-t border-bone/10">
+      <footer id="about" className="bg-ink text-bone pt-20 pb-28 md:pb-12 relative overflow-hidden border-t border-bone/10">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
         <DiagonalSlash className="bottom-[40%] -left-[20%] opacity-50" thickness={1} length="160%" />
 
@@ -929,7 +1149,16 @@ function Index() {
             gryt
           </h3>
 
-          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6">
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-6">
+            <div>
+              <Label>About</Label>
+              <div className="rule-thin bg-bone mt-2 mb-4" />
+              <p className="text-bone/80 leading-snug text-sm">
+                GRYT is a Pittsburgh, PA run club for parents and adults 30+.
+                Founded by Laura and Nick Merich. We meet Saturdays at 7 AM on the Montour Trail in Canonsburg.
+              </p>
+            </div>
+
             <div>
               <Label>Tagline</Label>
               <div className="rule-thin bg-bone mt-2 mb-4" />
@@ -944,89 +1173,55 @@ function Index() {
               <Label>Find us</Label>
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <ul className="space-y-2 text-base">
-                <li><a href="#" className="hover:text-sky-brand transition-colors">instagram / @gryt.run</a></li>
-                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt</a></li>
-                <li><a href="#" className="hover:text-sky-brand transition-colors">email / hi@gryt.run</a></li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">instagram / @gryt.club</a></li>
+                <li><a href="https://www.strava.com/clubs/1708552" target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand transition-colors">strava / gryt</a></li>
+                <li><a href="mailto:hi@gryt.club" className="hover:text-sky-brand transition-colors">email / hi@gryt.club</a></li>
               </ul>
             </div>
 
             <div>
-              <Label>This week</Label>
+              <Label>This Saturday</Label>
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <a
-                href="#"
-                className="font-display text-3xl md:text-4xl hover:text-sky-brand transition-colors"
+                href={RSVP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-display text-2xl md:text-3xl hover:text-sky-brand transition-colors"
               >
-                gryt.run/sat →
+                7 AM · MONTOUR TRAIL →
               </a>
               <p className="text-bone/60 mt-3 text-sm leading-snug">
-                drop your email. one note a week. nothing else.
+                Pittsburgh / South Hills · Canonsburg, PA 15317
               </p>
             </div>
           </div>
 
-          {/* ─── Records / credits strip ─── */}
-          <div className="mt-16 border-t border-bone/15 pt-10">
-            <div className="grid grid-cols-12 gap-0 border border-bone/20">
-              {/* Imprint label */}
-              <div className="col-span-12 md:col-span-4 border-b md:border-b-0 md:border-r border-bone/20 p-6 md:p-8">
-                <Label className="text-bone">Imprint · Fig. 03</Label>
-                <div className="rule-thin bg-bone mt-2 mb-4 max-w-[120px]" />
-                <h4 className="font-display text-3xl md:text-4xl leading-[0.9]">
-                  DO HARD THINGS
-                  <br />
-                  <span className="underline-sky">TOGETHER</span>
-                  <br />
-                  RECORDS
-                </h4>
-                <p className="label-meta text-bone/60 mt-4">
-                  A GRYT IMPRINT · PITTSBURGH, PA
-                </p>
-              </div>
-
-              {/* Artist 1 */}
-              <div className="col-span-12 md:col-span-4 border-b md:border-b-0 md:border-r border-bone/20 p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <Label className="text-bone">Side A</Label>
-                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
-                </div>
-                <div>
-                  <div className="font-display text-2xl md:text-3xl leading-none">
-                    <span className="mark-sky">YUNG SPIELBERG</span>
-                  </div>
-                  <p className="label-meta text-bone/60 mt-3">
-                    DIRECTOR · MILE-MARKER FILMS
-                  </p>
-                </div>
-              </div>
-
-              {/* Artist 2 */}
-              <div className="col-span-12 md:col-span-4 p-6 md:p-8 flex flex-col justify-between">
-                <div>
-                  <Label className="text-bone">Side B</Label>
-                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
-                </div>
-                <div>
-                  <div className="font-display text-2xl md:text-3xl leading-none">
-                    <span className="mark-sky">NICK MERICH</span>
-                  </div>
-                  <p className="label-meta text-bone/60 mt-3">
-                    SOUND · ORIGINAL SCORES FOR THE LONG RUN
-                  </p>
-                </div>
-              </div>
-            </div>
-            <p className="label-meta text-bone/55 mt-4">
-              ALL TRACKS RECORDED ON THE PAVEMENT · MIXED AT 7:00 AM
-            </p>
-          </div>
-
-          <div className="mt-12 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
+          <div className="mt-16 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
             <div>© GRYT · PITTSBURGH, PA · {new Date().getFullYear()}</div>
-            <div>BUILT ON THE 18</div>
+            <div>FOUNDED BY LAURA & NICK MERICH</div>
           </div>
         </div>
       </footer>
+
+      {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-ink text-bone border-t border-bone/20 grid grid-cols-2">
+        <a
+          href={RSVP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-sky-brand text-ink py-4 text-center label-meta"
+        >
+          JOIN SATURDAY →
+        </a>
+        <a
+          href={DIRECTIONS_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="py-4 text-center label-meta hover:bg-bone hover:text-ink transition-colors"
+        >
+          GET DIRECTIONS
+        </a>
+      </div>
     </main>
   );
 }
