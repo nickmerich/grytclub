@@ -981,8 +981,6 @@ function Index() {
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
 
-      {/* ═══════════════════════ STRAVA CLUB ═══════════════════════ */}
-      <StravaClubSection />
 
       {/* ═══════════════════════ JOURNAL ═══════════════════════ */}
       <section id="journal" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
