@@ -673,7 +673,11 @@ function Index() {
         </div>
       </section>
 
+      {/* ═══════════════════════ STRAVA CLUB (living evidence) ═══════════════════════ */}
+      <StravaClubSection />
+
       {/* ═══════════════════════ THIS SATURDAY ═══════════════════════ */}
+
       <section id="run-club" className="bg-ink text-bone border-t border-bone/10">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="relative p-8 md:p-12 lg:p-16 border-b md:border-b-0 md:border-r border-bone/15 overflow-hidden">
