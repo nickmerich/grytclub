@@ -895,7 +895,7 @@ function Index() {
               {/* Footer */}
               <div className="flex items-end justify-between">
                 <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
-                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL/VALLEY BROOK · NYC
+                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL / VALLEY BROOK · PITTSBURGH, PA
                 </div>
                 <div className="font-display text-2xl">G</div>
               </div>
@@ -945,7 +945,7 @@ function Index() {
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <ul className="space-y-2 text-base">
                 <li><a href="#" className="hover:text-sky-brand transition-colors">instagram / @gryt.run</a></li>
-                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt nyc</a></li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt</a></li>
                 <li><a href="#" className="hover:text-sky-brand transition-colors">email / hi@gryt.run</a></li>
               </ul>
             </div>
@@ -980,7 +980,7 @@ function Index() {
                   RECORDS
                 </h4>
                 <p className="label-meta text-bone/60 mt-4">
-                  A GRYT IMPRINT · 18 · NYC
+                  A GRYT IMPRINT · PITTSBURGH, PA
                 </p>
               </div>
 
@@ -1022,7 +1022,7 @@ function Index() {
           </div>
 
           <div className="mt-12 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
-            <div>© GRYT · NYC · {new Date().getFullYear()}</div>
+            <div>© GRYT · PITTSBURGH, PA · {new Date().getFullYear()}</div>
             <div>BUILT ON THE 18</div>
           </div>
         </div>
