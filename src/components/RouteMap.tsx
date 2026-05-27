@@ -105,7 +105,7 @@ export function RouteMap() {
     <div
       ref={containerRef}
       role="img"
-      aria-label="Map of Saturday's run route in Mt Lebanon, PA"
+      aria-label="Map of Saturday's run route on the Montour Trail near Canonsburg, PA"
       className="w-full h-[420px] md:h-[520px] bg-bone"
     />
   );
