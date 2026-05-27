@@ -605,10 +605,9 @@ function StravaLightbox({
   );
 }
 
-const RSVP_URL =
-  "https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA==";
+const RSVP_URL = "https://www.strava.com/clubs/1708552";
 const DIRECTIONS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=Montour+Trail+Canonsburg+PA+15317";
+  "https://www.heylo.com/g/9446d69d-0852-4e63-b925-a934d79ebb15?inviteId=CiNFJ4Xn";
 
 /* ─── Persistent "next move" rail ─── */
 function NextMoveRail() {
