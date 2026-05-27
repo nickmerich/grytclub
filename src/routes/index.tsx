@@ -980,7 +980,7 @@ function Index() {
                   RECORDS
                 </h4>
                 <p className="label-meta text-bone/60 mt-4">
-                  A GRYT IMPRINT · 18 · NYC
+                  A GRYT IMPRINT · PITTSBURGH, PA
                 </p>
               </div>
 
