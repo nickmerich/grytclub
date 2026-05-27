@@ -1,9 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { RouteMap } from "@/components/RouteMap";
 import { ElevationChart } from "@/components/ElevationChart";
 import { HowToShowUpCarousel } from "@/components/HowToShowUpCarousel";
+
+/** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+  as = "div",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  as?: "div" | "section" | "header" | "li" | "h2" | "h3";
+}) {
+  const reduce = useReducedMotion();
+  const MotionTag = motion[as] as typeof motion.div;
+  return (
+    <MotionTag
+      initial={reduce ? false : { opacity: 0, y: 14 }}
+      whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1], delay }}
+      className={className}
+    >
+      {children}
+    </MotionTag>
+  );
+}
 
 export const Route = createFileRoute("/")({
   component: Index,
