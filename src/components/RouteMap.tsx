@@ -87,7 +87,7 @@ export function RouteMap() {
         iconAnchor: [9, 9],
       });
 
-      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Mt Lebanon Park");
+      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail");
       L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Coffee after");
 
       map.fitBounds(line.getBounds(), { padding: [32, 32] });
