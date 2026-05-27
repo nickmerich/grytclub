@@ -158,7 +158,7 @@ const RECAP = {
   ] as Roster,
 };
 
-const SHARE_BASE = "gryt.run/sat";
+const SHARE_BASE = "gryt.club/sat";
 
 const UTM_SOURCES = [
   { id: "instagram", label: "Instagram" },
