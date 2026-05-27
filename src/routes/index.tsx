@@ -374,10 +374,8 @@ function RecapSection() {
 
 const STRAVA_CLUB_ID = "1708552";
 const STRAVA_CLUB_URL = `https://www.strava.com/clubs/${STRAVA_CLUB_ID}`;
-// To activate the live activity feed: grab the embed token from
-// strava.com/clubs/1708552/edit → "Embed" / "Widget" and paste the
-// long string after `/latest-rides/` in the iframe src here.
-const STRAVA_EMBED_TOKEN = "";
+// Token from strava.com/clubs/1708552/edit → "Embed" / "Widget".
+const STRAVA_EMBED_TOKEN = "b76ca42ddb400c392ceee3ee06c641b84d840862";
 
 type StravaModal = null | "join" | "activity";
 
@@ -397,89 +395,112 @@ function StravaClubSection() {
       <DiagonalSlash className="bottom-[15%] -left-[20%] opacity-50" thickness={1} length="80%" />
 
       <div className="relative z-10 px-6 md:px-10">
-        <Label className="text-bone">On Strava</Label>
+        <Label className="text-bone">Live Club Activity</Label>
         <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
-        <div className="flex flex-wrap items-end justify-between gap-6 mb-12 md:mb-16">
-          <h2 className="font-display text-5xl md:text-7xl max-w-3xl">
-            FOLLOW THE <span className="underline-sky">CLUB.</span>
-          </h2>
+        <div className="flex flex-wrap items-end justify-between gap-6 mb-10 md:mb-14">
+          <div className="max-w-3xl">
+            <h2 className="font-display text-5xl md:text-7xl">
+              REAL PEOPLE. <br />REAL <span className="underline-sky">MILES.</span> EVERY WEEK.
+            </h2>
+            <p className="mt-5 text-bone/75 text-base md:text-lg max-w-xl leading-snug">
+              Pulled live from the GRYT Strava club. No filters, no stock photos —
+              just whatever the crew logged this week on the Montour Trail and beyond.
+            </p>
+          </div>
           <div className="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onClick={() => setModal("join")}
+            <a
+              href={STRAVA_CLUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
-              JOIN ON STRAVA →
-            </button>
+              JOIN THE STRAVA CLUB →
+            </a>
             <button
               type="button"
               onClick={() => setModal("activity")}
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
-              RECENT ACTIVITY
+              EXPAND FEED
             </button>
           </div>
         </div>
 
-        {/* Club identity card */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-bone/15 mb-10">
-          <div className="bg-ink p-6 md:p-8">
-            <Label className="text-bone">Club</Label>
-            <div className="rule-thin bg-bone mt-2 mb-4" />
-            <div className="font-display text-3xl md:text-4xl leading-none">GRYT</div>
-            <div className="label-meta mt-3 text-bone/60">ID · {STRAVA_CLUB_ID}</div>
+        {/* Two-column: editorial proof on the left, live widget on the right */}
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-px bg-bone/15 border border-bone/20">
+          <div className="lg:col-span-3 bg-ink p-6 md:p-10 flex flex-col justify-between gap-8">
+            <div className="grid grid-cols-3 gap-px bg-bone/15">
+              <div className="bg-ink p-4 md:p-6">
+                <Label className="text-bone">Club</Label>
+                <div className="rule-thin bg-bone mt-2 mb-3" />
+                <div className="font-display text-2xl md:text-3xl leading-none">GRYT</div>
+                <div className="label-meta mt-2 text-bone/60" style={{ fontSize: "10px" }}>ID · {STRAVA_CLUB_ID}</div>
+              </div>
+              <div className="bg-ink p-4 md:p-6">
+                <Label className="text-bone">Members</Label>
+                <div className="rule-thin bg-bone mt-2 mb-3" />
+                <div className="font-display text-2xl md:text-3xl leading-none">{RECAP.runners}+</div>
+                <div className="label-meta mt-2 text-bone/60" style={{ fontSize: "10px" }}>AND COUNTING</div>
+              </div>
+              <div className="bg-ink p-4 md:p-6">
+                <Label className="text-bone">Cadence</Label>
+                <div className="rule-thin bg-bone mt-2 mb-3" />
+                <div className="font-display text-2xl md:text-3xl leading-none">SAT · 7</div>
+                <div className="label-meta mt-2 text-bone/60" style={{ fontSize: "10px" }}>WEEKLY · ALL PACES</div>
+              </div>
+            </div>
+
+            <div>
+              <p className="font-display text-2xl md:text-3xl leading-tight max-w-xl">
+                this is what showing up <span className="underline-sky">looks like.</span>
+              </p>
+              <p className="mt-4 text-bone/70 text-sm md:text-base leading-snug max-w-lg">
+                Every ride and run on the right is from someone in the club this week.
+                Saturday at 7am, Montour Trail — come add yours.
+              </p>
+              <a
+                href={STRAVA_CLUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center justify-center bg-bone text-ink px-6 py-3.5 label-meta hover:bg-sky-brand transition-colors"
+              >
+                OPEN GRYT ON STRAVA →
+              </a>
+            </div>
           </div>
-          <div className="bg-ink p-6 md:p-8">
-            <Label className="text-bone">Members</Label>
-            <div className="rule-thin bg-bone mt-2 mb-4" />
-            <div className="font-display text-3xl md:text-4xl leading-none">{RECAP.runners}+</div>
-            <div className="label-meta mt-3 text-bone/60">AND COUNTING</div>
-          </div>
-          <div className="bg-ink p-6 md:p-8">
-            <Label className="text-bone">Cadence</Label>
-            <div className="rule-thin bg-bone mt-2 mb-4" />
-            <div className="font-display text-3xl md:text-4xl leading-none">SAT · 7AM</div>
-            <div className="label-meta mt-3 text-bone/60">WEEKLY · ALL PACES</div>
+
+          <div className="lg:col-span-2 bg-bone text-ink p-6 md:p-8 flex flex-col items-center">
+            <div className="w-full flex items-center justify-between mb-4">
+              <Label>Latest Rides</Label>
+              <span className="label-meta text-ink/55" style={{ fontSize: "10px" }}>LIVE · STRAVA</span>
+            </div>
+            <div className="rule-thin bg-ink w-full mb-5" />
+            <div className="w-full flex justify-center">
+              <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                <iframe
+                  title="GRYT Strava club — latest rides"
+                  src={embedSrc ?? `${STRAVA_CLUB_URL}/latest-rides`}
+                  loading="lazy"
+                  width={300}
+                  height={454}
+                  scrolling="no"
+                  allowTransparency
+                  className="block w-full"
+                  style={{ height: 454, border: 0 }}
+                />
+              </div>
+            </div>
+            <p className="label-meta mt-5 text-ink/55 text-center" style={{ fontSize: "10px" }}>
+              CLUB ID · {STRAVA_CLUB_ID} · RECENT RIDES & ATHLETES
+            </p>
           </div>
         </div>
-
-        {/* Live activity feed (or fallback) — also opens lightbox on click */}
-        <button
-          type="button"
-          onClick={() => setModal("activity")}
-          className="block w-full text-left relative bg-bone text-ink border border-bone/20 overflow-hidden group"
-        >
-          {embedSrc ? (
-            <iframe
-              title="GRYT Strava club latest activity"
-              src={embedSrc}
-              loading="lazy"
-              className="w-full pointer-events-none"
-              style={{ height: 460, border: 0 }}
-              allowTransparency
-            />
-          ) : (
-            <div className="p-8 md:p-12 flex flex-col items-start gap-6">
-              <div className="label-meta opacity-70">Latest club activity</div>
-              <div className="rule-thin bg-ink max-w-[120px]" />
-              <p className="font-display text-2xl md:text-3xl leading-tight max-w-2xl">
-                live feed lives on strava. <span className="underline-sky">tap in.</span>
-              </p>
-              <p className="text-sm md:text-base text-ink/70 max-w-xl leading-snug">
-                see every saturday run, every PR, every first-timer. join the club
-                to log your miles with the rest of GRYT.
-              </p>
-              <span className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta group-hover:bg-sky-brand group-hover:text-ink transition-colors">
-                OPEN GRYT ON STRAVA →
-              </span>
-            </div>
-          )}
-        </button>
 
         <p className="label-meta mt-5 text-bone/55">
           STRAVA CLUB · {STRAVA_CLUB_ID} · ALL ATHLETES, ALL PACES
         </p>
       </div>
+
 
       <StravaLightbox modal={modal} onClose={() => setModal(null)} embedSrc={embedSrc} />
     </section>
@@ -652,7 +673,11 @@ function Index() {
         </div>
       </section>
 
+      {/* ═══════════════════════ STRAVA CLUB (living evidence) ═══════════════════════ */}
+      <StravaClubSection />
+
       {/* ═══════════════════════ THIS SATURDAY ═══════════════════════ */}
+
       <section id="run-club" className="bg-ink text-bone border-t border-bone/10">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="relative p-8 md:p-12 lg:p-16 border-b md:border-b-0 md:border-r border-bone/15 overflow-hidden">
@@ -960,8 +985,6 @@ function Index() {
       {/* ═══════════════════════ RECAP STRIP ═══════════════════════ */}
       <RecapSection />
 
-      {/* ═══════════════════════ STRAVA CLUB ═══════════════════════ */}
-      <StravaClubSection />
 
       {/* ═══════════════════════ JOURNAL ═══════════════════════ */}
       <section id="journal" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10">
