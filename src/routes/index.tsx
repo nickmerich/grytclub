@@ -9,17 +9,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT Run Club — Do Hard Things Together" },
+      { title: "GRYT — Pittsburgh Run Club for Parents & Adults 30+" },
       {
         name: "description",
         content:
-          "GRYT is a free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail at Valley Brook. All paces welcome.",
+          "GRYT is a Pittsburgh, PA run club for parents and adults 30+. Saturdays at 7:00 AM on the Montour Trail in Canonsburg. All paces welcome. Coffee after.",
       },
-      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
+      { property: "og:title", content: "GRYT — Pittsburgh Run Club" },
       {
         property: "og:description",
         content:
-          "Free run club in Peters Township, PA. Saturdays at 7:00 AM on the Montour Trail. All paces welcome.",
+          "Pittsburgh's run club for parents and adults 30+ who want to do hard things together. Saturdays · 7 AM · Montour Trail.",
       },
       { property: "og:url", content: "https://gryt.club/" },
     ],
@@ -33,30 +33,31 @@ export const Route = createFileRoute("/")({
           name: "GRYT",
           alternateName: "GRYT Run Club",
           description:
-            "A run club for everyone who shows up. Saturdays at 7:00 AM. All paces welcome.",
-          url: "https://gryt.run/",
+            "Pittsburgh, PA run club for parents and adults 30+ looking for community. Just show up and grind.",
+          url: "https://gryt.club/",
           sport: "Running",
           slogan: "DO HARD THINGS TOGETHER",
           foundingDate: "2026",
-          areaServed: {
-            "@type": "Place",
-            name: "Peters Township, Pennsylvania",
-          },
+          founders: [
+            { "@type": "Person", name: "Laura Merich" },
+            { "@type": "Person", name: "Nick Merich" },
+          ],
+          areaServed: { "@type": "Place", name: "Pittsburgh, Pennsylvania" },
           location: {
             "@type": "Place",
-            name: "Montour Trail / Valley Brook",
+            name: "Montour Trail — Canonsburg, PA",
             address: {
               "@type": "PostalAddress",
-              addressLocality: "Peters Township",
+              addressLocality: "Canonsburg",
               addressRegion: "PA",
+              postalCode: "15317",
               addressCountry: "US",
             },
           },
           event: {
             "@type": "SportsEvent",
             name: "GRYT Saturday Run",
-            description:
-              "Weekly group run on the Montour Trail starting at Valley Brook. All paces welcome.",
+            description: "Weekly group run on the Montour Trail. All paces welcome. Coffee after.",
             eventSchedule: {
               "@type": "Schedule",
               repeatFrequency: "P1W",
@@ -65,19 +66,18 @@ export const Route = createFileRoute("/")({
             },
             location: {
               "@type": "Place",
-              name: "Montour Trail / Valley Brook",
+              name: "Montour Trail — Canonsburg, PA",
               address: {
                 "@type": "PostalAddress",
-                addressLocality: "Peters Township",
+                addressLocality: "Canonsburg",
                 addressRegion: "PA",
+                postalCode: "15317",
                 addressCountry: "US",
               },
             },
             organizer: { "@type": "Organization", name: "GRYT" },
           },
-          sameAs: [
-            "https://www.strava.com/clubs/1708552",
-          ],
+          sameAs: ["https://www.strava.com/clubs/1708552"],
         }),
       },
     ],
