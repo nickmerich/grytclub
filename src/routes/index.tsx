@@ -374,10 +374,8 @@ function RecapSection() {
 
 const STRAVA_CLUB_ID = "1708552";
 const STRAVA_CLUB_URL = `https://www.strava.com/clubs/${STRAVA_CLUB_ID}`;
-// To activate the live activity feed: grab the embed token from
-// strava.com/clubs/1708552/edit → "Embed" / "Widget" and paste the
-// long string after `/latest-rides/` in the iframe src here.
-const STRAVA_EMBED_TOKEN = "";
+// Token from strava.com/clubs/1708552/edit → "Embed" / "Widget".
+const STRAVA_EMBED_TOKEN = "b76ca42ddb400c392ceee3ee06c641b84d840862";
 
 type StravaModal = null | "join" | "activity";
 
