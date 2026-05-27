@@ -624,10 +624,10 @@ function Index() {
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
           <GrytLogo className="text-bone" />
           <nav className="hidden md:flex items-center gap-8 label-meta">
-            <a href="#run-club" className="hover:text-sky-brand transition-colors">RUN CLUB</a>
+            <a href="#next-move" className="hover:text-sky-brand transition-colors">SATURDAY</a>
+            <a href="#first-saturday" className="hover:text-sky-brand transition-colors">FIRST RUN</a>
             <a href="#members" className="hover:text-sky-brand transition-colors">MEMBERS</a>
             <a href="#journal" className="hover:text-sky-brand transition-colors">JOURNAL</a>
-            <a href="#shop" className="hover:text-sky-brand transition-colors">SHOP</a>
             <a href="#about" className="hover:text-sky-brand transition-colors">ABOUT</a>
           </nav>
           <a
@@ -649,21 +649,43 @@ function Index() {
         </header>
 
         {/* Headline block */}
-        <div className="relative z-10 px-6 md:px-10 pt-16 md:pt-24 pb-12 md:pb-16 flex-1 flex flex-col justify-center max-w-6xl">
-          <div className="label-meta text-sky-brand mb-6 md:mb-8">
-            A RUN CLUB · PITTSBURGH, PA
+        <div className="relative z-10 px-6 md:px-10 pt-12 md:pt-20 pb-12 md:pb-16 flex-1 flex flex-col justify-center max-w-6xl">
+          {/* Belief eyebrow — sits above the H1 as a statement, not a label */}
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
+            className="font-display text-xl md:text-2xl text-sky-brand mb-6 md:mb-8 max-w-3xl leading-[1.05]"
+          >
+            You don't need more motivation.
+            <br className="hidden sm:block" />
+            <span className="text-bone"> You need a better Saturday.</span>
+          </motion.p>
+
+          <div className="label-meta text-bone/55 mb-5 md:mb-6">
+            A RUN CLUB · PITTSBURGH, PA · EST. 2026
           </div>
-          <h1 className="font-display text-[11vw] md:text-[7.5vw] lg:text-[6.2vw] leading-[0.9] max-w-5xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.1 }}
+            className="font-display text-[11vw] md:text-[7.5vw] lg:text-[6.2vw] leading-[0.9] max-w-5xl"
+          >
             <span className="sr-only">GRYT Run Club — </span>
             Pittsburgh's run club for{" "}
             <span className="underline-sky">parents and adults 30+</span>{" "}
             who want to do hard things together.
-          </h1>
+          </motion.h1>
 
-          <div className="mt-10 md:mt-12 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="mt-10 md:mt-12 max-w-2xl"
+          >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              Join us every Saturday at 7:00 AM for a community run on the Montour Trail.
-              All paces welcome. Show up, meet good people, run at your pace, and grab coffee after.
+              Show up Saturday. All paces welcome. You don't need to be elite — just willing.
+              We run the Montour Trail, talk through mile two, and stay for coffee.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -673,23 +695,22 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                JOIN SATURDAY'S RUN →
+                JOIN SATURDAY →
               </a>
               <a
-                href="https://www.strava.com/clubs/1708552"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#next-move"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                JOIN THE STRAVA CLUB
+                SEE THIS WEEK'S RUN
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Proof strip */}
         <div className="relative z-10 border-t border-bone/15 px-6 md:px-10 py-5">
           <div className="flex flex-wrap items-center gap-x-8 gap-y-2 label-meta text-bone/80">
+            <span className="text-sky-brand">● LIVE</span>
             <span>25 MEMBERS</span>
             <span className="opacity-30">·</span>
             <span>WEEKLY SATURDAY RUNS</span>
@@ -697,9 +718,33 @@ function Index() {
             <span>PITTSBURGH, PA</span>
             <span className="opacity-30">·</span>
             <span>ALL PACES WELCOME</span>
+            <span className="opacity-30">·</span>
+            <span>PARENTS &amp; 30+</span>
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════ NEXT MOVE RAIL ═══════════════════════ */}
+      <NextMoveRail />
+
+      {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink text-bone border-t border-bone/20 shadow-[0_-6px_20px_rgba(0,0,0,0.35)]">
+        <div className="flex items-stretch">
+          <div className="flex-1 px-4 py-3 flex flex-col justify-center">
+            <div className="label-meta text-sky-brand" style={{ fontSize: "10px" }}>NEXT MOVE · SAT 7:00 AM</div>
+            <div className="font-display text-sm leading-tight mt-0.5">Montour Trail · Canonsburg</div>
+          </div>
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-sky-brand text-ink px-5 flex items-center label-meta"
+          >
+            RSVP →
+          </a>
+        </div>
+      </div>
+
 
       {/* ═══════════════════════ STRAVA CLUB (living evidence) ═══════════════════════ */}
       <StravaClubSection />
