@@ -662,7 +662,7 @@ function NextMoveRail() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
           >
-            DIRECTIONS
+            JOIN GROUP
           </a>
         </div>
       </div>
@@ -943,7 +943,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-5 py-3 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GET DIRECTIONS
+                JOIN GROUP
               </a>
             </div>
           </div>
@@ -996,7 +996,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
               >
-                OPEN IN MAPS
+                JOIN GROUP
               </a>
             </div>
           </div>
@@ -1491,7 +1491,7 @@ function Index() {
           rel="noopener noreferrer"
           className="py-4 text-center label-meta hover:bg-bone hover:text-ink transition-colors"
         >
-          GET DIRECTIONS
+          JOIN GROUP
         </a>
       </div>
     </main>
