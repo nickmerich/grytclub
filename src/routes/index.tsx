@@ -945,7 +945,7 @@ function Index() {
               <div className="rule-thin bg-bone mt-2 mb-4" />
               <ul className="space-y-2 text-base">
                 <li><a href="#" className="hover:text-sky-brand transition-colors">instagram / @gryt.run</a></li>
-                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt nyc</a></li>
+                <li><a href="#" className="hover:text-sky-brand transition-colors">strava / gryt</a></li>
                 <li><a href="#" className="hover:text-sky-brand transition-colors">email / hi@gryt.run</a></li>
               </ul>
             </div>
