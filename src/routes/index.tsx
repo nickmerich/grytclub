@@ -1022,7 +1022,7 @@ function Index() {
           </div>
 
           <div className="mt-12 pt-6 border-t border-bone/15 flex flex-col md:flex-row md:items-center md:justify-between gap-4 label-meta text-bone/60">
-            <div>© GRYT · NYC · {new Date().getFullYear()}</div>
+            <div>© GRYT · PITTSBURGH, PA · {new Date().getFullYear()}</div>
             <div>BUILT ON THE 18</div>
           </div>
         </div>
