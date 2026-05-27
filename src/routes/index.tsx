@@ -1116,17 +1116,21 @@ function Index() {
       {/* ═══════════════════════ HOW TO SHOW UP ═══════════════════════ */}
       <HowToShowUpCarousel />
 
+      {/* ═══════════════════════ YOUR FIRST SATURDAY ═══════════════════════ */}
+      <FirstSaturday />
+
       {/* ═══════════════════════ MEMBERS SPOTLIGHT ═══════════════════════ */}
       <section id="members" className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden">
         <div className="px-6 md:px-10 relative z-10">
           <Label>Meet the club</Label>
           <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
           <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-            Real people. Real <span className="underline-sky">miles.</span>
+            Becoming who they <span className="underline-sky">said they'd be.</span>
           </h2>
           <p className="mt-6 max-w-2xl text-ink/70 leading-snug">
             GRYT was started by Laura and Nick Merich in Pittsburgh because they wanted a Saturday
-            morning that was bigger than them. The club has grown one runner at a time.
+            morning that was bigger than them. The club is built one runner — and one earned
+            milestone — at a time.
           </p>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15">
@@ -1134,34 +1138,49 @@ function Index() {
               {
                 name: "LAURA MERICH",
                 role: "Co-founder · Pace setter",
+                milestone: "WEEK 28 · FOUNDER",
+                identity: "Parent · Pittsburgh",
                 quote: "I started GRYT because I needed a reason to be on the trail at 7 AM — turns out everyone else did too.",
-                stat: "Runs: 28",
+                stat: "Runs: 28 · First Race: ✓",
               },
               {
                 name: "NICK MERICH",
                 role: "Co-founder · Coffee captain",
+                milestone: "WEEK 28 · FOUNDER",
+                identity: "Parent · Pittsburgh",
                 quote: "It's not about how fast you go. It's about who's there when you finish.",
-                stat: "Runs: 28",
+                stat: "Runs: 28 · First Race: ✓",
               },
               {
                 name: "MOE",
-                role: "First-timer · April",
+                role: "Comeback runner · April",
+                milestone: "FIRST RUN ✓ · WEEK 4",
+                identity: "Returning runner · 3-year gap",
                 quote: "Hadn't run in three years. Showed up, walked half, nobody cared. I'm back this Saturday.",
-                stat: "Runs: 4",
+                stat: "Runs: 4 · Next: 5K",
               },
-            ].map((m) => (
-              <div key={m.name} className="bg-bone p-7 md:p-10 flex flex-col justify-between min-h-[280px]">
-                <div>
-                  <div className="label-meta opacity-60">{m.role}</div>
-                  <div className="font-display text-2xl md:text-3xl mt-2">{m.name}</div>
+            ].map((m, i) => (
+              <Reveal key={m.name} delay={i * 0.08}>
+                <div className="bg-bone p-7 md:p-10 flex flex-col justify-between min-h-[320px] h-full">
+                  <div>
+                    <div className="inline-block bg-ink text-bone label-meta px-2.5 py-1.5" style={{ fontSize: "10px" }}>
+                      {m.milestone}
+                    </div>
+                    <div className="label-meta opacity-60 mt-4">{m.role}</div>
+                    <div className="font-display text-2xl md:text-3xl mt-2">{m.name}</div>
+                    <div className="label-meta opacity-50 mt-2" style={{ fontSize: "10px" }}>
+                      {m.identity}
+                    </div>
+                  </div>
+                  <p className="mt-6 text-ink/80 leading-snug italic">&ldquo;{m.quote}&rdquo;</p>
+                  <div className="mt-6 pt-4 border-t border-ink/15 label-meta opacity-70">
+                    {m.stat}
+                  </div>
                 </div>
-                <p className="mt-6 text-ink/80 leading-snug italic">&ldquo;{m.quote}&rdquo;</p>
-                <div className="mt-6 pt-4 border-t border-ink/15 label-meta opacity-70">
-                  {m.stat}
-                </div>
-              </div>
+              </Reveal>
             ))}
           </div>
+
 
           {/* Membership card — supporting motif */}
           <div className="mt-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
