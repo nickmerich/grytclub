@@ -769,7 +769,8 @@ function FirstSaturday() {
 
 function Index() {
   return (
-    <main className="bg-bone text-ink overflow-hidden">
+    <main className="bg-bone text-ink overflow-hidden pb-[68px] md:pb-0">
+
       {/* ═══════════════════════ HERO ═══════════════════════ */}
       <section className="relative bg-ink text-bone min-h-screen flex flex-col overflow-hidden">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
