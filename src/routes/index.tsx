@@ -610,6 +610,163 @@ const RSVP_URL =
 const DIRECTIONS_URL =
   "https://www.google.com/maps/dir/?api=1&destination=Montour+Trail+Canonsburg+PA+15317";
 
+/* ─── Persistent "next move" rail ─── */
+function NextMoveRail() {
+  const items = [
+    { label: "When", value: "SAT · 7:00 AM", sub: "WEEKLY" },
+    { label: "Where", value: "MONTOUR TRAIL", sub: "CANONSBURG, PA" },
+    { label: "Pace", value: "ANY", sub: "WALK · JOG · RUN" },
+    { label: "First-timer?", value: "JUST SHOW UP", sub: "WE'LL FIND YOU" },
+  ];
+  return (
+    <section
+      id="next-move"
+      aria-label="This Saturday — the next move"
+      className="relative bg-sky-brand text-ink border-t border-ink/15"
+    >
+      <div className="px-6 md:px-10 py-6 md:py-7 flex flex-wrap items-center justify-between gap-x-10 gap-y-5">
+        <div className="flex items-center gap-4 min-w-0">
+          <span
+            aria-hidden
+            className="inline-block w-2.5 h-2.5 bg-ink rounded-full animate-pulse"
+          />
+          <div>
+            <div className="label-meta opacity-70" style={{ fontSize: "10px" }}>NEXT MOVE</div>
+            <div className="font-display text-xl md:text-2xl leading-none mt-1">
+              THIS SATURDAY · MONTOUR TRAIL · 7:00 AM
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden lg:flex items-stretch gap-px bg-ink/20">
+          {items.map((it) => (
+            <div key={it.label} className="bg-sky-brand px-4 py-1">
+              <div className="label-meta opacity-65" style={{ fontSize: "10px" }}>{it.label}</div>
+              <div className="font-display text-base leading-tight mt-0.5">{it.value}</div>
+              <div className="label-meta opacity-55" style={{ fontSize: "9px" }}>{it.sub}</div>
+            </div>
+          ))}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center bg-ink text-bone px-5 py-3 label-meta hover:bg-bone hover:text-ink transition-colors"
+          >
+            RSVP →
+          </a>
+          <a
+            href={DIRECTIONS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
+          >
+            DIRECTIONS
+          </a>
+        </div>
+      </div>
+
+      {/* Compact summary chips for tablet/mobile */}
+      <div className="lg:hidden border-t border-ink/15 px-6 md:px-10 py-3 flex flex-wrap items-center gap-x-6 gap-y-1 label-meta">
+        {items.map((it) => (
+          <span key={it.label}>
+            <span className="opacity-60">{it.label.toUpperCase()} · </span>
+            <span>{it.value}</span>
+          </span>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ─── Your first Saturday — 4-step orientation flow ─── */
+function FirstSaturday() {
+  const steps = [
+    {
+      n: "01",
+      label: "PARK",
+      title: "Park at the Montour Trail trailhead.",
+      body: "Cecil Park / Hendersonville access in Canonsburg, PA 15317. Free lot, plenty of room before 7. Bathrooms on-site.",
+    },
+    {
+      n: "02",
+      label: "FIND THE FLAG",
+      title: "Look for the sky-blue GRYT flag.",
+      body: "We post up near the trail entrance by 6:50. Sky-blue flag, a few coolers, and people who look as cold as you feel.",
+    },
+    {
+      n: "03",
+      label: "PICK A PACE GROUP",
+      title: "Find your pace — or take the walk-run group.",
+      body: "We split into 8:30, 9:30, 10:30, and walk-run. No one runs solo. Tell us it's your first one and we'll walk you over.",
+    },
+    {
+      n: "04",
+      label: "COFFEE AFTER",
+      title: "Stay 20 minutes for coffee.",
+      body: "Two minutes from the trailhead. This is where the club actually gets built — the run is just the reason we're there.",
+    },
+  ];
+  return (
+    <section
+      id="first-saturday"
+      className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden"
+    >
+      <div className="px-6 md:px-10">
+        <Reveal>
+          <Label>Your first Saturday</Label>
+          <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+              Never been? <span className="underline-sky">Here's exactly</span> what happens.
+            </h2>
+            <p className="max-w-md text-ink/65 leading-snug">
+              First-timers always show up nervous. So here's the whole thing,
+              start to coffee, no surprises.
+            </p>
+          </div>
+        </Reveal>
+
+        <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/15">
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 0.07}>
+              <div className="bg-bone p-7 md:p-10 h-full flex flex-col">
+                <div className="flex items-baseline justify-between">
+                  <div className="font-display text-5xl md:text-6xl leading-none">{s.n}</div>
+                  <div className="label-meta text-sky-brand">{s.label}</div>
+                </div>
+                <div className="rule-thin bg-ink mt-5 mb-5" />
+                <h3 className="font-display text-xl md:text-2xl leading-[1.1]">{s.title}</h3>
+                <p className="mt-4 text-ink/70 leading-snug text-sm md:text-base flex-1">{s.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-wrap items-center gap-3">
+          <a
+            href={RSVP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+          >
+            I'M IN FOR SATURDAY →
+          </a>
+          <a
+            href="mailto:hi@gryt.club?subject=First%20Saturday"
+            className="inline-flex items-center justify-center border border-ink text-ink px-6 py-3.5 label-meta hover:bg-ink hover:text-bone transition-colors"
+          >
+            ASK A QUESTION FIRST
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
 function Index() {
   return (
     <main className="bg-bone text-ink overflow-hidden">
