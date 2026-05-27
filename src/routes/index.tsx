@@ -605,10 +605,9 @@ function StravaLightbox({
   );
 }
 
-const RSVP_URL =
-  "https://www.strava.com/clubs/1708552/group_events/3480014931408029926/occurrences/FQIWzKOM-ozJv8tgHBTUHxQKFAQUDhQAFAAAHBaAjsOFvWcAAA==";
+const RSVP_URL = "https://www.strava.com/clubs/1708552";
 const DIRECTIONS_URL =
-  "https://www.google.com/maps/dir/?api=1&destination=Montour+Trail+Canonsburg+PA+15317";
+  "https://www.heylo.com/g/9446d69d-0852-4e63-b925-a934d79ebb15?inviteId=CiNFJ4Xn";
 
 /* ─── Persistent "next move" rail ─── */
 function NextMoveRail() {
@@ -663,7 +662,7 @@ function NextMoveRail() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
           >
-            DIRECTIONS
+            JOIN GROUP
           </a>
         </div>
       </div>
@@ -944,7 +943,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-5 py-3 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GET DIRECTIONS
+                JOIN GROUP
               </a>
             </div>
           </div>
@@ -997,7 +996,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-ink text-ink px-5 py-3 label-meta hover:bg-ink hover:text-bone transition-colors"
               >
-                OPEN IN MAPS
+                JOIN GROUP
               </a>
             </div>
           </div>
@@ -1492,7 +1491,7 @@ function Index() {
           rel="noopener noreferrer"
           className="py-4 text-center label-meta hover:bg-bone hover:text-ink transition-colors"
         >
-          GET DIRECTIONS
+          JOIN GROUP
         </a>
       </div>
     </main>
