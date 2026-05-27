@@ -895,7 +895,7 @@ function Index() {
               {/* Footer */}
               <div className="flex items-end justify-between">
                 <div className="label-meta opacity-70" style={{ fontSize: "9px" }}>
-                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL/VALLEY BROOK · NYC
+                  IF FOUND, RETURN TO GRYT · MONTOUR TRAIL / VALLEY BROOK · PITTSBURGH, PA
                 </div>
                 <div className="font-display text-2xl">G</div>
               </div>
