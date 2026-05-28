@@ -534,7 +534,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                JOIN ON STRAVA →
+                EVENTS & STATS ON STRAVA →
               </a>
               <a
                 href={HEYLO_URL}
@@ -542,7 +542,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                JOIN ON HEYLO →
+                GROUP CHAT ON HEYLO →
               </a>
             </div>
           </div>
