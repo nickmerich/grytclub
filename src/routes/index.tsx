@@ -2,6 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
+import runGroup from "@/assets/run-group.jpg";
+import runIndividual from "@/assets/run-individual.jpg";
+import runVibes from "@/assets/run-vibes.jpg";
+import runTrail from "@/assets/run-trail.jpg";
+
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
 function Reveal({
@@ -380,6 +385,40 @@ function Index() {
             ))}
           </div>
 
+          {/* Field gallery — shots from the run */}
+          <Reveal>
+            <div className="mt-14 md:mt-20 flex items-end justify-between gap-6 mb-6">
+              <div>
+                <Label className="text-bone">Field notes</Label>
+                <div className="rule-thin bg-bone mt-2 max-w-[80px]" />
+              </div>
+              <p className="label-meta text-bone/55 hidden md:block">SHOT ON THE TRAIL · NO FILTERS</p>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-bone/15 border border-bone/20">
+            {[
+              { src: runGroup, alt: "GRYT run club running together at dawn on the Montour Trail", caption: "MILE 1 · THE GROUP" },
+              { src: runIndividual, alt: "Close-up portrait of a GRYT runner mid-stride", caption: "MILE 2 · THE WORK" },
+              { src: runTrail, alt: "Empty Montour Trail at sunrise in Pittsburgh", caption: "7:00 AM · TRAILHEAD" },
+              { src: runVibes, alt: "Runners gathered post-run with coffee and water", caption: "AFTER · COFFEE" },
+            ].map((img, i) => (
+              <Reveal key={img.caption} delay={i * 0.04}>
+                <figure className="relative bg-ink aspect-[3/4] overflow-hidden group">
+                  <img
+                    src={img.src}
+                    alt={img.alt}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+                  <figcaption className="absolute bottom-3 left-3 right-3 label-meta text-bone" style={{ fontSize: "10px" }}>
+                    {img.caption}
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
               href={STRAVA_URL}
@@ -400,6 +439,7 @@ function Index() {
           </div>
         </div>
       </section>
+
 
       {/* ═══════════════════════ 3. WHO SHOWS UP ═══════════════════════ */}
       <section
@@ -455,6 +495,50 @@ function Index() {
             ))}
           </div>
 
+          {/* Testimonials */}
+          <Reveal>
+            <div className="mt-16 md:mt-24 flex items-end justify-between gap-6 mb-8">
+              <div>
+                <Label>From the group</Label>
+                <div className="rule-thin bg-ink mt-2 max-w-[80px]" />
+              </div>
+              <p className="label-meta text-ink/55 hidden md:block">REAL QUOTES · LIGHTLY EDITED</p>
+            </div>
+          </Reveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15">
+            {[
+              {
+                quote: "I'd been telling myself I'd \"start running again\" for two years. Showed up one Saturday in old shoes. Haven't missed one since.",
+                name: "Mike R.",
+                meta: "DAD OF 2 · MT. LEBANON",
+              },
+              {
+                quote: "It's the only thing on my calendar that's just mine. The kids are still asleep when I get home and I feel like a person again.",
+                name: "Sarah K.",
+                meta: "MOM · UPPER ST. CLAIR",
+              },
+              {
+                quote: "I came for the run. I stayed because nobody talks down to you about your pace and the coffee after is genuinely the best part of my week.",
+                name: "Dan P.",
+                meta: "37 · SOUTH HILLS",
+              },
+            ].map((t, i) => (
+              <Reveal key={t.name} delay={i * 0.06}>
+                <figure className="bg-bone p-7 md:p-9 h-full flex flex-col">
+                  <div className="font-display text-3xl text-sky-brand leading-none mb-4">"</div>
+                  <blockquote className="font-display text-xl md:text-[1.45rem] leading-[1.25] flex-1">
+                    {t.quote}
+                  </blockquote>
+                  <div className="rule-thin bg-ink mt-6 mb-3 max-w-[40px]" />
+                  <figcaption>
+                    <div className="font-display text-lg leading-none">{t.name}</div>
+                    <div className="label-meta text-ink/55 mt-1" style={{ fontSize: "10px" }}>{t.meta}</div>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+
           <div className="mt-12 flex flex-wrap items-center gap-3">
             <a
               href={STRAVA_URL}
@@ -475,6 +559,47 @@ function Index() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════════════════ TECH STACK STRIP ═══════════════════════ */}
+      <section className="bg-bone text-ink border-t border-ink/10 py-10 md:py-14">
+        <div className="px-6 md:px-10">
+          <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
+            <div className="flex items-center gap-4">
+              <Label>The stack</Label>
+              <div className="rule-thin bg-ink w-12" />
+              <p className="label-meta text-ink/60">HOW THE CLUB RUNS</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+              {[
+                { name: "STRAVA", role: "EVENTS · STATS", href: STRAVA_URL },
+                { name: "HEYLO", role: "GROUP CHAT", href: HEYLO_URL },
+                { name: "GARMIN", role: "WATCHES" },
+                { name: "APPLE HEALTH", role: "SYNC" },
+                { name: "SPOTIFY", role: "MILE 2 PLAYLIST" },
+              ].map((tool) =>
+                tool.href ? (
+                  <a
+                    key={tool.name}
+                    href={tool.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-baseline gap-2 hover:text-sky-brand transition-colors"
+                  >
+                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
+                    <span className="label-meta text-ink/45 group-hover:text-sky-brand/70" style={{ fontSize: "9px" }}>{tool.role}</span>
+                  </a>
+                ) : (
+                  <div key={tool.name} className="inline-flex items-baseline gap-2">
+                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
+                    <span className="label-meta text-ink/45" style={{ fontSize: "9px" }}>{tool.role}</span>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       {/* ═══════════════════════ 4. LEARN MORE ═══════════════════════ */}
       <section
