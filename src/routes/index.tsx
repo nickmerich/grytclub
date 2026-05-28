@@ -190,7 +190,7 @@ function Index() {
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
-            JOIN ON STRAVA →
+            EVENTS ON STRAVA →
           </a>
           <a
             href={STRAVA_URL}
