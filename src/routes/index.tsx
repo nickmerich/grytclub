@@ -100,7 +100,7 @@ function Label({ children, className = "" }: { children: ReactNode; className?: 
 
 function GrytLogo({ className = "" }: { className?: string }) {
   return (
-    <span className={`logo-lockup text-lg md:text-xl tracking-tight ${className}`}>GRYT</span>
+    <span className={`wordmark text-2xl md:text-3xl ${className}`}>gryt</span>
   );
 }
 
