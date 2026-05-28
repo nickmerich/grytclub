@@ -234,6 +234,9 @@ function Index() {
             <p className="text-base md:text-lg text-bone/85 leading-snug">
               Every Saturday at 7 AM we meet on the Montour/Peters Trail in McMurray, run a few miles,
               talk through mile two, and stay for coffee. All paces. Just show up.
+              <span className="block mt-3 text-bone/65">
+                Strava is where we post events and track every run. Heylo is our group chat for week-to-week banter and meetups.
+              </span>
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
