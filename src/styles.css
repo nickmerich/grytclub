@@ -34,9 +34,11 @@
   --color-bone: var(--bone);
   --color-sky: var(--sky);
   --color-pure: var(--pure);
+  --color-gold: var(--gold);
+  --color-paper: var(--paper);
 
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Inter", system-ui, sans-serif;
+  --font-sans: "Montserrat", "Inter", system-ui, sans-serif;
+  --font-display: "Oswald", "Inter", system-ui, sans-serif;
 }
 
 :root {
