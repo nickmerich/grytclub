@@ -91,11 +91,12 @@
   body {
     background-color: var(--bone);
     color: var(--ink);
-    font-family: "Inter", system-ui, sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    font-family: "Montserrat", "Inter", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  ::selection { background: var(--sky); color: var(--ink); }
 }
 
 @layer utilities {
