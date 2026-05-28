@@ -102,52 +102,66 @@
 @layer utilities {
   .bg-ink { background-color: var(--ink); }
   .bg-bone { background-color: var(--bone); }
+  .bg-paper { background-color: var(--paper); }
   .bg-sky-brand { background-color: var(--sky); }
+  .bg-gold { background-color: var(--gold); }
   .bg-pure { background-color: var(--pure); }
 
   .text-ink { color: var(--ink); }
   .text-bone { color: var(--bone); }
   .text-sky-brand { color: var(--sky); }
+  .text-gold { color: var(--gold); }
   .text-pure { color: var(--pure); }
 
   .border-ink { border-color: var(--ink); }
   .border-bone { border-color: var(--bone); }
   .border-sky-brand { border-color: var(--sky); }
+  .border-gold { border-color: var(--gold); }
 
-  /* Display headline style - GRYT signature */
+  /* Display headline style - GRYT signature (Oswald, brand v3) */
   .font-display {
-    font-family: "Inter", system-ui, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.03em;
-    line-height: 0.9;
+    font-family: "Oswald", "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.005em;
+    line-height: 0.92;
     text-transform: uppercase;
+  }
+
+  /* Editorial italic accent (brand v3 — Silver Editorial / Georgia italic) */
+  .font-editorial {
+    font-family: "Georgia", "Silver Editorial", serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    text-transform: none;
   }
 
   /* GRYT logo wordmark - lowercase, tight */
   .wordmark {
-    font-family: "Inter", system-ui, sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.06em;
-    text-transform: lowercase;
+    font-family: "Oswald", "Inter", system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     line-height: 0.85;
   }
 
   /* UI label - the 'GRYT' uppercase logo lockup */
   .logo-lockup {
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: "Oswald", "Inter", system-ui, sans-serif;
     font-weight: 800;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
 
   .label-meta {
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: "Oswald", "Inter", system-ui, sans-serif;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     font-size: 11px;
     line-height: 1.4;
   }
+
 
   /* Sky blue underline emphasis - thick block sitting behind word */
   .underline-sky {
