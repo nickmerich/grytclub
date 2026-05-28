@@ -203,20 +203,32 @@
   }
 
   /* Dot grid texture for dark panels */
+  /* Dot grid / halftone texture — brand v3 signature (3px spacing) */
   .dot-grid {
-    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
-    background-size: 14px 14px;
+    background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.2px);
+    background-size: 3px 3px;
+  }
+
+  /* Concrete: layered radial wash + dot overlay for dark hero panels */
+  .dot-concrete {
+    background-color: #0a0908;
+    background-image:
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.06), transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.03), transparent 50%),
+      radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1.2px);
+    background-size: auto, auto, 3px 3px;
   }
 
   .dot-grid-sky {
-    background-image: radial-gradient(rgba(10,10,10,0.10) 1px, transparent 1px);
-    background-size: 14px 14px;
+    background-image: radial-gradient(rgba(0,0,0,0.06) 1px, transparent 1.2px);
+    background-size: 3px 3px;
   }
 
   .dot-grid-bone {
-    background-image: radial-gradient(rgba(10,10,10,0.08) 1px, transparent 1px);
-    background-size: 14px 14px;
+    background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1.2px);
+    background-size: 3px 3px;
   }
+
 
   .rule-thin {
     height: 1px;
