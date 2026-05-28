@@ -44,10 +44,13 @@
 :root {
   --radius: 0;
 
-  /* GRYT palette — exact spec */
-  --ink: #0A0A0A;
-  --bone: #F4F0E8;
-  --sky: #8FD0EE;
+  /* GRYT palette — brand guidelines v3 */
+  --ink: #000000;
+  --bone: #FFFFFF;
+  --paper: #F0F0F0;
+  --sky: #89CFF0;
+  --sky-deep: #3A7CA5;
+  --gold: #E8B73A;
   --pure: #FFFFFF;
 
   --background: var(--bone);
