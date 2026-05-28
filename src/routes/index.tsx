@@ -271,7 +271,7 @@ function Index() {
             rel="noopener noreferrer"
             className="flex-1 bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center label-meta"
           >
-            STRAVA →
+            STRAVA · EVENTS →
           </a>
           <a
             href={HEYLO_URL}
@@ -279,7 +279,7 @@ function Index() {
             rel="noopener noreferrer"
             className="flex-1 bg-bone text-ink px-4 py-3.5 flex items-center justify-center label-meta border-l border-ink/20"
           >
-            HEYLO →
+            HEYLO · CHAT →
           </a>
         </div>
       </div>
