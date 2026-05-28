@@ -131,30 +131,43 @@
     text-transform: uppercase;
   }
 
-  /* Editorial italic accent (brand v3 — Silver Editorial / Georgia italic) */
+  /* Editorial italic accent (brand v3 — Silver Editorial / Georgia italic)
+     Gold on light surfaces, sky-blue on dark surfaces. */
   .font-editorial {
     font-family: "Georgia", "Silver Editorial", serif;
     font-style: italic;
     font-weight: 400;
     letter-spacing: -0.005em;
     text-transform: none;
+    color: var(--gold-deep);
   }
+  .bg-ink .font-editorial,
+  .dark .font-editorial,
+  .text-bone .font-editorial { color: var(--sky); }
 
-  /* GRYT logo wordmark - lowercase, tight */
+  /* GRYT logo wordmark — lowercase 'gryt' with offset sky shadow */
   .wordmark {
-    font-family: "Oswald", "Inter", system-ui, sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    line-height: 0.85;
+    font-family: "Montserrat", "Satoshi", system-ui, sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    text-transform: lowercase;
+    line-height: 0.8;
+    color: var(--bone);
+    text-shadow: 0.08em 0.08em 0 var(--sky);
+  }
+  .wordmark.on-light {
+    color: var(--ink);
+    text-shadow: 0.08em 0.08em 0 var(--sky);
   }
 
-  /* UI label - the 'GRYT' uppercase logo lockup */
+  /* UI label — compact 'gryt' lockup used in nav/footer */
   .logo-lockup {
-    font-family: "Oswald", "Inter", system-ui, sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    font-family: "Montserrat", "Satoshi", system-ui, sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    text-transform: lowercase;
+    line-height: 0.85;
+    text-shadow: 0.06em 0.06em 0 var(--sky);
   }
 
   .label-meta {
@@ -167,7 +180,7 @@
   }
 
 
-  /* Sky blue underline emphasis - thick block sitting behind word */
+  /* Sky highlight — signature angled slash bar behind a word (-6deg) */
   .underline-sky {
     position: relative;
     display: inline-block;
@@ -178,16 +191,19 @@
     position: absolute;
     left: -0.04em;
     right: -0.04em;
-    bottom: 0.06em;
+    top: 54%;
     height: 0.18em;
     background-color: var(--sky);
+    transform: rotate(-6deg);
     z-index: -1;
   }
 
   /* Smaller variant for body-scale text */
   .underline-sky-sm::after {
     height: 6px;
+    top: auto;
     bottom: -2px;
+    transform: none;
   }
 
   /* Sky highlighter marker behind text */
