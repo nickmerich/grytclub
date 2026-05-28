@@ -2,10 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
-import runGroup from "@/assets/run-group.jpg";
-import runIndividual from "@/assets/run-individual.jpg";
-import runVibes from "@/assets/run-vibes.jpg";
-import runTrail from "@/assets/run-trail.jpg";
 
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
