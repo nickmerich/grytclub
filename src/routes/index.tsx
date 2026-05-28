@@ -385,39 +385,8 @@ function Index() {
             ))}
           </div>
 
-          {/* Field gallery — shots from the run */}
-          <Reveal>
-            <div className="mt-14 md:mt-20 flex items-end justify-between gap-6 mb-6">
-              <div>
-                <Label className="text-bone">Field notes</Label>
-                <div className="rule-thin bg-bone mt-2 max-w-[80px]" />
-              </div>
-              <p className="label-meta text-bone/55 hidden md:block">SHOT ON THE TRAIL · NO FILTERS</p>
-            </div>
-          </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-bone/15 border border-bone/20">
-            {[
-              { src: runGroup, alt: "GRYT run club running together at dawn on the Montour Trail", caption: "MILE 1 · THE GROUP" },
-              { src: runIndividual, alt: "Close-up portrait of a GRYT runner mid-stride", caption: "MILE 2 · THE WORK" },
-              { src: runTrail, alt: "Empty Montour Trail at sunrise in Pittsburgh", caption: "7:00 AM · TRAILHEAD" },
-              { src: runVibes, alt: "Runners gathered post-run with coffee and water", caption: "AFTER · COFFEE" },
-            ].map((img, i) => (
-              <Reveal key={img.caption} delay={i * 0.04}>
-                <figure className="relative bg-ink aspect-[3/4] overflow-hidden group">
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-[1.03] transition-all duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
-                  <figcaption className="absolute bottom-3 left-3 right-3 label-meta text-bone" style={{ fontSize: "10px" }}>
-                    {img.caption}
-                  </figcaption>
-                </figure>
-              </Reveal>
-            ))}
-          </div>
+
+
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
