@@ -47,10 +47,14 @@
   /* GRYT palette — brand guidelines v3 */
   --ink: #000000;
   --bone: #FFFFFF;
-  --paper: #F0F0F0;
+  --paper: #FAFAFA;
+  --paper-3: #F4F4F4;
   --sky: #89CFF0;
   --sky-deep: #3A7CA5;
+  --sky-deeper: #1F5B7E;
+  --sky-light: #F0F8FE;
   --gold: #E8B73A;
+  --gold-deep: #CF9C22;
   --pure: #FFFFFF;
 
   --background: var(--bone);
