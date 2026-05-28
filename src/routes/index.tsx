@@ -190,7 +190,7 @@ function Index() {
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
-            JOIN ON STRAVA →
+            EVENTS ON STRAVA →
           </a>
           <a
             href={STRAVA_URL}
@@ -234,6 +234,9 @@ function Index() {
             <p className="text-base md:text-lg text-bone/85 leading-snug">
               Every Saturday at 7 AM we meet on the Montour/Peters Trail in McMurray, run a few miles,
               talk through mile two, and stay for coffee. All paces. Just show up.
+              <span className="block mt-3 text-bone/65">
+                Strava is where we post events and track every run. Heylo is our group chat for week-to-week banter and meetups.
+              </span>
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -243,7 +246,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                JOIN ON STRAVA →
+                EVENTS & STATS ON STRAVA →
               </a>
               <a
                 href={HEYLO_URL}
@@ -251,7 +254,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                JOIN ON HEYLO →
+                GROUP CHAT ON HEYLO →
               </a>
             </div>
 
@@ -271,7 +274,7 @@ function Index() {
             rel="noopener noreferrer"
             className="flex-1 bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center label-meta"
           >
-            STRAVA →
+            STRAVA · EVENTS →
           </a>
           <a
             href={HEYLO_URL}
@@ -279,7 +282,7 @@ function Index() {
             rel="noopener noreferrer"
             className="flex-1 bg-bone text-ink px-4 py-3.5 flex items-center justify-center label-meta border-l border-ink/20"
           >
-            HEYLO →
+            HEYLO · CHAT →
           </a>
         </div>
       </div>
@@ -384,7 +387,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
-              JOIN ON STRAVA →
+              EVENTS & STATS ON STRAVA →
             </a>
             <a
               href={HEYLO_URL}
@@ -392,7 +395,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
-              JOIN ON HEYLO →
+              GROUP CHAT ON HEYLO →
             </a>
           </div>
         </div>
@@ -459,7 +462,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
             >
-              THIS SOUNDS LIKE ME — JOIN →
+              SEE EVENTS ON STRAVA →
             </a>
             <a
               href={HEYLO_URL}
@@ -467,7 +470,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-ink text-ink px-6 py-3.5 label-meta hover:bg-ink hover:text-bone transition-colors"
             >
-              JOIN ON HEYLO
+              JOIN THE GROUP CHAT
             </a>
           </div>
         </div>
@@ -534,7 +537,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                JOIN ON STRAVA →
+                EVENTS & STATS ON STRAVA →
               </a>
               <a
                 href={HEYLO_URL}
@@ -542,7 +545,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                JOIN ON HEYLO →
+                GROUP CHAT ON HEYLO →
               </a>
             </div>
           </div>
