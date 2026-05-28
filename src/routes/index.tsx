@@ -552,7 +552,7 @@ function Index() {
       {/* Footer */}
       <footer className="bg-bone text-ink border-t border-ink/15 px-6 md:px-10 py-10 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <GrytLogo />
+          <GrytLogo className="on-light" />
           <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS TOGETHER</span>
         </div>
         <div className="flex items-center gap-6 label-meta">
