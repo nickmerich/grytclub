@@ -290,6 +290,29 @@ function Index() {
         </div>
       </section>
 
+      {/* ═══════════════════════ MEMBERS RUNNER ═══════════════════════ */}
+      <div className="bg-bone text-ink border-y border-ink/15 overflow-hidden">
+        <div className="flex items-center gap-8 px-6 md:px-10 py-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+          <span className="label-meta text-ink/55 shrink-0">● THE CREW</span>
+          {[
+            "Matthew Bianco",
+            "Jay Wysocki",
+            "Caleb Wysocki",
+            "Aaron Maize",
+            "Pete Ross",
+            "Kyle Bloser",
+            "Laura Merich",
+            "Matt Paden",
+            "Nathan",
+          ].map((name) => (
+            <span key={name} className="label-meta text-ink shrink-0">
+              {name}
+            </span>
+          ))}
+          <span className="label-meta text-ink/55 shrink-0">+ YOU →</span>
+        </div>
+      </div>
+
       {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink text-bone border-t border-bone/20 shadow-[0_-6px_20px_rgba(0,0,0,0.35)]">
         <div className="flex items-stretch">
