@@ -7,6 +7,8 @@ import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
 import lauraNick3 from "@/assets/laura-nick-3.jpg";
 import lauraNick4 from "@/assets/laura-nick-4.jpg";
+import lauraNick5 from "@/assets/laura-nick-5.jpg";
+import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
 
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
@@ -206,6 +208,13 @@ function Index() {
         <div className="absolute inset-0 dot-grid pointer-events-none" />
         <DiagonalSlash className="top-[22%] -left-[20%]" thickness={2} length="160%" />
         <DiagonalSlash className="top-[60%] -left-[20%] opacity-50" thickness={1} length="160%" />
+        <img
+          src={grytLogoMark}
+          alt=""
+          aria-hidden="true"
+          className="hidden md:block absolute bottom-8 right-8 w-40 h-40 object-contain opacity-25 pointer-events-none"
+          style={{ mixBlendMode: "screen" }}
+        />
 
         {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
@@ -561,12 +570,18 @@ function Index() {
                 <span>● RUNNING WEEKLY SINCE 2024</span>
                 <span>● 25+ REGULARS · ALL PACES</span>
               </div>
+              <img
+                src={grytLogoMark}
+                alt="GRYT Club bear shield emblem"
+                className="hidden md:block w-28 h-28 object-contain shrink-0 opacity-90"
+                style={{ mixBlendMode: "screen" }}
+              />
             </div>
           </Reveal>
 
           {/* Photo gallery */}
           <Reveal>
-            <div className="mt-px grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15">
+            <div className="mt-px grid grid-cols-2 md:grid-cols-5 gap-px bg-ink/15">
               {[
                 {
                   src: lauraNick1,
@@ -579,6 +594,12 @@ function Index() {
                   alt: "Laura and Nick on a trail run",
                   position: "center 30%",
                   filter: "grayscale(1)",
+                },
+                {
+                  src: lauraNick5,
+                  alt: "Laura and Nick running through downtown Pittsburgh",
+                  position: "center 70%",
+                  filter: "grayscale(1) contrast(1.05)",
                 },
                 {
                   src: lauraNick3,
