@@ -48,9 +48,9 @@ export const Route = createFileRoute("/")({
         content:
           "Pittsburgh run club for parents and 30+ who do hard things together. Saturdays · 7 AM · Montour/Peters Trail.",
       },
-      { property: "og:url", content: "https://gryt.club/" },
+      { property: "og:url", content: "https://www.gryt.club/" },
     ],
-    links: [{ rel: "canonical", href: "https://gryt.club/" }],
+    links: [{ rel: "canonical", href: "https://www.gryt.club/" }],
     scripts: [
       {
         type: "application/ld+json",
