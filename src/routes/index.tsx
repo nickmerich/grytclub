@@ -143,29 +143,29 @@ const RESOURCES = [
   {
     tag: "GETTING STARTED",
     title: "Couch to your first Saturday.",
-    body: "A simple 4-week walk-run ramp built for people coming back to running after a long break.",
-    cta: "Read the guide",
+    body: "A simple 4-week walk-run ramp to get you to the trailhead. Steal it, follow it, then come run with us.",
+    cta: "Get the guide",
     href: "#",
   },
   {
     tag: "TRAINING",
-    title: "Building a base that holds.",
-    body: "How to layer easy mileage so Saturday gets easier instead of harder. No junk miles, no plans you'll abandon.",
-    cta: "Open the playbook",
+    title: "Build a base that holds.",
+    body: "How to layer easy mileage so Saturday gets easier instead of harder. Use it free — no junk miles, no plan you'll abandon.",
+    cta: "Get the playbook",
     href: "#",
   },
   {
     tag: "CONSISTENCY",
     title: "The Saturday streak system.",
-    body: "How members are stacking weeks — and what actually keeps people showing up past week six.",
-    cta: "See the system",
+    body: "Exactly how our members stack weeks — and what keeps you showing up past week six when motivation runs out.",
+    cta: "Get the system",
     href: "#",
   },
   {
     tag: "RECOVERY",
     title: "Run hard, recover harder.",
-    body: "Mobility, sleep, and the small things that let parents and 30+ runners train without breaking down.",
-    cta: "Read the basics",
+    body: "The mobility, sleep, and small things that let you train without breaking down. Built for parents and 30+ bodies.",
+    cta: "Get the basics",
     href: "#",
   },
 ];
@@ -193,7 +193,7 @@ function Index() {
             rel="noopener noreferrer"
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
-            EVENTS ON STRAVA →
+            SIGN UP FOR SATURDAY →
           </a>
           <a
             href={STRAVA_URL}
@@ -234,10 +234,10 @@ function Index() {
             className="mt-10 md:mt-12 max-w-2xl"
           >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              Every Saturday at 7 AM we meet on the Montour/Peters Trail in McMurray, run a few miles,
-              talk through mile two, and stay for coffee. All paces. Just show up.
+              Here's the deal: meet us Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles
+              with us, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
               <span className="block mt-3 text-bone/65">
-                Strava is where we post events and track every run. Heylo is our group chat for week-to-week banter and meetups.
+                Sign up for this Saturday on Strava. Join our chat on Heylo so you know who's coming and where to meet.
               </span>
             </p>
 
@@ -248,7 +248,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                EVENTS & STATS ON STRAVA →
+                SIGN UP FOR SATURDAY →
               </a>
               <a
                 href={HEYLO_URL}
@@ -256,12 +256,12 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GROUP CHAT ON HEYLO →
+                JOIN THE CHAT →
               </a>
             </div>
 
             <p className="mt-6 label-meta text-bone/55">
-              25+ MEMBERS · WEEKLY SINCE DAY ONE · PARENTS & 30+ WELCOME
+              YOU + 25 OTHERS · EVERY SATURDAY · BRING YOURSELF, WE'LL HANDLE THE REST
             </p>
           </motion.div>
         </div>
@@ -303,12 +303,12 @@ function Index() {
             <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Every Saturday. <br />
+                Meet us Saturday. <br />
                 <span className="underline-sky">7:00 AM.</span> McMurray, PA.
               </h2>
               <p className="max-w-md text-bone/70 leading-snug">
-                212 Valley Brook Road, McMurray. We run on the Montour/Peters Trail —
-                mixed paces, no one left behind, coffee after.
+                Pull into 212 Valley Brook Road. We'll be the group stretching by the trailhead.
+                Run with us, walk with us — nobody gets dropped, coffee's on after.
               </p>
             </div>
           </Reveal>
@@ -343,7 +343,7 @@ function Index() {
               </div>
               <div className="rule-thin bg-ink mb-5" />
               <p className="font-display text-xl md:text-2xl leading-tight mb-5">
-                this is what showing up <span className="underline-sky">looks like.</span>
+                this is what your <span className="underline-sky">Saturday looks like.</span>
               </p>
               <div className="flex-1 flex items-start justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
@@ -408,7 +408,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
-              EVENTS & STATS ON STRAVA →
+              SIGN UP FOR SATURDAY →
             </a>
             <a
               href={HEYLO_URL}
@@ -416,7 +416,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
-              GROUP CHAT ON HEYLO →
+              JOIN THE CHAT →
             </a>
           </div>
         </div>
@@ -433,36 +433,35 @@ function Index() {
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-              For people who are <span className="underline-sky">already choosing</span> discomfort.
+              If you're <span className="underline-sky">already choosing</span> discomfort — you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
-              GRYT isn't for everyone — and it's not trying to be. It's for the kind of person who
-              already knows the answer is to keep showing up. We just give you the ritual, the route,
-              and the people to do it with.
+              We're not for everyone, and we're not trying to be. We're for you if you already know the
+              answer is to keep showing up. Come find your people. We'll hold the time, the route, and the ritual.
             </p>
           </Reveal>
 
           <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-ink/15">
             {[
               {
-                tag: "01 · THE PARENT",
-                title: "You're back before the kids wake up.",
-                body: "You need one thing on the calendar that's just yours — early enough that nobody else is affected, hard enough that it counts. Saturday at 7 is that thing.",
+                tag: "01 · IF YOU'RE A PARENT",
+                title: "Be home before the kids wake up.",
+                body: "You need one thing on the calendar that's just yours — early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
               },
               {
-                tag: "02 · THE 30+ COMEBACK",
-                title: "You used to run. You will again.",
-                body: "It's been a year. Or five. You don't need a plan or a Garmin — you need a group that hangs at every regroup and treats you like you belong. We are that group.",
+                tag: "02 · IF YOU'RE 30+ & COMING BACK",
+                title: "You used to run. Start again with us.",
+                body: "It's been a year. Or five. You don't need a plan or a Garmin — you need a group that waits at every regroup and treats you like you belong. That's us. Show up.",
               },
               {
-                tag: "03 · THE BUILDER",
-                title: "You want structure and a real community.",
-                body: "You're past the phase of optimizing alone in headphones. You want people who'll notice if you don't show up, and a standing time you don't have to negotiate every week.",
+                tag: "03 · IF YOU WANT REAL COMMUNITY",
+                title: "Run with people who'll notice you.",
+                body: "You're done optimizing alone in headphones. Join a standing time you don't have to negotiate, with people who'll text you when you miss a week.",
               },
               {
-                tag: "04 · THE STREAKER",
-                title: "You're trying to become someone consistent.",
-                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. You're here for the long version — and you'd rather not do it alone.",
+                tag: "04 · IF YOU'RE BUILDING A STREAK",
+                title: "Become someone consistent.",
+                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. Come start the long version with us — you won't have to do it alone.",
               },
             ].map((c) => (
               <Reveal key={c.tag}>
@@ -528,7 +527,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
             >
-              SEE EVENTS ON STRAVA →
+              SIGN UP FOR SATURDAY →
             </a>
             <a
               href={HEYLO_URL}
@@ -536,7 +535,7 @@ function Index() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center border border-ink text-ink px-6 py-3.5 label-meta hover:bg-ink hover:text-bone transition-colors"
             >
-              JOIN THE GROUP CHAT
+              JOIN THE CHAT →
             </a>
           </div>
         </div>
@@ -597,12 +596,12 @@ function Index() {
             <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Resources to <span className="underline-sky">run better,</span>
-                <br /> stay consistent, become stronger.
+                Free stuff to help you <span className="underline-sky">run better,</span>
+                <br /> stay consistent, get stronger.
               </h2>
               <p className="max-w-md text-bone/70 leading-snug">
-                Practical guides built around how we actually train and recover. Less theory, more
-                what works for people with full lives.
+                Take what works. These are the exact guides we share with new members — built for
+                people with full lives, not for people training full-time.
               </p>
             </div>
           </Reveal>
@@ -634,7 +633,7 @@ function Index() {
               <Label className="text-bone">Still here?</Label>
               <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
               <p className="font-display text-3xl md:text-4xl leading-tight">
-                The resources are nice. The Saturday run is <span className="underline-sky">the point.</span>
+                The guides are useful. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -644,7 +643,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                EVENTS & STATS ON STRAVA →
+                SIGN UP FOR SATURDAY →
               </a>
               <a
                 href={HEYLO_URL}
@@ -652,7 +651,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GROUP CHAT ON HEYLO →
+                JOIN THE CHAT →
               </a>
             </div>
           </div>
