@@ -595,13 +595,14 @@ function Index() {
             <Label className="text-bone">Learn more</Label>
             <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Resources to <span className="underline-sky">run better,</span>
-                <br /> stay consistent, become stronger.
+                Free stuff to help you <span className="underline-sky">run better,</span>
+                <br /> stay consistent, get stronger.
               </h2>
               <p className="max-w-md text-bone/70 leading-snug">
-                Practical guides built around how we actually train and recover. Less theory, more
-                what works for people with full lives.
+                Take what works. These are the exact guides we share with new members — built for
+                people with full lives, not for people training full-time.
               </p>
             </div>
           </Reveal>
