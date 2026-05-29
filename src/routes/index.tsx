@@ -633,7 +633,7 @@ function Index() {
               <Label className="text-bone">Still here?</Label>
               <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
               <p className="font-display text-3xl md:text-4xl leading-tight">
-                The resources are nice. The Saturday run is <span className="underline-sky">the point.</span>
+                The guides are useful. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
@@ -643,7 +643,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                EVENTS & STATS ON STRAVA →
+                SIGN UP FOR SATURDAY →
               </a>
               <a
                 href={HEYLO_URL}
@@ -651,7 +651,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GROUP CHAT ON HEYLO →
+                JOIN THE CHAT →
               </a>
             </div>
           </div>
