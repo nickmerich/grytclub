@@ -7,6 +7,8 @@ import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
 import lauraNick3 from "@/assets/laura-nick-3.jpg";
 import lauraNick4 from "@/assets/laura-nick-4.jpg";
+import lauraNick5 from "@/assets/laura-nick-5.jpg";
+import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
 
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
@@ -566,7 +568,7 @@ function Index() {
 
           {/* Photo gallery */}
           <Reveal>
-            <div className="mt-px grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15">
+            <div className="mt-px grid grid-cols-2 md:grid-cols-5 gap-px bg-ink/15">
               {[
                 {
                   src: lauraNick1,
@@ -579,6 +581,12 @@ function Index() {
                   alt: "Laura and Nick on a trail run",
                   position: "center 30%",
                   filter: "grayscale(1)",
+                },
+                {
+                  src: lauraNick5,
+                  alt: "Laura and Nick running through downtown Pittsburgh",
+                  position: "center 70%",
+                  filter: "grayscale(1) contrast(1.05)",
                 },
                 {
                   src: lauraNick3,
