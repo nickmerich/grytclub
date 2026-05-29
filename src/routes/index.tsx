@@ -153,8 +153,8 @@ const FIRST_SATURDAY = [
   },
   {
     step: "MILE 1–2",
-    title: "Find a person, find a pace.",
-    body: "Walkers, joggers, runners — we naturally split into small groups. Somebody will fall in next to you. That's the whole point.",
+    title: "Talk through mile two.",
+    body: "Walkers, joggers, runners — we naturally split into small groups. The real work happens in the conversation. Somebody will fall in next to you. That's the whole point.",
   },
   {
     step: "AFTER",
