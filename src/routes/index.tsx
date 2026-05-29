@@ -206,7 +206,8 @@ function Index() {
           <nav className="hidden md:flex items-center gap-8 label-meta">
             <a href="#runs" className="hover:text-sky-brand transition-colors">RUNS</a>
             <a href="#who" className="hover:text-sky-brand transition-colors">WHO SHOWS UP</a>
-            <a href="#learn" className="hover:text-sky-brand transition-colors">LEARN MORE</a>
+            <a href="#first-saturday" className="hover:text-sky-brand transition-colors">FIRST SATURDAY</a>
+            <a href="#faq" className="hover:text-sky-brand transition-colors">FAQ</a>
           </nav>
           <a
             href={STRAVA_URL}
