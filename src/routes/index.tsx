@@ -485,8 +485,9 @@ function Index() {
               If you're <span className="underline-sky">already choosing</span> discomfort — you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
-              We're not for everyone, and we're not trying to be. We're for you if you already know the
-              answer is to keep showing up. Come find your people. We'll hold the time, the route, and the ritual.
+              We're not for everyone, and we're not trying to be. We're mostly 30+ former athletes
+              who needed a group to grind with. Come find your people. We'll hold the time, the route,
+              and the ritual.
             </p>
           </Reveal>
 
