@@ -582,6 +582,26 @@ function Index() {
                 tool.href ? (
                   <a
                     key={tool.name}
+                    href={tool.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-baseline gap-2 hover:text-sky-brand transition-colors"
+                  >
+                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
+                    <span className="label-meta text-ink/45 group-hover:text-sky-brand/70" style={{ fontSize: "9px" }}>{tool.role}</span>
+                  </a>
+                ) : (
+                  <div key={tool.name} className="inline-flex items-baseline gap-2">
+                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
+                    <span className="label-meta text-ink/45" style={{ fontSize: "9px" }}>{tool.role}</span>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════ 4. FINAL CTA ═══════════════════════ */}
       <section
         id="join"
@@ -621,27 +641,6 @@ function Index() {
         </div>
       </section>
 
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={STRAVA_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
-              >
-                SIGN UP FOR SATURDAY →
-              </a>
-              <a
-                href={HEYLO_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
-              >
-                JOIN THE CHAT →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="bg-bone text-ink border-t border-ink/15 px-6 md:px-10 py-10 flex flex-wrap items-center justify-between gap-4">
