@@ -234,10 +234,10 @@ function Index() {
             className="mt-10 md:mt-12 max-w-2xl"
           >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              Every Saturday at 7 AM we meet on the Montour/Peters Trail in McMurray, run a few miles,
-              talk through mile two, and stay for coffee. All paces. Just show up.
+              Here's the deal: meet us Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles
+              with us, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
               <span className="block mt-3 text-bone/65">
-                Strava is where we post events and track every run. Heylo is our group chat for week-to-week banter and meetups.
+                Sign up for this Saturday on Strava. Join our chat on Heylo so you know who's coming and where to meet.
               </span>
             </p>
 
@@ -248,7 +248,7 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
-                EVENTS & STATS ON STRAVA →
+                SIGN UP FOR SATURDAY →
               </a>
               <a
                 href={HEYLO_URL}
@@ -256,13 +256,14 @@ function Index() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                GROUP CHAT ON HEYLO →
+                JOIN THE CHAT →
               </a>
             </div>
 
             <p className="mt-6 label-meta text-bone/55">
-              25+ MEMBERS · WEEKLY SINCE DAY ONE · PARENTS & 30+ WELCOME
+              YOU + 25 OTHERS · EVERY SATURDAY · BRING YOURSELF, WE'LL HANDLE THE REST
             </p>
+          </motion.div>
           </motion.div>
         </div>
       </section>
