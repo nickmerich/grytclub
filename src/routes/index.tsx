@@ -133,8 +133,10 @@ function DiagonalSlash({
 const STRAVA_URL = "https://www.strava.com/clubs/1708552";
 const HEYLO_URL =
   "https://www.heylo.com/g/9446d69d-0852-4e63-b925-a934d79ebb15?inviteId=CiNFJ4Xn";
-const STRAVA_EMBED_SRC =
+const STRAVA_EMBED_BASE =
   "https://www.strava.com/clubs/1708552/latest-rides/b76ca42ddb400c392ceee3ee06c641b84d840862";
+const STRAVA_EMBED_SUMMARY = STRAVA_EMBED_BASE;
+const STRAVA_EMBED_RIDES = `${STRAVA_EMBED_BASE}?show_rides=true`;
 
 /* ─── Resources for "Learn More" ─── */
 const RESOURCES = [
