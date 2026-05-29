@@ -343,23 +343,39 @@ function Index() {
               </div>
               <div className="rule-thin bg-ink mb-5" />
               <p className="font-display text-xl md:text-2xl leading-tight mb-5">
-                this is what showing up <span className="underline-sky">looks like.</span>
-              </p>
               <div className="flex-1 flex items-start justify-center">
-                <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
-                  <iframe
-                    title="GRYT Strava club — latest rides"
-                    src={STRAVA_EMBED_SRC}
-                    loading="lazy"
-                    width={300}
-                    height={454}
-                    scrolling="no"
-                    allowTransparency
-                    className="block w-full"
-                    style={{ height: 454, border: 0 }}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
+                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                    <iframe
+                      title="GRYT Strava club — summary"
+                      src={STRAVA_EMBED_SUMMARY}
+                      loading="lazy"
+                      width={300}
+                      height={454}
+                      scrolling="no"
+                      allowTransparency
+                      className="block w-full"
+                      style={{ height: 454, border: 0 }}
+                    />
+                  </div>
+                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                    <iframe
+                      title="GRYT Strava club — latest rides"
+                      src={STRAVA_EMBED_RIDES}
+                      loading="lazy"
+                      width={300}
+                      height={454}
+                      scrolling="no"
+                      allowTransparency
+                      className="block w-full"
+                      style={{ height: 454, border: 0 }}
+                    />
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+
             </div>
           </div>
 
