@@ -1,22 +1,20 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Placeholder route for the upcoming Saturday run.
- * Montour Trail near Canonsburg, PA — a simple ~4mi out-and-back sketch.
- * Swap this polyline with a real GPX-decoded route once Strava data is wired.
+ * 212 Valley Brook Trail Run — 5.22 mi, 68 ft gain.
+ * Start: Montour Trail near Bebout Rd (east of McMurray, PA).
+ * Finish: Hiddenbrook Playground, north of Thompsonville via Valley Brook Rd.
  */
 const ROUTE_POINTS: [number, number][] = [
-  [40.3776, -80.0497], // start: Montour Trail trailhead
-  [40.3795, -80.0512],
-  [40.3820, -80.0530],
-  [40.3838, -80.0508],
-  [40.3845, -80.0470],
-  [40.3825, -80.0438],
-  [40.3795, -80.0422],
-  [40.3760, -80.0435],
-  [40.3742, -80.0468],
-  [40.3758, -80.0492],
-  [40.3776, -80.0497], // back to start
+  [40.5462, -80.0815], // START: Montour Trail @ Bebout Rd (green dot)
+  [40.5468, -80.0858], // along Montour Trail
+  [40.5472, -80.0905], // McMurray
+  [40.5482, -80.0948], // Valley Brook Rd & Maplewood Dr
+  [40.5505, -80.0985], // up Valley Brook Rd
+  [40.5528, -80.1018], // Valley Brook Rd & Route 19 / Thompsonville
+  [40.5555, -80.1035], // north along Hidden Valley Rd corridor
+  [40.5585, -80.1048],
+  [40.5608, -80.1052], // FINISH: Hiddenbrook Playground (checkered flag)
 ];
 
 const START: [number, number] = ROUTE_POINTS[0];
@@ -87,8 +85,9 @@ export function RouteMap() {
         iconAnchor: [9, 9],
       });
 
-      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail");
-      L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Coffee after");
+      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail @ Bebout Rd");
+      L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Hiddenbrook Playground");
+
 
       map.fitBounds(line.getBounds(), { padding: [32, 32] });
     })();
@@ -105,8 +104,9 @@ export function RouteMap() {
     <div
       ref={containerRef}
       role="img"
-      aria-label="Map of Saturday's run route on the Montour Trail near Canonsburg, PA"
+      aria-label="Map of Saturday's run: 5.22 mi from Montour Trail at Bebout Rd up Valley Brook Rd to Hiddenbrook Playground, McMurray PA"
       className="w-full h-[420px] md:h-[520px] bg-bone"
     />
+
   );
 }
