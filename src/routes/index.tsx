@@ -206,8 +206,8 @@ function Index() {
           <GrytLogo className="text-bone" />
           <nav className="hidden md:flex items-center gap-8 label-meta">
             <a href="#runs" className="hover:text-sky-brand transition-colors">RUNS</a>
-            <a href="#who" className="hover:text-sky-brand transition-colors">WHO SHOWS UP</a>
-            <a href="#first-saturday" className="hover:text-sky-brand transition-colors">FIRST SATURDAY</a>
+            <a href="#who" className="hover:text-sky-brand transition-colors">YOUR PEOPLE</a>
+            <a href="#first-saturday" className="hover:text-sky-brand transition-colors">FIRST TIME</a>
             <a href="#faq" className="hover:text-sky-brand transition-colors">FAQ</a>
           </nav>
           <a
