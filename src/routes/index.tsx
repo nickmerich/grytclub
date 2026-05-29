@@ -391,8 +391,11 @@ function Index() {
                 </span>
               </div>
               <div className="rule-thin bg-ink mb-5" />
-              <p className="font-display text-xl md:text-2xl leading-tight mb-5">
+              <p className="font-display text-xl md:text-2xl leading-tight mb-3">
                 this is what your <span className="underline-sky">Saturday looks like.</span>
+              </p>
+              <p className="text-ink/65 leading-snug text-sm mb-5">
+                Not on Strava? No problem — this is just our live receipt. Real people, real miles, every week. You can show up without an account.
               </p>
               <div className="flex-1 flex items-start justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
@@ -738,15 +741,26 @@ function Index() {
 
 
       {/* Footer */}
-      <footer className="bg-bone text-ink border-t border-ink/15 px-6 md:px-10 py-10 flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <GrytLogo className="on-light" />
-          <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS TOGETHER</span>
+      <footer className="bg-bone text-ink border-t border-ink/15 px-6 md:px-10 py-10">
+        <div className="flex flex-wrap items-start justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <GrytLogo className="on-light" />
+            <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS TOGETHER</span>
+          </div>
+          <div className="flex items-center gap-6 label-meta">
+            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">STRAVA</a>
+            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">HEYLO</a>
+            <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
+          </div>
         </div>
-        <div className="flex items-center gap-6 label-meta">
-          <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">STRAVA</a>
-          <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">HEYLO</a>
-          <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
+        <div className="mt-6 pt-6 border-t border-ink/10 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-ink/65 leading-snug max-w-2xl text-sm">
+            First Saturday nerves? Text or email us before you come — we'll meet you at the trailhead.
+            No one runs alone unless they want to.
+          </p>
+          <a href="mailto:hi@gryt.club?subject=First%20Saturday%20question" className="label-meta text-sky-brand hover:text-ink">
+            HI@GRYT.CLUB →
+          </a>
         </div>
       </footer>
     </main>
