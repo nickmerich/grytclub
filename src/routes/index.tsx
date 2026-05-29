@@ -257,8 +257,7 @@ function Index() {
             className="mt-10 md:mt-12 max-w-2xl"
           >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              Meet us Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles
-              with us, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
+              We're mostly 30+ former athletes who needed a group to grind with. Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
               <span className="block mt-3 text-bone/65">
                 Sign up for this Saturday on Strava. Join our chat on Heylo so you know who's coming and where to meet.
               </span>
