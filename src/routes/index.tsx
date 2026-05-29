@@ -582,81 +582,45 @@ function Index() {
                 tool.href ? (
                   <a
                     key={tool.name}
-                    href={tool.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-baseline gap-2 hover:text-sky-brand transition-colors"
-                  >
-                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
-                    <span className="label-meta text-ink/45 group-hover:text-sky-brand/70" style={{ fontSize: "9px" }}>{tool.role}</span>
-                  </a>
-                ) : (
-                  <div key={tool.name} className="inline-flex items-baseline gap-2">
-                    <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
-                    <span className="label-meta text-ink/45" style={{ fontSize: "9px" }}>{tool.role}</span>
-                  </div>
-                )
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ═══════════════════════ 4. LEARN MORE ═══════════════════════ */}
+      {/* ═══════════════════════ 4. FINAL CTA ═══════════════════════ */}
       <section
-        id="learn"
+        id="join"
         className="bg-ink text-bone py-20 md:py-28 border-t border-bone/10 relative overflow-hidden"
       >
         <div className="absolute inset-0 dot-grid pointer-events-none" />
         <DiagonalSlash className="bottom-[10%] -left-[20%] opacity-50" thickness={1} length="80%" />
 
         <div className="relative z-10 px-6 md:px-10">
-          <Reveal>
-            <Label className="text-bone">Learn more</Label>
-            <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
-            <div className="flex flex-wrap items-end justify-between gap-6">
-              <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Free stuff to help you <span className="underline-sky">run better,</span>
-                <br /> stay consistent, get stronger.
-              </h2>
-              <p className="max-w-md text-bone/70 leading-snug">
-                Take what works. These are the exact guides we share with new members — built for
-                people with full lives, not for people training full-time.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-bone/15">
-            {RESOURCES.map((r, i) => (
-              <Reveal key={r.tag} delay={i * 0.05}>
-                <a
-                  href={r.href}
-                  className="bg-ink p-7 md:p-10 h-full flex flex-col group hover:bg-bone hover:text-ink transition-colors"
-                >
-                  <div className="label-meta text-sky-brand group-hover:text-ink">{r.tag}</div>
-                  <h3 className="font-display text-2xl md:text-3xl mt-3 leading-[1.05]">
-                    {r.title}
-                  </h3>
-                  <p className="mt-4 text-bone/75 group-hover:text-ink/70 leading-snug flex-1">
-                    {r.body}
-                  </p>
-                  <div className="mt-6 label-meta inline-flex items-center gap-2">
-                    {r.cta} →
-                  </div>
-                </a>
-              </Reveal>
-            ))}
-          </div>
-
-          <div className="mt-16 border border-bone/20 p-8 md:p-12 flex flex-wrap items-center justify-between gap-6">
+          <div className="border border-bone/20 p-8 md:p-12 flex flex-wrap items-center justify-between gap-6">
             <div className="max-w-xl">
               <Label className="text-bone">Still here?</Label>
               <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
               <p className="font-display text-3xl md:text-4xl leading-tight">
-                The guides are useful. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
+                Reading about it is fine. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
               </p>
             </div>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={STRAVA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+              >
+                SIGN UP FOR SATURDAY →
+              </a>
+              <a
+                href={HEYLO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
+              >
+                JOIN THE CHAT →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
             <div className="flex flex-wrap gap-3">
               <a
                 href={STRAVA_URL}
