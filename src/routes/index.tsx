@@ -497,46 +497,105 @@ function Index() {
             ))}
           </div>
 
-          {/* Testimonials */}
+          {/* Founder / host strip */}
           <Reveal>
-            <div className="mt-16 md:mt-24 flex items-end justify-between gap-6 mb-8">
-              <div>
-                <Label>From the group</Label>
-                <div className="rule-thin bg-ink mt-2 max-w-[80px]" />
+            <div className="mt-16 md:mt-24 bg-ink text-bone p-7 md:p-10 flex flex-wrap items-center gap-6 md:gap-10">
+              <div className="flex-1 min-w-[260px]">
+                <Label className="text-bone">Who's running this</Label>
+                <div className="rule-thin bg-bone mt-2 mb-4 max-w-[60px]" />
+                <p className="font-display text-2xl md:text-3xl leading-tight">
+                  Run with <span className="underline-sky">Nick and the crew.</span>
+                </p>
+                <p className="mt-4 text-bone/75 leading-snug max-w-xl">
+                  GRYT started with a handful of friends who wanted one thing on the calendar that
+                  wouldn't move. Same trail, same time, every Saturday — so showing up never depends on
+                  how you feel that morning. You're not joining a brand. You're joining a standing time.
+                </p>
               </div>
-              <p className="label-meta text-ink/55 hidden md:block">REAL QUOTES · LIGHTLY EDITED</p>
+              <div className="label-meta text-bone/55 flex flex-col gap-1">
+                <span>● RUNNING WEEKLY SINCE 2024</span>
+                <span>● 25+ REGULARS · GROWING</span>
+                <span>● ALL PACES · NOBODY DROPPED</span>
+              </div>
             </div>
           </Reveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15">
+        </div>
+      </section>
+
+      {/* ═══════════════════════ FIRST SATURDAY ═══════════════════════ */}
+      <section
+        id="first-saturday"
+        className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden"
+      >
+        <div className="px-6 md:px-10">
+          <Reveal>
+            <Label>Your first Saturday</Label>
+            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+                Here's exactly <span className="underline-sky">what to expect</span> when you show up.
+              </h2>
+              <p className="max-w-md text-ink/70 leading-snug">
+                No mystery. No insider stuff. Read this once and you'll know more than half the
+                people who've been coming for months.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/15 border border-ink/15">
+            {FIRST_SATURDAY.map((s, i) => (
+              <Reveal key={s.step} delay={i * 0.05}>
+                <div className="bg-bone p-6 md:p-8 h-full flex flex-col">
+                  <div className="label-meta text-sky-brand">{s.step}</div>
+                  <div className="rule-thin bg-ink mt-2 mb-4 max-w-[40px]" />
+                  <h3 className="font-display text-xl md:text-2xl leading-[1.1]">{s.title}</h3>
+                  <p className="mt-3 text-ink/70 leading-snug flex-1">{s.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Logistics quick-strip */}
+          <div className="mt-px grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15 border border-ink/15 border-t-0">
             {[
-              {
-                quote: "I'd been telling myself I'd \"start running again\" for two years. Showed up one Saturday in old shoes. Haven't missed one since.",
-                name: "Mike R.",
-                meta: "DAD OF 2 · MT. LEBANON",
-              },
-              {
-                quote: "It's the only thing on my calendar that's just mine. The kids are still asleep when I get home and I feel like a person again.",
-                name: "Sarah K.",
-                meta: "MOM · UPPER ST. CLAIR",
-              },
-              {
-                quote: "I came for the run. I stayed because nobody talks down to you about your pace and the coffee after is genuinely the best part of my week.",
-                name: "Dan P.",
-                meta: "37 · SOUTH HILLS",
-              },
-            ].map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.06}>
-                <figure className="bg-bone p-7 md:p-9 h-full flex flex-col">
-                  <div className="font-display text-3xl text-sky-brand leading-none mb-4">"</div>
-                  <blockquote className="font-display text-xl md:text-[1.45rem] leading-[1.25] flex-1">
-                    {t.quote}
-                  </blockquote>
-                  <div className="rule-thin bg-ink mt-6 mb-3 max-w-[40px]" />
-                  <figcaption>
-                    <div className="font-display text-lg leading-none">{t.name}</div>
-                    <div className="label-meta text-ink/55 mt-1" style={{ fontSize: "10px" }}>{t.meta}</div>
-                  </figcaption>
-                </figure>
+              { label: "Parking", value: "FREE · ON-SITE" },
+              { label: "Bathrooms", value: "AT TRAILHEAD" },
+              { label: "Rain policy", value: "WE STILL RUN" },
+              { label: "Cost", value: "$0 · ALWAYS" },
+            ].map((s) => (
+              <div key={s.label} className="bg-bone p-5 md:p-6">
+                <Label>{s.label}</Label>
+                <div className="rule-thin bg-ink mt-2 mb-2 max-w-[30px]" />
+                <div className="font-display text-lg md:text-xl leading-none">{s.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ FAQ ═══════════════════════ */}
+      <section
+        id="faq"
+        className="bg-ink text-bone py-20 md:py-28 border-t border-bone/10 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 dot-grid pointer-events-none" />
+        <div className="relative z-10 px-6 md:px-10">
+          <Reveal>
+            <Label className="text-bone">Questions you're probably about to ask</Label>
+            <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
+            <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+              The <span className="underline-sky">honest answers.</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-px bg-bone/15 border border-bone/20">
+            {FAQ.map((item, i) => (
+              <Reveal key={item.q} delay={i * 0.04}>
+                <div className="bg-ink p-7 md:p-9 h-full">
+                  <h3 className="font-display text-xl md:text-2xl leading-[1.15]">{item.q}</h3>
+                  <div className="rule-thin bg-bone/40 mt-3 mb-4 max-w-[40px]" />
+                  <p className="text-bone/75 leading-snug">{item.a}</p>
+                </div>
               </Reveal>
             ))}
           </div>
@@ -546,7 +605,7 @@ function Index() {
               href={STRAVA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-ink text-bone px-6 py-3.5 label-meta hover:bg-sky-brand hover:text-ink transition-colors"
+              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
               SIGN UP FOR SATURDAY →
             </a>
@@ -554,11 +613,14 @@ function Index() {
               href={HEYLO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center border border-ink text-ink px-6 py-3.5 label-meta hover:bg-ink hover:text-bone transition-colors"
+              className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
               JOIN THE CHAT →
             </a>
           </div>
+        </div>
+      </section>
+
         </div>
       </section>
 
