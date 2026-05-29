@@ -398,8 +398,8 @@ function Index() {
                 Not on Strava? No problem — this is just our live receipt. Real people, real miles, every week. You can show up without an account.
               </p>
               <div className="flex-1 flex items-start justify-center">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
-                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+                  <div className="w-full border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
                     <iframe
                       title="GRYT Strava club — summary"
                       src={STRAVA_EMBED_SUMMARY}
@@ -412,7 +412,7 @@ function Index() {
                       style={{ height: 454, border: 0 }}
                     />
                   </div>
-                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                  <div className="w-full border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
                     <iframe
                       title="GRYT Strava club — latest rides"
                       src={STRAVA_EMBED_RIDES}
