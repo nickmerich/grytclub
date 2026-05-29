@@ -568,16 +568,37 @@ function Index() {
           <Reveal>
             <div className="mt-px grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15">
               {[
-                { src: lauraNick1, alt: "Laura and Nick at the Pittsburgh Marathon" },
-                { src: lauraNick2, alt: "Laura and Nick on a trail run" },
-                { src: lauraNick3, alt: "The Merich family" },
-                { src: lauraNick4, alt: "Laura and Nick at a race" },
+                {
+                  src: lauraNick1,
+                  alt: "Laura and Nick at the Pittsburgh Marathon",
+                  position: "center 25%",
+                  filter: "grayscale(1)",
+                },
+                {
+                  src: lauraNick2,
+                  alt: "Laura and Nick on a trail run",
+                  position: "center 30%",
+                  filter: "grayscale(1)",
+                },
+                {
+                  src: lauraNick3,
+                  alt: "The Merich family",
+                  position: "center 65%",
+                  filter: "grayscale(1) brightness(1.6) contrast(1.1)",
+                },
+                {
+                  src: lauraNick4,
+                  alt: "Laura and Nick at a race",
+                  position: "center 35%",
+                  filter: "grayscale(1)",
+                },
               ].map((p) => (
                 <img
                   key={p.src}
                   src={p.src}
                   alt={p.alt}
-                  className="w-full h-48 md:h-64 object-cover grayscale"
+                  className="w-full h-56 md:h-72 object-cover"
+                  style={{ objectPosition: p.position, filter: p.filter }}
                   loading="lazy"
                 />
               ))}
