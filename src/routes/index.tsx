@@ -61,7 +61,7 @@ export const Route = createFileRoute("/")({
           alternateName: "GRYT Run Club",
           description:
             "Pittsburgh run club for parents and adults 30+ who do hard things together.",
-          url: "https://gryt.club/",
+          url: "https://www.gryt.club/",
           sport: "Running",
           slogan: "DO HARD THINGS TOGETHER",
           areaServed: { "@type": "Place", name: "Pittsburgh, Pennsylvania" },
