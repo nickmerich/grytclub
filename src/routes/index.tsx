@@ -3,6 +3,10 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import foundersPhoto from "@/assets/founders.jpg";
+import lauraNick1 from "@/assets/laura-nick-1.png";
+import lauraNick2 from "@/assets/laura-nick-2.jpg";
+import lauraNick3 from "@/assets/laura-nick-3.jpg";
+import lauraNick4 from "@/assets/laura-nick-4.jpg";
 
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
@@ -557,6 +561,26 @@ function Index() {
                 <span>● RUNNING WEEKLY SINCE 2024</span>
                 <span>● 25+ REGULARS · ALL PACES</span>
               </div>
+            </div>
+          </Reveal>
+
+          {/* Photo gallery */}
+          <Reveal>
+            <div className="mt-px grid grid-cols-2 md:grid-cols-4 gap-px bg-ink/15">
+              {[
+                { src: lauraNick1, alt: "Laura and Nick at the Pittsburgh Marathon" },
+                { src: lauraNick2, alt: "Laura and Nick on a trail run" },
+                { src: lauraNick3, alt: "The Merich family" },
+                { src: lauraNick4, alt: "Laura and Nick at a race" },
+              ].map((p) => (
+                <img
+                  key={p.src}
+                  src={p.src}
+                  alt={p.alt}
+                  className="w-full h-48 md:h-64 object-cover grayscale"
+                  loading="lazy"
+                />
+              ))}
             </div>
           </Reveal>
         </div>
