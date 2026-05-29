@@ -391,8 +391,11 @@ function Index() {
                 </span>
               </div>
               <div className="rule-thin bg-ink mb-5" />
-              <p className="font-display text-xl md:text-2xl leading-tight mb-5">
+              <p className="font-display text-xl md:text-2xl leading-tight mb-3">
                 this is what your <span className="underline-sky">Saturday looks like.</span>
+              </p>
+              <p className="text-ink/65 leading-snug text-sm mb-5">
+                Not on Strava? No problem — this is just our live receipt. Real people, real miles, every week. You can show up without an account.
               </p>
               <div className="flex-1 flex items-start justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
