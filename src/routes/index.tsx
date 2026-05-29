@@ -138,37 +138,58 @@ const STRAVA_EMBED_BASE =
 const STRAVA_EMBED_SUMMARY = STRAVA_EMBED_BASE;
 const STRAVA_EMBED_RIDES = `${STRAVA_EMBED_BASE}?show_rides=true`;
 
-/* ─── Resources for "Learn More" ─── */
-const RESOURCES = [
+/* ─── First Saturday walkthrough ─── */
+const FIRST_SATURDAY = [
   {
-    tag: "GETTING STARTED",
-    title: "Couch to your first Saturday.",
-    body: "A simple 4-week walk-run ramp to get you to the trailhead. Steal it, follow it, then come run with us.",
-    cta: "Get the guide",
-    href: "#",
+    step: "10 MIN BEFORE",
+    title: "Pull into 212 Valley Brook Rd.",
+    body: "Free parking right at the trailhead. Look for the group near the trail sign — we'll wave you over. Bathrooms are open at the trailhead.",
   },
   {
-    tag: "TRAINING",
-    title: "Build a base that holds.",
-    body: "How to layer easy mileage so Saturday gets easier instead of harder. Use it free — no junk miles, no plan you'll abandon.",
-    cta: "Get the playbook",
-    href: "#",
+    step: "7:00 AM",
+    title: "Quick hello, then we move.",
+    body: "30-second intro circle — names, who's new, who's coming back. Then we head out together. No pace pressure, no drop policy.",
   },
   {
-    tag: "CONSISTENCY",
-    title: "The Saturday streak system.",
-    body: "Exactly how our members stack weeks — and what keeps you showing up past week six when motivation runs out.",
-    cta: "Get the system",
-    href: "#",
+    step: "MILE 1–2",
+    title: "Find a person, find a pace.",
+    body: "Walkers, joggers, runners — we naturally split into small groups. Somebody will fall in next to you. That's the whole point.",
   },
   {
-    tag: "RECOVERY",
-    title: "Run hard, recover harder.",
-    body: "The mobility, sleep, and small things that let you train without breaking down. Built for parents and 30+ bodies.",
-    cta: "Get the basics",
-    href: "#",
+    step: "AFTER",
+    title: "Coffee. Stay as long as you want.",
+    body: "We grab coffee nearby. Stay 10 minutes or an hour. Most weeks people hang around longer than they planned.",
   },
 ];
+
+/* ─── FAQ ─── */
+const FAQ = [
+  {
+    q: "Do I need to be in shape?",
+    a: "No. We have walkers, comeback runners, and people training for marathons. All paces, every Saturday. If you can move for 30 minutes, you belong here.",
+  },
+  {
+    q: "Can I come alone?",
+    a: "Yes — most people do their first time. Show up 10 minutes early, introduce yourself, you'll know people by mile one.",
+  },
+  {
+    q: "Do I need Strava?",
+    a: "No, but it helps. Strava is where we post the event each week and track who's coming. Heylo is where we chat day-to-day. Both are free.",
+  },
+  {
+    q: "What if it rains?",
+    a: "We run. Light rain, cold, whatever — we go. If conditions are actually unsafe (ice, lightning), we'll call it off in the Heylo chat the night before.",
+  },
+  {
+    q: "Can I bring a friend? A dog? A stroller?",
+    a: "Yes, yes, and yes. Bring whoever. The trail is wide, flat, and stroller/dog friendly.",
+  },
+  {
+    q: "How long does the whole thing take?",
+    a: "Plan on about 90 minutes start to finish — 45–60 min on the trail, plus coffee. You'll be home before most people are awake.",
+  },
+];
+
 
 function Index() {
   return (
