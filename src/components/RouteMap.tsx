@@ -85,8 +85,9 @@ export function RouteMap() {
         iconAnchor: [9, 9],
       });
 
-      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail");
-      L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Coffee after");
+      L.marker(START, { icon: startIcon }).addTo(map).bindPopup("START · Montour Trail @ Bebout Rd");
+      L.marker(END, { icon: endIcon }).addTo(map).bindPopup("FINISH · Hiddenbrook Playground");
+
 
       map.fitBounds(line.getBounds(), { padding: [32, 32] });
     })();
