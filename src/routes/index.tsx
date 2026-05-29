@@ -264,7 +264,6 @@ function Index() {
               YOU + 25 OTHERS · EVERY SATURDAY · BRING YOURSELF, WE'LL HANDLE THE REST
             </p>
           </motion.div>
-          </motion.div>
         </div>
       </section>
 
