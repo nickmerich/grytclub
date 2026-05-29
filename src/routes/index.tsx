@@ -204,11 +204,11 @@ function Index() {
         {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
           <GrytLogo className="text-bone" />
-          <nav className="hidden md:flex items-center gap-8 label-meta">
-            <a href="#runs" className="hover:text-sky-brand transition-colors">RUNS</a>
-            <a href="#who" className="hover:text-sky-brand transition-colors">YOUR PEOPLE</a>
-            <a href="#first-saturday" className="hover:text-sky-brand transition-colors">FIRST TIME</a>
-            <a href="#faq" className="hover:text-sky-brand transition-colors">FAQ</a>
+          <nav className="flex flex-1 md:flex-none items-center gap-6 md:gap-8 label-meta overflow-x-auto scrollbar-hide whitespace-nowrap mx-4 md:mx-0">
+            <a href="#runs" className="hover:text-sky-brand transition-colors shrink-0">RUNS</a>
+            <a href="#who" className="hover:text-sky-brand transition-colors shrink-0">YOUR PEOPLE</a>
+            <a href="#first-saturday" className="hover:text-sky-brand transition-colors shrink-0">FIRST TIME</a>
+            <a href="#faq" className="hover:text-sky-brand transition-colors shrink-0">FAQ</a>
           </nav>
           <a
             href={STRAVA_URL}
