@@ -283,7 +283,7 @@ function Index() {
             </div>
 
             <p className="mt-6 label-meta text-bone/55">
-              YOU + 25 OTHERS · EVERY SATURDAY · BRING YOURSELF, WE'LL HANDLE THE REST
+              FIRST TIME? JUST SHOW UP 10 MIN EARLY · YOU DON'T NEED TO KNOW ANYONE
             </p>
           </motion.div>
         </div>
