@@ -153,12 +153,12 @@ const FIRST_SATURDAY = [
   },
   {
     step: "MILE 1–2",
-    title: "Find a person, find a pace.",
-    body: "Walkers, joggers, runners — we naturally split into small groups. Somebody will fall in next to you. That's the whole point.",
+    title: "Talk through mile two.",
+    body: "Walkers, joggers, runners — we naturally split into small groups. The real work happens in the conversation. Somebody will fall in next to you. That's the whole point.",
   },
   {
     step: "AFTER",
-    title: "Coffee. Stay as long as you want.",
+    title: "Stay for coffee.",
     body: "We grab coffee nearby. Stay 10 minutes or an hour. Most weeks people hang around longer than they planned.",
   },
 ];
@@ -257,8 +257,7 @@ function Index() {
             className="mt-10 md:mt-12 max-w-2xl"
           >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              Meet us Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles
-              with us, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
+              We're mostly 30+ former athletes who needed a group to grind with. Saturday at 7 AM on the Montour/Peters Trail in McMurray. Run a few miles, talk through mile two, stay for coffee. Any pace. Just you and a pair of shoes.
               <span className="block mt-3 text-bone/65">
                 Sign up for this Saturday on Strava. Join our chat on Heylo so you know who's coming and where to meet.
               </span>
@@ -486,8 +485,9 @@ function Index() {
               If you're <span className="underline-sky">already choosing</span> discomfort — you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
-              We're not for everyone, and we're not trying to be. We're for you if you already know the
-              answer is to keep showing up. Come find your people. We'll hold the time, the route, and the ritual.
+              We're not for everyone, and we're not trying to be. We're mostly 30+ former athletes
+              who needed a group to grind with. Come find your people. We'll hold the time, the route,
+              and the ritual.
             </p>
           </Reveal>
 
@@ -499,9 +499,9 @@ function Index() {
                 body: "You need one thing on the calendar that's just yours — early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
               },
               {
-                tag: "02 · IF YOU'RE 30+ & COMING BACK",
-                title: "You used to run. Start again with us.",
-                body: "It's been a year. Or five. You don't need a plan or a Garmin — you need a group that waits at every regroup and treats you like you belong. That's us. Show up.",
+                tag: "02 · IF YOU'RE 30+ & NEED A GROUP",
+                title: "Former athletes who needed people to grind with.",
+                body: "You used to compete. You still have the engine, but you've been going alone — or not going at all. You don't need a plan or a Garmin. You need a crew that shows up. That's us.",
               },
               {
                 tag: "03 · IF YOU WANT REAL COMMUNITY",
