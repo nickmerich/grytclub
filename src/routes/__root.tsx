@@ -33,14 +33,8 @@ export const Route = createRootRoute({
       { name: "description", content: "GRYT is a Pittsburgh, PA run club for parents and adults 30+. Saturdays at 7:00 AM on the Montour Trail in Canonsburg. All paces welcome." },
       { name: "author", content: "GRYT" },
       { property: "og:site_name", content: "GRYT Run Club" },
-      { property: "og:title", content: "GRYT — Pittsburgh Run Club" },
-      { property: "og:description", content: "Pittsburgh's run club for parents and adults 30+ who want to do hard things together. Saturdays · 7 AM · Montour Trail." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "GRYT — Pittsburgh Run Club" },
-      { name: "twitter:description", content: "Pittsburgh's run club for parents and adults 30+ who want to do hard things together. Saturdays · 7 AM · Montour Trail." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
       { name: "google-site-verification", content: "fHsXQoWUHWJ8yprnP8OnO9YW9Vutvln4IMQig8Ymjhs" },
     ],
     links: [
@@ -53,6 +47,21 @@ export const Route = createRootRoute({
       {
         rel: "stylesheet",
         href: appCss,
+      },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "GRYT",
+          alternateName: "GRYT Run Club",
+          description: "Pittsburgh run club for parents and adults 30+ who do hard things together.",
+          url: "https://www.gryt.club/",
+          areaServed: { "@type": "Place", name: "Pittsburgh, Pennsylvania" },
+          sameAs: ["https://www.strava.com/clubs/1708552"],
+        }),
       },
     ],
   }),
