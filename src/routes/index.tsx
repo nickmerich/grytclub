@@ -158,7 +158,7 @@ const FIRST_SATURDAY = [
   },
   {
     step: "AFTER",
-    title: "Coffee. Stay as long as you want.",
+    title: "Stay for coffee.",
     body: "We grab coffee nearby. Stay 10 minutes or an hour. Most weeks people hang around longer than they planned.",
   },
 ];
