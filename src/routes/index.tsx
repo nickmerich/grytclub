@@ -343,7 +343,7 @@ function Index() {
               </div>
               <div className="rule-thin bg-ink mb-5" />
               <p className="font-display text-xl md:text-2xl leading-tight mb-5">
-                this is what showing up <span className="underline-sky">looks like.</span>
+                this is what your <span className="underline-sky">Saturday looks like.</span>
               </p>
               <div className="flex-1 flex items-start justify-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
