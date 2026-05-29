@@ -221,9 +221,8 @@ function Index() {
             className="font-display text-[11vw] md:text-[7.5vw] lg:text-[6.2vw] leading-[0.9] max-w-5xl"
           >
             <span className="sr-only">GRYT — </span>
-            Pittsburgh run club for{" "}
-            <span className="underline-sky">parents and 30+</span>{" "}
-            who do hard things together.
+            Do <span className="underline-sky">hard things</span> together.
+
           </motion.h1>
 
           <motion.div
