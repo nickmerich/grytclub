@@ -433,37 +433,37 @@ function Index() {
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-              For people who are <span className="underline-sky">already choosing</span> discomfort.
+              If you're <span className="underline-sky">already choosing</span> discomfort — you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
-              GRYT isn't for everyone — and it's not trying to be. It's for the kind of person who
-              already knows the answer is to keep showing up. We just give you the ritual, the route,
-              and the people to do it with.
+              We're not for everyone, and we're not trying to be. We're for you if you already know the
+              answer is to keep showing up. Come find your people. We'll hold the time, the route, and the ritual.
             </p>
           </Reveal>
 
           <div className="mt-14 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-px bg-ink/15">
             {[
               {
-                tag: "01 · THE PARENT",
-                title: "You're back before the kids wake up.",
-                body: "You need one thing on the calendar that's just yours — early enough that nobody else is affected, hard enough that it counts. Saturday at 7 is that thing.",
+                tag: "01 · IF YOU'RE A PARENT",
+                title: "Be home before the kids wake up.",
+                body: "You need one thing on the calendar that's just yours — early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
               },
               {
-                tag: "02 · THE 30+ COMEBACK",
-                title: "You used to run. You will again.",
-                body: "It's been a year. Or five. You don't need a plan or a Garmin — you need a group that hangs at every regroup and treats you like you belong. We are that group.",
+                tag: "02 · IF YOU'RE 30+ & COMING BACK",
+                title: "You used to run. Start again with us.",
+                body: "It's been a year. Or five. You don't need a plan or a Garmin — you need a group that waits at every regroup and treats you like you belong. That's us. Show up.",
               },
               {
-                tag: "03 · THE BUILDER",
-                title: "You want structure and a real community.",
-                body: "You're past the phase of optimizing alone in headphones. You want people who'll notice if you don't show up, and a standing time you don't have to negotiate every week.",
+                tag: "03 · IF YOU WANT REAL COMMUNITY",
+                title: "Run with people who'll notice you.",
+                body: "You're done optimizing alone in headphones. Join a standing time you don't have to negotiate, with people who'll text you when you miss a week.",
               },
               {
-                tag: "04 · THE STREAKER",
-                title: "You're trying to become someone consistent.",
-                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. You're here for the long version — and you'd rather not do it alone.",
+                tag: "04 · IF YOU'RE BUILDING A STREAK",
+                title: "Become someone consistent.",
+                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. Come start the long version with us — you won't have to do it alone.",
               },
+            ].map((c) => (
             ].map((c) => (
               <Reveal key={c.tag}>
                 <div className="bg-bone p-7 md:p-10 h-full">
