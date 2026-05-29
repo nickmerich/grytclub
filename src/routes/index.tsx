@@ -464,7 +464,6 @@ function Index() {
                 body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. Come start the long version with us — you won't have to do it alone.",
               },
             ].map((c) => (
-            ].map((c) => (
               <Reveal key={c.tag}>
                 <div className="bg-bone p-7 md:p-10 h-full">
                   <div className="label-meta text-sky-brand">{c.tag}</div>
