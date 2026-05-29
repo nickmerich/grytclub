@@ -595,7 +595,6 @@ function Index() {
             <Label className="text-bone">Learn more</Label>
             <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
-            <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
                 Free stuff to help you <span className="underline-sky">run better,</span>
                 <br /> stay consistent, get stronger.
