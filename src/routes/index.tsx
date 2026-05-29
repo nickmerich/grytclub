@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
+import foundersPhoto from "@/assets/founders.jpg";
 
 
 /** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
@@ -501,22 +502,28 @@ function Index() {
           {/* Founder / host strip */}
           <Reveal>
             <div className="mt-16 md:mt-24 bg-ink text-bone p-7 md:p-10 flex flex-wrap items-center gap-6 md:gap-10">
+              <img
+                src={foundersPhoto}
+                alt="Laura and Nick Merich, founders of GRYT"
+                className="w-32 h-32 md:w-40 md:h-40 object-cover grayscale shrink-0"
+              />
               <div className="flex-1 min-w-[260px]">
                 <Label className="text-bone">Who's running this</Label>
                 <div className="rule-thin bg-bone mt-2 mb-4 max-w-[60px]" />
                 <p className="font-display text-2xl md:text-3xl leading-tight">
-                  Run with <span className="underline-sky">Nick and the crew.</span>
+                  Run with <span className="underline-sky">Laura & Nick Merich</span> — and the crew.
                 </p>
                 <p className="mt-4 text-bone/75 leading-snug max-w-xl">
-                  GRYT started with a handful of friends who wanted one thing on the calendar that
-                  wouldn't move. Same trail, same time, every Saturday — so showing up never depends on
-                  how you feel that morning. You're not joining a brand. You're joining a standing time.
+                  Founders of GRYT. 27 marathons finished between them. They started this with a
+                  handful of friends who wanted one thing on the calendar that wouldn't move — same
+                  trail, same time, every Saturday. You're not joining a brand. You're joining a
+                  standing time with people who actually show up.
                 </p>
               </div>
               <div className="label-meta text-bone/55 flex flex-col gap-1">
+                <span>● 27 MARATHONS FINISHED · COMBINED</span>
                 <span>● RUNNING WEEKLY SINCE 2024</span>
-                <span>● 25+ REGULARS · GROWING</span>
-                <span>● ALL PACES · NOBODY DROPPED</span>
+                <span>● 25+ REGULARS · ALL PACES</span>
               </div>
             </div>
           </Reveal>
