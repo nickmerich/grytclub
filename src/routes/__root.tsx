@@ -56,25 +56,20 @@ export const Route = createRootRoute({
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
 
-function RootShell({ children }: { children: React.ReactNode }) {
+function RootComponent() {
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <Outlet />
         <Scripts />
       </body>
     </html>
   );
-}
-
-function RootComponent() {
-  return <Outlet />;
 }
