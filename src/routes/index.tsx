@@ -621,8 +621,6 @@ function Index() {
         </div>
       </section>
 
-        </div>
-      </section>
 
       {/* ═══════════════════════ TECH STACK STRIP ═══════════════════════ */}
       <section className="bg-bone text-ink border-t border-ink/10 py-10 md:py-14">
