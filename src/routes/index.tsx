@@ -133,8 +133,10 @@ function DiagonalSlash({
 const STRAVA_URL = "https://www.strava.com/clubs/1708552";
 const HEYLO_URL =
   "https://www.heylo.com/g/9446d69d-0852-4e63-b925-a934d79ebb15?inviteId=CiNFJ4Xn";
-const STRAVA_EMBED_SRC =
+const STRAVA_EMBED_BASE =
   "https://www.strava.com/clubs/1708552/latest-rides/b76ca42ddb400c392ceee3ee06c641b84d840862";
+const STRAVA_EMBED_SUMMARY = STRAVA_EMBED_BASE;
+const STRAVA_EMBED_RIDES = `${STRAVA_EMBED_BASE}?show_rides=true`;
 
 /* ─── Resources for "Learn More" ─── */
 const RESOURCES = [
@@ -344,22 +346,38 @@ function Index() {
                 this is what showing up <span className="underline-sky">looks like.</span>
               </p>
               <div className="flex-1 flex items-start justify-center">
-                <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
-                  <iframe
-                    title="GRYT Strava club — latest rides"
-                    src={STRAVA_EMBED_SRC}
-                    loading="lazy"
-                    width={300}
-                    height={454}
-                    scrolling="no"
-                    allowTransparency
-                    className="block w-full"
-                    style={{ height: 454, border: 0 }}
-                  />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 w-full place-items-center">
+                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                    <iframe
+                      title="GRYT Strava club — summary"
+                      src={STRAVA_EMBED_SUMMARY}
+                      loading="lazy"
+                      width={300}
+                      height={454}
+                      scrolling="no"
+                      allowTransparency
+                      className="block w-full"
+                      style={{ height: 454, border: 0 }}
+                    />
+                  </div>
+                  <div className="w-full max-w-[320px] border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
+                    <iframe
+                      title="GRYT Strava club — latest rides"
+                      src={STRAVA_EMBED_RIDES}
+                      loading="lazy"
+                      width={300}
+                      height={454}
+                      scrolling="no"
+                      allowTransparency
+                      className="block w-full"
+                      style={{ height: 454, border: 0 }}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
 
           {/* Run details strip */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-bone/15 mt-px border border-bone/20 border-t-0">
