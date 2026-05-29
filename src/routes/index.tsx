@@ -303,12 +303,12 @@ function Index() {
             <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Every Saturday. <br />
+                Meet us Saturday. <br />
                 <span className="underline-sky">7:00 AM.</span> McMurray, PA.
               </h2>
               <p className="max-w-md text-bone/70 leading-snug">
-                212 Valley Brook Road, McMurray. We run on the Montour/Peters Trail —
-                mixed paces, no one left behind, coffee after.
+                Pull into 212 Valley Brook Road. We'll be the group stretching by the trailhead.
+                Run with us, walk with us — nobody gets dropped, coffee's on after.
               </p>
             </div>
           </Reveal>
