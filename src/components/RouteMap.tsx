@@ -103,10 +103,10 @@ export function RouteMap() {
   return (
     <div
       ref={containerRef}
+      role="img"
       aria-label="Map of Saturday's run: 5.22 mi from Montour Trail at Bebout Rd up Valley Brook Rd to Hiddenbrook Playground, McMurray PA"
-
-      aria-label="Map of Saturday's run route on the Montour Trail near Canonsburg, PA"
       className="w-full h-[420px] md:h-[520px] bg-bone"
     />
+
   );
 }
