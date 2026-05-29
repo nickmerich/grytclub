@@ -41,6 +41,7 @@ export const Route = createRootRoute({
       { name: "twitter:description", content: "Pittsburgh's run club for parents and adults 30+ who want to do hard things together. Saturdays · 7 AM · Montour Trail." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
+      { name: "google-site-verification", content: "fHsXQoWUHWJ8yprnP8OnO9YW9Vutvln4IMQig8Ymjhs" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
