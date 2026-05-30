@@ -219,12 +219,14 @@ function Index() {
         {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
           <GrytLogo className="text-bone" />
-          <nav className="flex flex-none items-center gap-3 md:gap-8 label-meta overflow-x-auto scrollbar-hide whitespace-nowrap mx-2 md:mx-0">
-            <a href="#runs" className="hover:text-sky-brand transition-colors shrink-0">RUNS</a>
-            <a href="#who" className="hover:text-sky-brand transition-colors shrink-0">YOUR PEOPLE</a>
-            <a href="#first-saturday" className="hover:text-sky-brand transition-colors shrink-0">FIRST TIME</a>
-            <a href="#faq" className="hover:text-sky-brand transition-colors shrink-0">FAQ</a>
-          </nav>
+          <div className="relative flex flex-none mx-2 md:mx-0">
+            <nav className="flex items-center gap-3 md:gap-8 label-meta overflow-x-auto scrollbar-hide whitespace-nowrap snap-x snap-mandatory">
+              <a href="#runs" className="hover:text-sky-brand transition-colors shrink-0 snap-center">RUN</a>
+              <a href="#first-saturday" className="hover:text-sky-brand transition-colors shrink-0 snap-center">LEARN</a>
+              <a href="#who" className="hover:text-sky-brand transition-colors shrink-0 snap-center">CONNECT</a>
+            </nav>
+            <div className="md:hidden absolute inset-y-0 right-0 w-5 bg-gradient-to-l from-sky-brand/30 to-transparent pointer-events-none" />
+          </div>
           <a
             href={STRAVA_URL}
             target="_blank"
