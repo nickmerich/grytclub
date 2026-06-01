@@ -208,13 +208,6 @@ function Index() {
         <div className="absolute inset-0 dot-grid pointer-events-none" />
         <DiagonalSlash className="top-[22%] -left-[20%]" thickness={2} length="160%" />
         <DiagonalSlash className="top-[60%] -left-[20%] opacity-50" thickness={1} length="160%" />
-        <img
-          src={grytLogoMark}
-          alt=""
-          aria-hidden="true"
-          className="hidden md:block absolute bottom-8 right-8 w-40 h-40 object-contain opacity-25 pointer-events-none"
-          style={{ mixBlendMode: "screen" }}
-        />
 
         {/* Top nav */}
         <header className="relative z-10 flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
