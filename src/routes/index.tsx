@@ -315,6 +315,10 @@ function Index() {
                 "Laura Merich",
                 "Matt Paden",
                 "Nathan",
+                "Dave Friedman",
+                "Leo Merich",
+                "Winston Maize",
+                "Sonny Merich",
               ].map((name) => {
                 const [first, ...rest] = name.split(" ");
                 const last = rest.join(" ");
