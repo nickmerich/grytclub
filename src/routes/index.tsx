@@ -732,7 +732,7 @@ function Index() {
               href={STRAVA_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
+              className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta shadow-[0_0_24px_rgba(137,207,240,0.35)] hover:shadow-[0_0_32px_rgba(137,207,240,0.5)] hover:bg-bone transition-all"
             >
               SIGN UP FOR SATURDAY →
             </a>
@@ -740,7 +740,7 @@ function Index() {
               href={HEYLO_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
+              className="inline-flex items-center justify-center border border-bone text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink hover:border-bone transition-colors"
             >
               JOIN THE CHAT →
             </a>
