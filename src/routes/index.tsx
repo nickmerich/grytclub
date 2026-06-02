@@ -551,10 +551,16 @@ function Index() {
                 />
                 <div className="flex-1 min-w-[260px]">
                   <Label className="text-bone">Who's running this</Label>
-                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[60px]" />
-                  <p className="font-display text-2xl md:text-3xl leading-tight">
-                    Run with <span className="underline-sky">Laura & Nick Merich</span> — and the crew.
+                  <div className="rule-thin bg-bone mt-2 mb-5 max-w-[60px]" />
+                  <div className="flex flex-wrap items-end gap-x-3 gap-y-1 leading-none">
+                    <span className="bubble-name text-6xl md:text-8xl">Laura</span>
+                    <span className="bubble-name-amp text-5xl md:text-7xl">&amp;</span>
+                    <span className="bubble-name text-6xl md:text-8xl">Nick</span>
+                  </div>
+                  <p className="mt-5 font-display text-xl md:text-2xl leading-tight text-bone/90">
+                    Merich — and the crew.
                   </p>
+
                   <p className="mt-4 text-bone/75 leading-snug max-w-xl">
                     Founders of GRYT. 27 marathons finished between them. They started this with a
                     handful of friends who wanted one thing on the calendar that wouldn't move — same
