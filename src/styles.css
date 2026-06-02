@@ -197,6 +197,7 @@
     background-color: var(--sky);
     transform: rotate(-6deg);
     z-index: -1;
+    filter: drop-shadow(0 0 4px rgba(137, 207, 240, 0.45));
   }
 
   /* Smaller variant for body-scale text */
