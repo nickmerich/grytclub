@@ -226,9 +226,10 @@
   /* Dot grid / halftone — brand v3, now with film grain overlay */
   .dot-grid {
     background-image:
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-      radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1.2px);
-    background-size: 200px 200px, 3px 3px;
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1.2px);
+    background-size: auto, 200px 200px, 3px 3px;
   }
 
   /* Concrete: layered radial wash + dot overlay + grain for dark hero panels */
