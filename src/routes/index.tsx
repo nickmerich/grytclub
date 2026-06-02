@@ -314,11 +314,15 @@ function Index() {
                 "Kyle Bloser",
                 "Laura Merich",
                 "Matt Paden",
+                "Matt Messerly",
+                "Ian Baun",
+                "Zac Kuchta",
                 "Nathan",
                 "Dave Friedman",
                 "Leo Merich",
                 "Winston Maize",
                 "Sonny Merich",
+
               ].map((name) => {
                 const [first, ...rest] = name.split(" ");
                 const last = rest.join(" ");
