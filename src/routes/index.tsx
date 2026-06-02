@@ -42,17 +42,17 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT — Pittsburgh Run Club for Parents & Adults 30+" },
+      { title: "GRYT Run Club — Do Hard Things Together | McMurray, PA" },
       {
         name: "description",
         content:
-          "GRYT is a Pittsburgh run club for parents and adults 30+. Saturdays at 7:00 AM at 212 Valley Brook Road, McMurray, PA on the Montour/Peters Trail. All paces welcome.",
+          "GRYT is a run club for adults 30+ in the Pittsburgh metro. Saturdays at 7:00 AM at 212 Valley Brook Road, McMurray, PA on the Montour/Peters Trail. All paces welcome.",
       },
-      { property: "og:title", content: "GRYT — Pittsburgh Run Club" },
+      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
       {
         property: "og:description",
         content:
-          "Pittsburgh run club for parents and 30+ who do hard things together. Saturdays · 7 AM · Montour/Peters Trail.",
+          "Adults 30+ doing hard things together. Saturdays · 7 AM · Montour/Peters Trail, McMurray, PA.",
       },
       { property: "og:url", content: "https://www.gryt.club/" },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/aXy5H4jaWqdrchHlxfIBtB67rN43/social-images/social-1776911888989-Screen_Shot_2026-04-22_at_9.59.08_PM.webp" },
@@ -68,7 +68,7 @@ export const Route = createFileRoute("/")({
           name: "GRYT",
           alternateName: "GRYT Run Club",
           description:
-            "Pittsburgh run club for parents and adults 30+ who do hard things together.",
+            "Pittsburgh-area run club for adults 30+ who do hard things together.",
           url: "https://www.gryt.club/",
           sport: "Running",
           slogan: "DO HARD THINGS TOGETHER",
@@ -255,7 +255,7 @@ function Index() {
             transition={{ duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.1 }}
             className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.85] tracking-tight max-w-6xl uppercase"
           >
-            <span className="sr-only">GRYT — </span>
+            <span className="sr-only">GRYT Run Club, Pittsburgh — </span>
             Do <span className="underline-sky">hard things</span> together.
 
           </motion.h1>
