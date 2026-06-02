@@ -570,15 +570,10 @@ function Index() {
                   <Label className="text-bone">Who's running this</Label>
                   <div className="rule-thin bg-bone mt-2 mb-10 max-w-[60px]" />
 
-                  <div className="flex flex-wrap items-end gap-x-3 gap-y-1 leading-none">
-                    <span className="bubble-name text-6xl md:text-8xl">Laura</span>
-                    <span className="bubble-name-amp text-5xl md:text-7xl">&amp;</span>
-                    <span className="bubble-name text-6xl md:text-8xl">Nick</span>
-                  </div>
-
-                  <p className="mt-8 font-display text-xl md:text-2xl leading-tight text-bone">
-                    Merich — and the crew.
-                  </p>
+                  <h3 className="font-display text-3xl md:text-5xl leading-none text-bone">
+                    Laura <span className="text-bone/50">&amp;</span> Nick Merich
+                  </h3>
+                  <p className="mt-3 label-meta text-bone/60">— and the crew</p>
 
                   <p className="mt-5 text-bone/75 leading-relaxed max-w-xl">
                     Founders of GRYT. 27 marathons between them. One thing on the calendar that
