@@ -11,7 +11,7 @@ import lauraNick5 from "@/assets/laura-nick-5.jpg";
 import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
 
 
-/** Restrained, athletic reveal — short fade + small rise, single pass on enter. */
+/** Restrained, athletic reveal - short fade + small rise, single pass on enter. */
 function Reveal({
   children,
   delay = 0,
@@ -42,13 +42,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "GRYT Run Club — Do Hard Things Together | McMurray, PA" },
+      { title: "GRYT Run Club - Do Hard Things Together | McMurray, PA" },
       {
         name: "description",
         content:
           "GRYT is a run club for adults 30+ in the Pittsburgh metro. Saturdays at 7:00 AM at 212 Valley Brook Road, McMurray, PA on the Montour/Peters Trail. All paces welcome.",
       },
-      { property: "og:title", content: "GRYT Run Club — Do Hard Things Together" },
+      { property: "og:title", content: "GRYT Run Club - Do Hard Things Together" },
       {
         property: "og:description",
         content:
@@ -75,7 +75,7 @@ export const Route = createFileRoute("/")({
           areaServed: { "@type": "Place", name: "Pittsburgh, Pennsylvania" },
           location: {
             "@type": "Place",
-            name: "Montour/Peters Trail — McMurray, PA",
+            name: "Montour/Peters Trail - McMurray, PA",
             address: {
               "@type": "PostalAddress",
               streetAddress: "212 Valley Brook Road",
@@ -152,17 +152,17 @@ const FIRST_SATURDAY = [
   {
     step: "10 MIN BEFORE",
     title: "Pull into 212 Valley Brook Rd.",
-    body: "Free parking right at the trailhead. Look for the group near the trail sign — we'll wave you over. Bathrooms are open at the trailhead.",
+    body: "Free parking right at the trailhead. Look for the group near the trail sign - we'll wave you over. Bathrooms are open at the trailhead.",
   },
   {
     step: "7:00 AM",
     title: "Quick hello, then we move.",
-    body: "30-second intro circle — names, who's new, who's coming back. Then we head out together. No pace pressure, no drop policy.",
+    body: "30-second intro circle - names, who's new, who's coming back. Then we head out together. No pace pressure, no drop policy.",
   },
   {
     step: "MILE 1–2",
     title: "Talk through mile two.",
-    body: "Walkers, joggers, runners — we naturally split into small groups. The real work happens in the conversation. Somebody will fall in next to you. That's the whole point.",
+    body: "Walkers, joggers, runners - we naturally split into small groups. The real work happens in the conversation. Somebody will fall in next to you. That's the whole point.",
   },
   {
     step: "AFTER",
@@ -179,7 +179,7 @@ const FAQ = [
   },
   {
     q: "Can I come alone?",
-    a: "Yes — most people do their first time. Show up 10 minutes early, introduce yourself, you'll know people by mile one.",
+    a: "Yes - most people do their first time. Show up 10 minutes early, introduce yourself, you'll know people by mile one.",
   },
   {
     q: "Do I need Strava?",
@@ -187,7 +187,7 @@ const FAQ = [
   },
   {
     q: "What if it rains?",
-    a: "We run. Light rain, cold, whatever — we go. If conditions are actually unsafe (ice, lightning), we'll call it off in the Heylo chat the night before.",
+    a: "We run. Light rain, cold, whatever - we go. If conditions are actually unsafe (ice, lightning), we'll call it off in the Heylo chat the night before.",
   },
   {
     q: "Can I bring a friend? A dog? A stroller?",
@@ -195,7 +195,7 @@ const FAQ = [
   },
   {
     q: "How long does the whole thing take?",
-    a: "Plan on about 90 minutes start to finish — 45–60 min on the trail, plus coffee. You'll be home before most people are awake.",
+    a: "Plan on about 90 minutes start to finish - 45–60 min on the trail, plus coffee. You'll be home before most people are awake.",
   },
 ];
 
@@ -255,7 +255,7 @@ function Index() {
             transition={{ duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.1 }}
             className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.85] tracking-tight max-w-6xl uppercase"
           >
-            <span className="sr-only">GRYT Run Club, Pittsburgh — </span>
+            <span className="sr-only">GRYT Run Club, Pittsburgh - </span>
             Do <span className="underline-sky">hard things</span> together.
 
           </motion.h1>
@@ -317,7 +317,7 @@ function Index() {
                 "Matt Messerly",
                 "Ian Baun",
                 "Zac Kuchta",
-                "Nathan",
+                "Nathan J",
                 "Dave Friedman",
                 "Leo Merich",
                 "Winston Maize",
@@ -384,7 +384,7 @@ function Index() {
               </h2>
               <p className="max-w-md text-bone/70 leading-snug">
                 Pull into 212 Valley Brook Road. We'll be the group stretching by the trailhead.
-                Run with us, walk with us — nobody gets dropped, coffee's on after.
+                Run with us, walk with us - nobody gets dropped, coffee's on after.
               </p>
             </div>
           </Reveal>
@@ -422,13 +422,13 @@ function Index() {
                 this is what your <span className="underline-sky">Saturday looks like.</span>
               </p>
               <p className="text-ink/65 leading-snug text-sm mb-5">
-                Not on Strava? No problem — this is just our live receipt. Real people, real miles, every week. You can show up without an account.
+                Not on Strava? No problem - this is just our live receipt. Real people, real miles, every week. You can show up without an account.
               </p>
               <div className="flex-1 flex items-start justify-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
                   <div className="w-full border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
                     <iframe
-                      title="GRYT Strava club — summary"
+                      title="GRYT Strava club - summary"
                       src={STRAVA_EMBED_SUMMARY}
                       loading="lazy"
                       width={300}
@@ -441,7 +441,7 @@ function Index() {
                   </div>
                   <div className="w-full border border-ink/15 bg-pure shadow-[6px_6px_0_0_var(--ink)]">
                     <iframe
-                      title="GRYT Strava club — latest rides"
+                      title="GRYT Strava club - latest rides"
                       src={STRAVA_EMBED_RIDES}
                       loading="lazy"
                       width={300}
@@ -513,7 +513,7 @@ function Index() {
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-              If you're <span className="underline-sky">already choosing</span> discomfort — you're one of us.
+              If you're <span className="underline-sky">already choosing</span> discomfort - you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
               We're not for everyone, and we're not trying to be. We're mostly 30+ former athletes
@@ -527,12 +527,12 @@ function Index() {
               {
                 tag: "01 · IF YOU'RE A PARENT",
                 title: "Be home before the kids wake up.",
-                body: "You need one thing on the calendar that's just yours — early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
+                body: "You need one thing on the calendar that's just yours - early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
               },
               {
                 tag: "02 · IF YOU'RE 30+ & NEED A GROUP",
                 title: "Former athletes who needed people to grind with.",
-                body: "You used to compete. You still have the engine, but you've been going alone — or not going at all. You don't need a plan or a Garmin. You need a crew that shows up. That's us.",
+                body: "You used to compete. You still have the engine, but you've been going alone - or not going at all. You don't need a plan or a Garmin. You need a crew that shows up. That's us.",
               },
               {
                 tag: "03 · IF YOU WANT REAL COMMUNITY",
@@ -542,7 +542,7 @@ function Index() {
               {
                 tag: "04 · IF YOU'RE BUILDING A STREAK",
                 title: "Become someone consistent.",
-                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. Come start the long version with us — you won't have to do it alone.",
+                body: "One Saturday is a workout. Twelve Saturdays is a habit. Fifty is a different person. Come start the long version with us - you won't have to do it alone.",
               },
             ].map((c) => (
               <Reveal key={c.tag}>
@@ -557,7 +557,7 @@ function Index() {
             ))}
           </div>
 
-          {/* Founder / host strip — clean, editorial */}
+          {/* Founder / host strip - clean, editorial */}
           <Reveal>
             <div className="relative mt-16 md:mt-24 bg-ink text-bone">
               <div className="relative z-10 px-7 md:px-14 py-12 md:py-20 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-start">
@@ -573,11 +573,11 @@ function Index() {
                   <h3 className="font-display text-4xl md:text-6xl leading-none text-bone tracking-wide">
                     Laura <span className="text-sky">&amp;</span> Nick Merich
                   </h3>
-                  <p className="mt-3 label-meta text-bone/70">— and the crew</p>
+                  <p className="mt-3 label-meta text-bone/70">- and the crew</p>
 
                   <p className="mt-5 text-bone/75 leading-relaxed max-w-xl">
                     Founders of GRYT. 27 marathons between them. One thing on the calendar that
-                    doesn't move — same trail, same time, every Saturday.
+                    doesn't move - same trail, same time, every Saturday.
                   </p>
 
                   <ul className="mt-10 flex flex-col gap-2 label-meta text-bone/60">
@@ -840,7 +840,7 @@ function Index() {
         </div>
         <div className="mt-6 pt-6 border-t border-ink/10 flex flex-wrap items-center justify-between gap-3">
           <p className="text-ink/65 leading-snug max-w-2xl text-sm">
-            First Saturday nerves? Text or email us before you come — we'll meet you at the trailhead.
+            First Saturday nerves? Text or email us before you come - we'll meet you at the trailhead.
             No one runs alone unless they want to.
           </p>
           <a href="mailto:hi@gryt.club?subject=First%20Saturday%20question" className="label-meta text-sky-brand hover:text-ink">
