@@ -318,12 +318,21 @@
     letter-spacing: -0.03em;
     line-height: 0.9;
     text-transform: uppercase;
+    color: #0c2f47;
+    -webkit-text-stroke: 1px #000000;
+    filter:
+      drop-shadow(1.5px 1.5px 0 #89CFF0)
+      drop-shadow(2px 2px 0 #000000);
+    display: inline-block;
+  }
+  /* On dark surfaces, invert to sky fill with dark stroke for punch */
+  .bg-ink .bubble-name-sm,
+  .dark .bubble-name-sm {
     color: #89CFF0;
     -webkit-text-stroke: 1.5px #1F5B7E;
     filter:
       drop-shadow(1px 1px 0 #1F5B7E)
       drop-shadow(2px 2px 0 #0c2f47);
-    display: inline-block;
   }
 }
 
