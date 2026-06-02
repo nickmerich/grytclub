@@ -330,7 +330,7 @@ function Index() {
                   <span key={name} className="shrink-0 flex items-baseline gap-1.5">
                     <span className="bubble-name-sm text-sm md:text-base">{first}</span>
                     {last && (
-                      <span className="label-meta text-ink/60" style={{ fontSize: "10px" }}>
+                      <span className="label-meta text-ink/85" style={{ fontSize: "10px" }}>
                         {last}
                       </span>
                     )}
