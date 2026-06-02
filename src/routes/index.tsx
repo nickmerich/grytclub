@@ -315,11 +315,20 @@ function Index() {
                 "Laura Merich",
                 "Matt Paden",
                 "Nathan",
-              ].map((name) => (
-                <span key={name} className="label-meta text-ink shrink-0">
-                  {name}
-                </span>
-              ))}
+              ].map((name) => {
+                const [first, ...rest] = name.split(" ");
+                const last = rest.join(" ");
+                return (
+                  <span key={name} className="shrink-0 flex items-baseline gap-1.5">
+                    <span className="bubble-name-sm text-sm md:text-base">{first}</span>
+                    {last && (
+                      <span className="label-meta text-ink/60" style={{ fontSize: "10px" }}>
+                        {last}
+                      </span>
+                    )}
+                  </span>
+                );
+              })}
               <span className="label-meta text-ink/55 shrink-0">+ YOU →</span>
             </div>
           ))}

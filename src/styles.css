@@ -291,6 +291,21 @@
     display: inline-block;
     padding: 0 0.1em;
   }
+
+  /* Smaller bubble variant for tag clouds / marquees */
+  .bubble-name-sm {
+    font-family: "Fredoka", "Montserrat", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: #89CFF0;
+    -webkit-text-stroke: 1.5px #1F5B7E;
+    filter:
+      drop-shadow(1px 1px 0 #1F5B7E)
+      drop-shadow(2px 2px 0 #0c2f47);
+    display: inline-block;
+  }
 }
 
 @keyframes marquee {
