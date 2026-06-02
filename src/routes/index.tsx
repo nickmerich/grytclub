@@ -748,8 +748,9 @@ function Index() {
 
 
       {/* ═══════════════════════ TECH STACK STRIP ═══════════════════════ */}
-      <section className="bg-bone text-ink border-t border-ink/10 py-10 md:py-14">
-        <div className="px-6 md:px-10">
+      <section className="bg-bone text-ink border-t border-ink/10 py-10 md:py-14 relative overflow-hidden">
+        <div className="absolute inset-0 dot-grid-bone pointer-events-none opacity-70" />
+        <div className="relative z-10 px-6 md:px-10">
           <div className="flex flex-wrap items-center justify-between gap-x-10 gap-y-6">
             <div className="flex items-center gap-4">
               <Label>The stack</Label>
