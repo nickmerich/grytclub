@@ -503,7 +503,8 @@ function Index() {
         id="who"
         className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden"
       >
-        <div className="px-6 md:px-10">
+        <div className="absolute inset-0 dot-grid-bone pointer-events-none opacity-70" />
+        <div className="relative z-10 px-6 md:px-10">
           <Reveal>
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
@@ -650,7 +651,8 @@ function Index() {
         id="first-saturday"
         className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden"
       >
-        <div className="px-6 md:px-10">
+        <div className="absolute inset-0 dot-grid-bone pointer-events-none opacity-70" />
+        <div className="relative z-10 px-6 md:px-10">
           <Reveal>
             <Label>Your first Saturday</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
