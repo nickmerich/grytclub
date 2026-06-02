@@ -223,21 +223,23 @@
     pointer-events: none;
   }
 
-  /* Dot grid texture for dark panels */
-  /* Dot grid / halftone texture — brand v3 signature (3px spacing) */
+  /* Dot grid / halftone — brand v3, now with film grain overlay */
   .dot-grid {
-    background-image: radial-gradient(rgba(255,255,255,0.08) 1px, transparent 1.2px);
-    background-size: 3px 3px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(rgba(255,255,255,0.10) 1px, transparent 1.2px);
+    background-size: 200px 200px, 3px 3px;
   }
 
-  /* Concrete: layered radial wash + dot overlay for dark hero panels */
+  /* Concrete: layered radial wash + dot overlay + grain for dark hero panels */
   .dot-concrete {
     background-color: #0a0908;
     background-image:
-      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.06), transparent 55%),
-      radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.03), transparent 50%),
-      radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1.2px);
-    background-size: auto, auto, 3px 3px;
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.07), transparent 55%),
+      radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.04), transparent 50%),
+      radial-gradient(rgba(255,255,255,0.09) 1px, transparent 1.2px);
+    background-size: 240px 240px, auto, auto, 3px 3px;
   }
 
   .dot-grid-sky {
@@ -245,9 +247,13 @@
     background-size: 3px 3px;
   }
 
+  /* Bone grain — paper grain + micro-halftone for light panels */
   .dot-grid-bone {
-    background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 1.2px);
-    background-size: 3px 3px;
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E"),
+      radial-gradient(rgba(0,0,0,0.09) 0.6px, transparent 0.8px);
+    background-size: 200px 200px, 8px 8px;
+    background-blend-mode: multiply, normal;
   }
 
 
