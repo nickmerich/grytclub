@@ -557,49 +557,44 @@ function Index() {
             ))}
           </div>
 
-          {/* Founder / host strip */}
+          {/* Founder / host strip — clean, editorial */}
           <Reveal>
-            <div className="relative overflow-hidden mt-16 md:mt-24 bg-ink text-bone">
-              <div className="absolute inset-0 dot-grid pointer-events-none" />
-              <div className="relative z-10 p-7 md:p-10 flex flex-wrap items-center gap-6 md:gap-10">
+            <div className="relative mt-16 md:mt-24 bg-ink text-bone">
+              <div className="relative z-10 px-7 md:px-14 py-12 md:py-20 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-start">
                 <img
                   src={foundersPhoto}
                   alt="Laura and Nick Merich, founders of GRYT"
-                  className="w-32 h-32 md:w-40 md:h-40 object-cover grayscale shrink-0"
+                  className="w-28 h-28 md:w-36 md:h-36 object-cover grayscale shrink-0"
                 />
-                <div className="flex-1 min-w-[260px]">
+                <div className="min-w-0">
                   <Label className="text-bone">Who's running this</Label>
-                  <div className="rule-thin bg-bone mt-2 mb-5 max-w-[60px]" />
+                  <div className="rule-thin bg-bone mt-2 mb-10 max-w-[60px]" />
+
                   <div className="flex flex-wrap items-end gap-x-3 gap-y-1 leading-none">
                     <span className="bubble-name text-6xl md:text-8xl">Laura</span>
                     <span className="bubble-name-amp text-5xl md:text-7xl">&amp;</span>
                     <span className="bubble-name text-6xl md:text-8xl">Nick</span>
                   </div>
-                  <p className="mt-5 font-display text-xl md:text-2xl leading-tight text-bone/90">
+
+                  <p className="mt-8 font-display text-xl md:text-2xl leading-tight text-bone">
                     Merich — and the crew.
                   </p>
 
-                  <p className="mt-4 text-bone/75 leading-snug max-w-xl">
-                    Founders of GRYT. 27 marathons finished between them. They started this with a
-                    handful of friends who wanted one thing on the calendar that wouldn't move — same
-                    trail, same time, every Saturday. You're not joining a brand. You're joining a
-                    standing time with people who actually show up.
+                  <p className="mt-5 text-bone/75 leading-relaxed max-w-xl">
+                    Founders of GRYT. 27 marathons between them. One thing on the calendar that
+                    doesn't move — same trail, same time, every Saturday.
                   </p>
+
+                  <ul className="mt-10 flex flex-col gap-2 label-meta text-bone/60">
+                    <li>● 27 marathons finished · combined</li>
+                    <li>● Running weekly since 2024</li>
+                    <li>● 25+ regulars · all paces</li>
+                  </ul>
                 </div>
-                <div className="label-meta text-bone/55 flex flex-col gap-1">
-                  <span>● 27 MARATHONS FINISHED · COMBINED</span>
-                  <span>● RUNNING WEEKLY SINCE 2024</span>
-                  <span>● 25+ REGULARS · ALL PACES</span>
-                </div>
-                <img
-                  src={grytLogoMark}
-                  alt="GRYT Club bear shield emblem"
-                  className="hidden md:block w-28 h-28 object-contain shrink-0 opacity-90"
-                  style={{ mixBlendMode: "screen" }}
-                />
               </div>
             </div>
           </Reveal>
+
 
           {/* Photo gallery */}
           <Reveal>
