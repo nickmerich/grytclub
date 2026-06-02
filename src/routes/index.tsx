@@ -669,7 +669,10 @@ function Index() {
           <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-ink/15 border border-ink/15">
             {FIRST_SATURDAY.map((s, i) => (
               <Reveal key={s.step} delay={i * 0.05}>
-                <div className="bg-bone p-6 md:p-8 h-full flex flex-col">
+                <div className="bg-bone p-6 md:p-8 h-full flex flex-col relative">
+                  <div className="absolute top-4 right-5 font-display text-6xl md:text-7xl leading-none text-ink/10 select-none pointer-events-none">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
                   <div className="label-meta text-sky-brand">{s.step}</div>
                   <div className="rule-thin bg-ink mt-2 mb-4 max-w-[40px]" />
                   <h3 className="font-display text-xl md:text-2xl leading-[1.1]">{s.title}</h3>
