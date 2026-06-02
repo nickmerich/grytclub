@@ -247,14 +247,24 @@
     background-size: 3px 3px;
   }
 
-  /* Bone grain — heavier dark grain + denser halftone for light panels */
+  /* Bone grain — textured but readable; tuned for mobile contrast (WCAG AA on ink/bone) */
   .dot-grid-bone {
     background-image:
-      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-      radial-gradient(rgba(0,0,0,0.22) 0.9px, transparent 1.1px),
-      radial-gradient(rgba(0,0,0,0.10) 1px, transparent 1.4px);
-    background-size: 180px 180px, 6px 6px, 14px 14px;
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(rgba(0,0,0,0.13) 0.7px, transparent 1px),
+      radial-gradient(rgba(0,0,0,0.06) 0.9px, transparent 1.3px);
+    background-size: 200px 200px, 7px 7px, 16px 16px;
     background-blend-mode: multiply, multiply, normal;
+  }
+  /* Lighter texture on small screens to keep body copy crisp */
+  @media (max-width: 768px) {
+    .dot-grid-bone {
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+        radial-gradient(rgba(0,0,0,0.08) 0.6px, transparent 0.9px);
+      background-size: 220px 220px, 9px 9px;
+      background-blend-mode: multiply, normal;
+    }
   }
 
 
