@@ -128,7 +128,7 @@ export function CrewCarousel() {
 
           {/* Center main image */}
           <div className="relative z-20 h-full w-[88%] md:w-[56%] overflow-hidden bg-ink/20 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.55)]">
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
+            <AnimatePresence initial={false} custom={direction} mode="sync">
               <motion.img
                 key={index}
                 src={PHOTOS[index].src}
@@ -138,15 +138,15 @@ export function CrewCarousel() {
                 initial={
                   reduce
                     ? { opacity: 0 }
-                    : { x: direction > 0 ? "60%" : "-60%", opacity: 0, scale: 1.04 }
+                    : { opacity: 0, scale: 1.06 }
                 }
-                animate={{ x: 0, opacity: 1, scale: 1 }}
+                animate={{ opacity: 1, scale: 1 }}
                 exit={
                   reduce
                     ? { opacity: 0 }
-                    : { x: direction > 0 ? "-40%" : "40%", opacity: 0, scale: 0.98 }
+                    : { opacity: 0, scale: 0.96 }
                 }
-                transition={{ duration: 0.7, ease: [0.22, 0.8, 0.2, 1] }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 draggable={false}
               />
             </AnimatePresence>
