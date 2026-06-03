@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
+import { CrewCarousel } from "@/components/CrewCarousel";
 import foundersPhoto from "@/assets/founders.jpg";
 import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
@@ -556,6 +557,28 @@ function Index() {
               </Reveal>
             ))}
           </div>
+
+          {/* ── Crew collage carousel — celebrates the group, not individuals ── */}
+          <Reveal>
+            <div className="mt-16 md:mt-24">
+              <div className="flex flex-wrap items-end justify-between gap-4 mb-6 md:mb-10">
+                <div>
+                  <Label>The crew · in motion</Label>
+                  <div className="rule-thin bg-ink mt-2 mb-4 max-w-[60px]" />
+                  <h3 className="font-display text-3xl md:text-5xl leading-[1.02] max-w-2xl">
+                    Become someone <span className="underline-sky">consistent.</span>
+                  </h3>
+                </div>
+                <p className="max-w-sm text-ink/70 leading-snug">
+                  Not a highlight reel. Just the Saturdays — the people who keep showing up,
+                  one mile at a time.
+                </p>
+              </div>
+              <CrewCarousel />
+            </div>
+          </Reveal>
+
+
 
           {/* Founder / host strip - clean, editorial */}
           <Reveal>
