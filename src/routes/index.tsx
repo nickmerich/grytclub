@@ -605,7 +605,7 @@ function Index() {
 
                   <ul className="mt-10 flex flex-col gap-2 label-meta text-bone/60">
                     <li>● 27 marathons finished · combined</li>
-                    <li>● Running weekly since 2024</li>
+                    <li>● Running races together since 2014</li>
                     <li>● 25+ regulars · all paces</li>
                   </ul>
                 </div>
