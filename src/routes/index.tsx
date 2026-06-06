@@ -519,9 +519,11 @@ function Index() {
               If you're <span className="underline-sky">already choosing</span> discomfort - you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
-              We're not for everyone, and we're not trying to be. We're mostly 30+ former athletes
-              who needed a group to grind with. Come find your people. We'll hold the time, the route,
-              and the ritual.
+              We're not for everyone, and we're not trying to be. Our core group is 30+ year-old
+              parents, former athletes, and friends who wanted to find time on the schedule to grind
+              together — and that's how this run club was birthed. We meet Saturday at 7 AM on the
+              Montour/Peters Trail in McMurray. Run a few miles, talk through mile two, stay for
+              coffee. Any pace. Just you and a pair of shoes.
             </p>
           </Reveal>
 
