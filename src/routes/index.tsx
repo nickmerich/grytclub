@@ -339,7 +339,7 @@ function Index() {
                   </span>
                 );
               })}
-              <span className="label-meta text-ink/55 shrink-0">+ YOU →</span>
+              <span className="label-meta text-ink/55 shrink-0">DO HARD THINGS <span className="underline-sky">TOGETHER</span> →</span>
             </div>
           ))}
         </div>
