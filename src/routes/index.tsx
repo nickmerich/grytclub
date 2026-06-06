@@ -259,6 +259,8 @@ function Index() {
             <span className="sr-only">GRYT Run Club, Pittsburgh - </span>
             Do <span className="underline-sky">hard things</span> together.
 
+
+
           </motion.h1>
 
           <motion.div
@@ -338,7 +340,7 @@ function Index() {
                   </span>
                 );
               })}
-              <span className="label-meta text-ink/55 shrink-0">+ YOU →</span>
+              <span className="label-meta text-ink/55 shrink-0">DO HARD THINGS <span className="underline-sky">TOGETHER</span> →</span>
             </div>
           ))}
         </div>
@@ -853,7 +855,7 @@ function Index() {
         <div className="flex flex-wrap items-start justify-between gap-6">
           <div className="flex items-center gap-4">
             <GrytLogo className="on-light" />
-            <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS TOGETHER</span>
+            <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS <span className="underline-sky">TOGETHER</span></span>
           </div>
           <div className="flex items-center gap-6 label-meta">
             <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">STRAVA</a>
