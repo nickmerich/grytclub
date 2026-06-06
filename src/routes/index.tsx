@@ -257,7 +257,8 @@ function Index() {
             className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.85] tracking-tight max-w-6xl uppercase"
           >
             <span className="sr-only">GRYT Run Club, Pittsburgh - </span>
-            Do <span className="underline-sky">hard things</span> together.
+            Do hard things <span className="underline-sky">together</span>.
+
 
           </motion.h1>
 
