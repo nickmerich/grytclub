@@ -511,6 +511,7 @@ function Index() {
               href={STRAVA_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("strava_first_saturday", STRAVA_URL)}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
               SIGN UP FOR SATURDAY →
@@ -519,6 +520,7 @@ function Index() {
               href={HEYLO_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("heylo_first_saturday", HEYLO_URL)}
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
               JOIN THE CHAT →
