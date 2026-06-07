@@ -822,6 +822,7 @@ function Index() {
                     href={tool.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackCta(`${tool.name.toLowerCase()}_stack_strip`, tool.href)}
                     className="group inline-flex items-baseline gap-2 hover:text-sky-brand transition-colors"
                   >
                     <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
