@@ -298,9 +298,12 @@ function Index() {
               </a>
             </div>
 
-            <p className="mt-6 label-meta text-bone/55">
-              FIRST TIME? JUST SHOW UP 10 MIN EARLY · YOU DON'T NEED TO KNOW ANYONE
-            </p>
+            <div className="mt-6 flex flex-col gap-2">
+              <GoingCounter />
+              <p className="label-meta text-bone/55">
+                FIRST TIME? JUST SHOW UP 10 MIN EARLY · YOU DON'T NEED TO KNOW ANYONE
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
