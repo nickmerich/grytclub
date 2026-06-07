@@ -354,13 +354,8 @@ function Index() {
 
       {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink border-t border-bone/15 shadow-[0_-8px_24px_rgba(0,0,0,0.45)]">
-        {/* Context bar */}
-        <div className="flex items-center justify-center gap-2 px-4 pt-2 pb-1">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-bone/70">
-            Saturday 7 AM · Montour Trail, McMurray
-          </span>
-        </div>
+        {/* Rotating context bar */}
+        <RotatingTicker />
 
         {/* Action buttons */}
         <div className="flex items-stretch px-3 pb-3 pt-1 gap-2">
