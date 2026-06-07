@@ -233,9 +233,10 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="md:hidden label-meta text-sky-brand"
+            className="md:hidden flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-sky-brand px-2 py-1 -mr-2"
           >
-            JOIN →
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
+            JOIN
           </a>
         </header>
 
