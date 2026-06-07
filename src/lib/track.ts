@@ -60,3 +60,20 @@ export function trackCta(cta: string, href?: string) {
     /* noop */
   }
 }
+
+/**
+ * Append UTM params to an outbound URL so conversions can be compared
+ * in Strava / Heylo analytics and other platforms.
+ */
+export function withUtm(href: string, cta: string): string {
+  try {
+    const url = new URL(href);
+    url.searchParams.set("utm_source", "grytclub");
+    url.searchParams.set("utm_medium", "cta");
+    url.searchParams.set("utm_campaign", "homepage");
+    url.searchParams.set("utm_content", cta);
+    return url.toString();
+  } catch {
+    return href;
+  }
+}
