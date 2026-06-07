@@ -3,6 +3,7 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
+import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
 import foundersPhoto from "@/assets/founders.jpg";
 import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
@@ -242,14 +243,15 @@ function Index() {
 
         {/* Headline block */}
         <div className="relative z-10 px-6 md:px-10 pt-12 md:pt-20 pb-12 md:pb-16 flex-1 flex flex-col justify-center max-w-6xl">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
-            className="label-meta text-sky-brand mb-6"
+            className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2"
           >
-            ● LIVE · PITTSBURGH, PA · SATURDAYS 7 AM
-          </motion.p>
+            <p className="label-meta text-sky-brand">● LIVE · PITTSBURGH, PA · SATURDAYS 7 AM</p>
+            <CountdownPill />
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -296,9 +298,12 @@ function Index() {
               </a>
             </div>
 
-            <p className="mt-6 label-meta text-bone/55">
-              FIRST TIME? JUST SHOW UP 10 MIN EARLY · YOU DON'T NEED TO KNOW ANYONE
-            </p>
+            <div className="mt-6 flex flex-col gap-2">
+              <GoingCounter />
+              <p className="label-meta text-bone/55">
+                FIRST TIME? JUST SHOW UP 10 MIN EARLY · YOU DON'T NEED TO KNOW ANYONE
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -349,13 +354,8 @@ function Index() {
 
       {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
       <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink border-t border-bone/15 shadow-[0_-8px_24px_rgba(0,0,0,0.45)]">
-        {/* Context bar */}
-        <div className="flex items-center justify-center gap-2 px-4 pt-2 pb-1">
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-bone/70">
-            Saturday 7 AM · Montour Trail, McMurray
-          </span>
-        </div>
+        {/* Rotating context bar */}
+        <RotatingTicker />
 
         {/* Action buttons */}
         <div className="flex items-stretch px-3 pb-3 pt-1 gap-2">
