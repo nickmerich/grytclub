@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
 import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
+import { trackCta } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
 import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
@@ -226,6 +227,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_header_desktop", STRAVA_URL)}
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
             SIGN UP FOR SATURDAY →
@@ -234,6 +236,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_header_mobile", STRAVA_URL)}
             className="md:hidden flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-sky-brand px-2 py-1 -mr-2"
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
@@ -284,6 +287,7 @@ function Index() {
                 href={STRAVA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCta("strava_hero", STRAVA_URL)}
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
                 SIGN UP FOR SATURDAY →
@@ -292,6 +296,7 @@ function Index() {
                 href={HEYLO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCta("heylo_hero", HEYLO_URL)}
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
                 JOIN THE CHAT →
@@ -363,6 +368,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_sticky_mobile", STRAVA_URL)}
             className="flex-[1.3] bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -374,6 +380,7 @@ function Index() {
             href={HEYLO_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("heylo_sticky_mobile", HEYLO_URL)}
             className="flex-1 bg-bone/10 text-bone px-3 py-3.5 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform border border-bone/20"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -504,6 +511,7 @@ function Index() {
               href={STRAVA_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("strava_first_saturday", STRAVA_URL)}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
               SIGN UP FOR SATURDAY →
@@ -512,6 +520,7 @@ function Index() {
               href={HEYLO_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("heylo_first_saturday", HEYLO_URL)}
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
               JOIN THE CHAT →
@@ -770,6 +779,7 @@ function Index() {
               href={STRAVA_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("strava_faq", STRAVA_URL)}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta shadow-[0_0_24px_rgba(137,207,240,0.35)] hover:shadow-[0_0_32px_rgba(137,207,240,0.5)] hover:bg-bone transition-all"
             >
               SIGN UP FOR SATURDAY →
@@ -778,6 +788,7 @@ function Index() {
               href={HEYLO_URL}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCta("heylo_faq", HEYLO_URL)}
               className="inline-flex items-center justify-center border border-bone text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink hover:border-bone transition-colors"
             >
               JOIN THE CHAT →
@@ -811,6 +822,7 @@ function Index() {
                     href={tool.href}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackCta(`${tool.name.toLowerCase()}_stack_strip`, tool.href)}
                     className="group inline-flex items-baseline gap-2 hover:text-sky-brand transition-colors"
                   >
                     <span className="font-display text-xl md:text-2xl leading-none">{tool.name}</span>
@@ -850,6 +862,7 @@ function Index() {
                 href={STRAVA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCta("strava_final", STRAVA_URL)}
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta shadow-[0_0_24px_rgba(137,207,240,0.35)] hover:shadow-[0_0_32px_rgba(137,207,240,0.5)] hover:bg-bone transition-all"
               >
                 SIGN UP FOR SATURDAY →
@@ -858,6 +871,7 @@ function Index() {
                 href={HEYLO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackCta("heylo_final", HEYLO_URL)}
                 className="inline-flex items-center justify-center border border-bone text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink hover:border-bone transition-colors"
               >
                 JOIN THE CHAT →
@@ -876,8 +890,8 @@ function Index() {
             <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS <span className="underline-sky">TOGETHER</span></span>
           </div>
           <div className="flex items-center gap-6 label-meta">
-            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">STRAVA</a>
-            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">HEYLO</a>
+            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("strava_footer", STRAVA_URL)} className="hover:text-sky-brand">STRAVA</a>
+            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("heylo_footer", HEYLO_URL)} className="hover:text-sky-brand">HEYLO</a>
             <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
           </div>
         </div>
