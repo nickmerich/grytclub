@@ -243,14 +243,15 @@ function Index() {
 
         {/* Headline block */}
         <div className="relative z-10 px-6 md:px-10 pt-12 md:pt-20 pb-12 md:pb-16 flex-1 flex flex-col justify-center max-w-6xl">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.2, 0.7, 0.2, 1] }}
-            className="label-meta text-sky-brand mb-6"
+            className="mb-6 flex flex-wrap items-center gap-x-5 gap-y-2"
           >
-            ● LIVE · PITTSBURGH, PA · SATURDAYS 7 AM
-          </motion.p>
+            <p className="label-meta text-sky-brand">● LIVE · PITTSBURGH, PA · SATURDAYS 7 AM</p>
+            <CountdownPill />
+          </motion.div>
 
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
