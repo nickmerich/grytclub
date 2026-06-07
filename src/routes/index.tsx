@@ -203,7 +203,7 @@ const FAQ = [
 
 function Index() {
   return (
-    <main className="bg-bone text-ink overflow-hidden pb-[68px] md:pb-0">
+    <main className="bg-bone text-ink overflow-hidden pb-[88px] md:pb-0">
       {/* ═══════════════════════ 1. HERO ═══════════════════════ */}
       <section className="relative bg-ink text-bone min-h-screen flex flex-col overflow-hidden">
         <div className="absolute inset-0 dot-grid pointer-events-none" />
@@ -233,9 +233,10 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="md:hidden label-meta text-sky-brand"
+            className="md:hidden flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-sky-brand px-2 py-1 -mr-2"
           >
-            JOIN →
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
+            JOIN
           </a>
         </header>
 
@@ -347,23 +348,38 @@ function Index() {
       </div>
 
       {/* ═══════════════════════ STICKY MOBILE CTA ═══════════════════════ */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink text-bone border-t border-bone/20 shadow-[0_-6px_20px_rgba(0,0,0,0.35)]">
-        <div className="flex items-stretch">
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden bg-ink border-t border-bone/15 shadow-[0_-8px_24px_rgba(0,0,0,0.45)]">
+        {/* Context bar */}
+        <div className="flex items-center justify-center gap-2 px-4 pt-2 pb-1">
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-bone/70">
+            Saturday 7 AM · Montour Trail, McMurray
+          </span>
+        </div>
+
+        {/* Action buttons */}
+        <div className="flex items-stretch px-3 pb-3 pt-1 gap-2">
           <a
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center label-meta"
+            className="flex-[1.3] bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform"
           >
-            STRAVA · EVENTS →
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14M14 7l5 5-5 5" />
+            </svg>
+            Sign Up
           </a>
           <a
             href={HEYLO_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-bone text-ink px-4 py-3.5 flex items-center justify-center label-meta border-l border-ink/20"
+            className="flex-1 bg-bone/10 text-bone px-3 py-3.5 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform border border-bone/20"
           >
-            HEYLO · CHAT →
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+            Chat
           </a>
         </div>
       </div>
