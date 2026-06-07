@@ -890,8 +890,8 @@ function Index() {
             <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS <span className="underline-sky">TOGETHER</span></span>
           </div>
           <div className="flex items-center gap-6 label-meta">
-            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">STRAVA</a>
-            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" className="hover:text-sky-brand">HEYLO</a>
+            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("strava_footer", STRAVA_URL)} className="hover:text-sky-brand">STRAVA</a>
+            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("heylo_footer", HEYLO_URL)} className="hover:text-sky-brand">HEYLO</a>
             <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
           </div>
         </div>
