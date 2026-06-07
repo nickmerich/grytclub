@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
 import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
-import { trackCta } from "@/lib/track";
+import { trackCta, withUtm } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
 import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
@@ -224,19 +224,19 @@ function Index() {
             <div className="md:hidden absolute inset-y-0 right-0 w-5 bg-gradient-to-l from-sky-brand/30 to-transparent pointer-events-none" />
           </div>
           <a
-            href={STRAVA_URL}
+            href={withUtm(STRAVA_URL, "strava_header_desktop")}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCta("strava_header_desktop", STRAVA_URL)}
+            onClick={() => trackCta("strava_header_desktop", withUtm(STRAVA_URL, "strava_header_desktop"))}
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
             SIGN UP FOR SATURDAY →
           </a>
           <a
-            href={STRAVA_URL}
+            href={withUtm(STRAVA_URL, "strava_header_mobile")}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCta("strava_header_mobile", STRAVA_URL)}
+            onClick={() => trackCta("strava_header_mobile", withUtm(STRAVA_URL, "strava_header_mobile"))}
             className="md:hidden flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-sky-brand px-2 py-1 -mr-2"
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
@@ -284,19 +284,19 @@ function Index() {
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
-                href={STRAVA_URL}
+                href={withUtm(STRAVA_URL, "strava_hero")}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCta("strava_hero", STRAVA_URL)}
+                onClick={() => trackCta("strava_hero", withUtm(STRAVA_URL, "strava_hero"))}
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
               >
                 SIGN UP FOR SATURDAY →
               </a>
               <a
-                href={HEYLO_URL}
+                href={withUtm(HEYLO_URL, "heylo_hero")}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCta("heylo_hero", HEYLO_URL)}
+                onClick={() => trackCta("heylo_hero", withUtm(HEYLO_URL, "heylo_hero"))}
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
                 JOIN THE CHAT →
@@ -365,10 +365,10 @@ function Index() {
         {/* Action buttons */}
         <div className="flex items-stretch px-3 pb-3 pt-1 gap-2">
           <a
-            href={STRAVA_URL}
+            href={withUtm(STRAVA_URL, "strava_sticky_mobile")}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCta("strava_sticky_mobile", STRAVA_URL)}
+            onClick={() => trackCta("strava_sticky_mobile", withUtm(STRAVA_URL, "strava_sticky_mobile"))}
             className="flex-[1.3] bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -377,10 +377,10 @@ function Index() {
             Sign Up
           </a>
           <a
-            href={HEYLO_URL}
+            href={withUtm(HEYLO_URL, "heylo_sticky_mobile")}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCta("heylo_sticky_mobile", HEYLO_URL)}
+            onClick={() => trackCta("heylo_sticky_mobile", withUtm(HEYLO_URL, "heylo_sticky_mobile"))}
             className="flex-1 bg-bone/10 text-bone px-3 py-3.5 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform border border-bone/20"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -508,19 +508,19 @@ function Index() {
 
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href={STRAVA_URL}
+              href={withUtm(STRAVA_URL, "strava_first_saturday")}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackCta("strava_first_saturday", STRAVA_URL)}
+              onClick={() => trackCta("strava_first_saturday", withUtm(STRAVA_URL, "strava_first_saturday"))}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta hover:bg-bone transition-colors"
             >
               SIGN UP FOR SATURDAY →
             </a>
             <a
-              href={HEYLO_URL}
+              href={withUtm(HEYLO_URL, "heylo_first_saturday")}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackCta("heylo_first_saturday", HEYLO_URL)}
+              onClick={() => trackCta("heylo_first_saturday", withUtm(HEYLO_URL, "heylo_first_saturday"))}
               className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
             >
               JOIN THE CHAT →
@@ -776,19 +776,19 @@ function Index() {
 
           <div className="mt-12 flex flex-wrap items-center gap-3">
             <a
-              href={STRAVA_URL}
+              href={withUtm(STRAVA_URL, "strava_faq")}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackCta("strava_faq", STRAVA_URL)}
+              onClick={() => trackCta("strava_faq", withUtm(STRAVA_URL, "strava_faq"))}
               className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta shadow-[0_0_24px_rgba(137,207,240,0.35)] hover:shadow-[0_0_32px_rgba(137,207,240,0.5)] hover:bg-bone transition-all"
             >
               SIGN UP FOR SATURDAY →
             </a>
             <a
-              href={HEYLO_URL}
+              href={withUtm(HEYLO_URL, "heylo_faq")}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => trackCta("heylo_faq", HEYLO_URL)}
+              onClick={() => trackCta("heylo_faq", withUtm(HEYLO_URL, "heylo_faq"))}
               className="inline-flex items-center justify-center border border-bone text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink hover:border-bone transition-colors"
             >
               JOIN THE CHAT →
@@ -810,8 +810,8 @@ function Index() {
             </div>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
               {[
-                { name: "STRAVA", role: "EVENTS · STATS", href: STRAVA_URL },
-                { name: "HEYLO", role: "GROUP CHAT", href: HEYLO_URL },
+                { name: "STRAVA", role: "EVENTS · STATS", href: withUtm(STRAVA_URL, "strava_stack_strip") },
+                { name: "HEYLO", role: "GROUP CHAT", href: withUtm(HEYLO_URL, "heylo_stack_strip") },
                 { name: "GARMIN", role: "WATCHES" },
                 { name: "APPLE HEALTH", role: "SYNC" },
                 { name: "SPOTIFY", role: "MILE 2 PLAYLIST" },
@@ -859,19 +859,19 @@ function Index() {
             </div>
             <div className="flex flex-wrap gap-3">
               <a
-                href={STRAVA_URL}
+                href={withUtm(STRAVA_URL, "strava_final")}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCta("strava_final", STRAVA_URL)}
+                onClick={() => trackCta("strava_final", withUtm(STRAVA_URL, "strava_final"))}
                 className="inline-flex items-center justify-center bg-sky-brand text-ink px-6 py-3.5 label-meta shadow-[0_0_24px_rgba(137,207,240,0.35)] hover:shadow-[0_0_32px_rgba(137,207,240,0.5)] hover:bg-bone transition-all"
               >
                 SIGN UP FOR SATURDAY →
               </a>
               <a
-                href={HEYLO_URL}
+                href={withUtm(HEYLO_URL, "heylo_final")}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackCta("heylo_final", HEYLO_URL)}
+                onClick={() => trackCta("heylo_final", withUtm(HEYLO_URL, "heylo_final"))}
                 className="inline-flex items-center justify-center border border-bone text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink hover:border-bone transition-colors"
               >
                 JOIN THE CHAT →
@@ -890,8 +890,8 @@ function Index() {
             <span className="label-meta opacity-60">PITTSBURGH, PA · DO HARD THINGS <span className="underline-sky">TOGETHER</span></span>
           </div>
           <div className="flex items-center gap-6 label-meta">
-            <a href={STRAVA_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("strava_footer", STRAVA_URL)} className="hover:text-sky-brand">STRAVA</a>
-            <a href={HEYLO_URL} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("heylo_footer", HEYLO_URL)} className="hover:text-sky-brand">HEYLO</a>
+            <a href={withUtm(STRAVA_URL, "strava_footer")} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("strava_footer", withUtm(STRAVA_URL, "strava_footer"))} className="hover:text-sky-brand">STRAVA</a>
+            <a href={withUtm(HEYLO_URL, "heylo_footer")} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("heylo_footer", withUtm(HEYLO_URL, "heylo_footer"))} className="hover:text-sky-brand">HEYLO</a>
             <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
           </div>
         </div>
