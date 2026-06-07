@@ -224,10 +224,10 @@ function Index() {
             <div className="md:hidden absolute inset-y-0 right-0 w-5 bg-gradient-to-l from-sky-brand/30 to-transparent pointer-events-none" />
           </div>
           <a
-            href={STRAVA_URL}
+            href={withUtm(STRAVA_URL, "strava_header_desktop")}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCta("strava_header_desktop", STRAVA_URL)}
+            onClick={() => trackCta("strava_header_desktop", withUtm(STRAVA_URL, "strava_header_desktop"))}
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
             SIGN UP FOR SATURDAY →
