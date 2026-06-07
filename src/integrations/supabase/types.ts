@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      cta_clicks: {
+        Row: {
+          created_at: string
+          cta: string
+          href: string | null
+          id: string
+          path: string | null
+          referrer: string | null
+          session_id: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          cta: string
+          href?: string | null
+          id?: string
+          path?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          cta?: string
+          href?: string | null
+          id?: string
+          path?: string | null
+          referrer?: string | null
+          session_id?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
