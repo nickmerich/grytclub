@@ -227,6 +227,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_header_desktop", STRAVA_URL)}
             className="hidden md:inline-flex items-center justify-center bg-sky-brand text-ink px-4 py-2.5 label-meta hover:bg-bone transition-colors"
           >
             SIGN UP FOR SATURDAY →
@@ -235,6 +236,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_header_mobile", STRAVA_URL)}
             className="md:hidden flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-sky-brand px-2 py-1 -mr-2"
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand animate-pulse" />
