@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.gryt.club/sitemap.xml
+Sitemap: https://gryt.club/sitemap.xml
