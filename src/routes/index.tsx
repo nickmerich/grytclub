@@ -368,6 +368,7 @@ function Index() {
             href={STRAVA_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("strava_sticky_mobile", STRAVA_URL)}
             className="flex-[1.3] bg-sky-brand text-ink px-4 py-3.5 flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -379,6 +380,7 @@ function Index() {
             href={HEYLO_URL}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackCta("heylo_sticky_mobile", HEYLO_URL)}
             className="flex-1 bg-bone/10 text-bone px-3 py-3.5 flex items-center justify-center gap-1.5 text-xs font-semibold uppercase tracking-wide rounded-sm active:scale-[0.98] transition-transform border border-bone/20"
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
