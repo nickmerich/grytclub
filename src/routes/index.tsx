@@ -3,6 +3,7 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
+import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
 import foundersPhoto from "@/assets/founders.jpg";
 import lauraNick1 from "@/assets/laura-nick-1.png";
 import lauraNick2 from "@/assets/laura-nick-2.jpg";
