@@ -318,7 +318,11 @@ function Index() {
         <div className="flex w-max animate-marquee py-4">
           {Array.from({ length: 2 }).map((_, dup) => (
             <div key={dup} className="flex items-center gap-10 pr-10 shrink-0" aria-hidden={dup === 1}>
-              <span className="label-meta text-ink/55 shrink-0">● THE CREW</span>
+              <span className="shrink-0 flex items-baseline gap-1.5">
+                <span className="label-meta text-ink/55">●</span>
+                <span className="label-meta text-ink/55">THE</span>
+                <span className="bubble-name-sm text-sm md:text-base">CREW</span>
+              </span>
               {[
                 "Matthew Bianco",
                 "Jay Wysocki",
@@ -351,7 +355,11 @@ function Index() {
                   </span>
                 );
               })}
-              <span className="label-meta text-ink/55 shrink-0">DO HARD THINGS <span className="underline-sky">TOGETHER</span> →</span>
+              <span className="shrink-0 flex items-baseline gap-1.5">
+                <span className="label-meta text-ink/55">DO HARD THINGS</span>
+                <span className="bubble-name-sm text-sm md:text-base">TOGETHER</span>
+                <span className="label-meta text-ink/55">→</span>
+              </span>
             </div>
           ))}
         </div>
