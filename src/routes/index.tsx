@@ -608,57 +608,58 @@ function Index() {
             ))}
           </div>
 
-          {/* ── Crew collage carousel — celebrates the group, not individuals ── */}
-          <Reveal>
-            <div className="mt-16 md:mt-24">
-              <div className="flex flex-wrap items-end justify-between gap-4 mb-6 md:mb-10">
-                <div>
-                  <Label>The crew · in motion</Label>
-                  <div className="rule-thin bg-ink mt-2 mb-4 max-w-[60px]" />
-                  <h3 className="font-display text-3xl md:text-5xl leading-[1.02] max-w-2xl">
-                    Become someone <span className="underline-sky">consistent.</span>
-                  </h3>
-                </div>
-                <p className="max-w-sm text-ink/70 leading-snug">
-                  Not a highlight reel. Just the Saturdays — the people who keep showing up,
-                  one mile at a time.
-                </p>
-              </div>
-              <CrewCarousel />
-            </div>
-          </Reveal>
-
-
-
-          {/* Founder / host strip - clean, editorial */}
+          {/* ── Who's running this — founders + crew carousel, one unified block ── */}
           <Reveal>
             <div className="relative mt-16 md:mt-24 bg-ink text-bone">
-              <div className="relative z-10 px-7 md:px-14 py-12 md:py-20 grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-start">
-                <img
-                  src={foundersPhoto}
-                  alt="Laura and Nick Merich, founders of GRYT"
-                  className="w-28 h-28 md:w-36 md:h-36 object-cover grayscale shrink-0"
-                />
-                <div className="min-w-0">
-                  <Label className="text-bone">Who's running this</Label>
-                  <div className="rule-thin bg-bone mt-2 mb-10 max-w-[60px]" />
+              <div className="relative z-10 px-6 md:px-14 py-12 md:py-20">
+                {/* Founders header */}
+                <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 md:gap-14 items-start">
+                  <img
+                    src={foundersPhoto}
+                    alt="Laura and Nick Merich, founders of GRYT"
+                    className="w-28 h-28 md:w-36 md:h-36 object-cover grayscale shrink-0"
+                  />
+                  <div className="min-w-0">
+                    <Label className="text-bone">Who's running this</Label>
+                    <div className="rule-thin bg-bone mt-2 mb-8 md:mb-10 max-w-[60px]" />
 
-                  <h3 className="font-display text-4xl md:text-6xl leading-none text-bone tracking-wide">
-                    Laura <span className="text-sky">&amp;</span> Nick Merich
-                  </h3>
-                  <p className="mt-3 label-meta text-bone/70">- and the crew</p>
+                    <h3 className="font-display text-4xl md:text-6xl leading-none text-bone tracking-wide">
+                      Laura <span className="text-sky">&amp;</span> Nick Merich
+                    </h3>
+                    <p className="mt-3 label-meta text-bone/70">- and the crew</p>
 
-                  <p className="mt-5 text-bone/75 leading-relaxed max-w-xl">
-                    Founders of GRYT. 27 marathons between them. One thing on the calendar that
-                    doesn't move - same trail, same time, every Saturday.
-                  </p>
+                    <p className="mt-5 text-bone/75 leading-relaxed max-w-xl">
+                      Founders of GRYT. 27 marathons between them. One thing on the calendar that
+                      doesn't move - same trail, same time, every Saturday.
+                    </p>
 
-                  <ul className="mt-10 flex flex-col gap-2 label-meta text-bone/60">
-                    <li>● 27 marathons finished · combined</li>
-                    <li>● Running races together since 2014</li>
-                    <li>● 25+ regulars · all paces</li>
-                  </ul>
+                    <ul className="mt-8 flex flex-col gap-2 label-meta text-bone/60">
+                      <li>● 27 marathons finished · combined</li>
+                      <li>● Running races together since 2014</li>
+                      <li>● 25+ regulars · all paces</li>
+                    </ul>
+                  </div>
                 </div>
+
+                {/* Divider */}
+                <div className="mt-12 md:mt-16 mb-10 md:mb-14 h-px bg-bone/15" />
+
+                {/* Crew carousel sub-header */}
+                <div className="flex flex-wrap items-end justify-between gap-4 mb-8 md:mb-10">
+                  <div>
+                    <Label className="text-bone">The crew · in motion</Label>
+                    <div className="rule-thin bg-bone mt-2 mb-4 max-w-[60px]" />
+                    <h3 className="font-display text-3xl md:text-5xl leading-[1.02] max-w-2xl text-bone">
+                      Become someone <span className="text-sky underline-sky">consistent.</span>
+                    </h3>
+                  </div>
+                  <p className="max-w-sm text-bone/70 leading-snug">
+                    Not a highlight reel. Just the Saturdays — the people who keep showing up,
+                    one mile at a time.
+                  </p>
+                </div>
+
+                <CrewCarousel />
               </div>
             </div>
           </Reveal>
