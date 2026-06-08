@@ -260,10 +260,11 @@ function Index() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.1 }}
-            className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.85] tracking-tight max-w-6xl uppercase"
+            className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.9] md:leading-[0.85] tracking-tight max-w-6xl uppercase [overflow-wrap:break-word]"
           >
             <span className="sr-only">GRYT Run Club, Pittsburgh - </span>
-            Do <span className="underline-sky">hard things</span> together.
+            Do <span className="underline-sky">hard</span>{" "}
+            <span className="underline-sky">things</span> together.
 
 
 
