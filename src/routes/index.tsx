@@ -427,12 +427,24 @@ function Index() {
           {/* Map + Live Strava feed side-by-side */}
           <div className="mt-12 md:mt-16 grid grid-cols-1 lg:grid-cols-5 gap-px bg-bone/15 border border-bone/20">
             {/* Map */}
-            <div className="lg:col-span-3 bg-bone text-ink relative">
+            <div className="lg:col-span-3 bg-bone text-ink relative ring-2 ring-sky-brand/70 ring-offset-0">
+              {/* Sky corner brackets */}
+              <span className="absolute top-0 left-0 w-5 h-5 border-t-[3px] border-l-[3px] border-sky-brand z-[401] pointer-events-none" />
+              <span className="absolute top-0 right-0 w-5 h-5 border-t-[3px] border-r-[3px] border-sky-brand z-[401] pointer-events-none" />
+              <span className="absolute bottom-0 left-0 w-5 h-5 border-b-[3px] border-l-[3px] border-sky-brand z-[401] pointer-events-none" />
+              <span className="absolute bottom-0 right-0 w-5 h-5 border-b-[3px] border-r-[3px] border-sky-brand z-[401] pointer-events-none" />
+              {/* Sky diagonal slash accent */}
+              <span className="absolute top-6 right-[-12px] w-24 h-[3px] bg-sky-brand rotate-[-18deg] z-[401] pointer-events-none shadow-[0_0_8px_rgba(137,207,240,0.6)]" />
               <RouteMap />
-              <div className="absolute top-4 left-4 z-[400] bg-ink text-bone label-meta px-3 py-2 pointer-events-none">
+              <div className="absolute top-4 left-4 z-[400] bg-ink text-bone label-meta px-3 py-2 pointer-events-none border-l-[3px] border-sky-brand">
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand mr-2 align-middle" />
                 ROUTE · MONTOUR / PETERS TRAIL
               </div>
-              <div className="absolute bottom-4 left-4 z-[400] bg-bone border border-ink/20 px-3 py-2 flex items-center gap-4 label-meta text-ink pointer-events-none">
+              {/* Sky pin marker chip */}
+              <div className="absolute top-16 left-4 z-[400] bg-sky-brand text-ink label-meta px-2.5 py-1.5 pointer-events-none border border-ink/80 shadow-[3px_3px_0_var(--ink)]">
+                ● MEET HERE · 7:00 AM
+              </div>
+              <div className="absolute bottom-4 left-4 z-[400] bg-bone border border-ink/20 border-l-[3px] border-l-sky-brand px-3 py-2 flex items-center gap-4 label-meta text-ink pointer-events-none">
                 <span className="flex items-center gap-2">
                   <span className="inline-block w-3 h-3 rounded-full bg-sky-brand border-2 border-ink" />
                   START
@@ -441,8 +453,13 @@ function Index() {
                   <span className="inline-block w-3 h-3 bg-ink" />
                   FINISH
                 </span>
+                <span className="flex items-center gap-2">
+                  <span className="inline-block w-4 h-[2px] bg-sky-brand" />
+                  ROUTE
+                </span>
               </div>
             </div>
+
 
             {/* Live Strava */}
             <div className="lg:col-span-2 bg-bone text-ink p-6 md:p-8 flex flex-col">
