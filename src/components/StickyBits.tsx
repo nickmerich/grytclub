@@ -17,25 +17,33 @@ function getNextSaturday7am(): Date {
 }
 
 export function useCountdown() {
-  const [now, setNow] = useState(() => Date.now());
+  const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
+    setNow(Date.now());
     const id = setInterval(() => setNow(Date.now()), 1000 * 30);
     return () => clearInterval(id);
   }, []);
+  if (now === null) {
+    return { days: 0, hours: 0, minutes: 0, isReady: false };
+  }
   const target = getNextSaturday7am().getTime();
   const diff = Math.max(0, target - now);
   const days = Math.floor(diff / 86400000);
   const hours = Math.floor((diff % 86400000) / 3600000);
   const minutes = Math.floor((diff % 3600000) / 60000);
-  return { days, hours, minutes };
+  return { days, hours, minutes, isReady: true };
 }
 
 export function CountdownPill({ className = "" }: { className?: string }) {
-  const { days, hours, minutes } = useCountdown();
+  const { days, hours, minutes, isReady } = useCountdown();
   return (
     <span
       className={`inline-flex items-center gap-2 label-meta text-sky-brand ${className}`}
-      aria-label={`Next run in ${days} days ${hours} hours ${minutes} minutes`}
+      aria-label={
+        isReady
+          ? `Next run in ${days} days ${hours} hours ${minutes} minutes`
+          : "Next run countdown loading"
+      }
     >
       <span className="relative inline-flex">
         <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-brand" />
@@ -43,7 +51,7 @@ export function CountdownPill({ className = "" }: { className?: string }) {
       </span>
       <span>NEXT RUN IN</span>
       <span className="font-display text-base tracking-wider text-bone">
-        {days}D {String(hours).padStart(2, "0")}H {String(minutes).padStart(2, "0")}M
+        {isReady ? `${days}D ${String(hours).padStart(2, "0")}H ${String(minutes).padStart(2, "0")}M` : "--D --H --M"}
       </span>
     </span>
   );
