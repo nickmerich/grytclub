@@ -550,7 +550,7 @@ function Index() {
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-              If you're <span className="underline-sky">already choosing</span> discomfort - you're one of us.
+              If you're <span className="underline-sky">already</span> <span className="underline-sky">choosing</span> discomfort - you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
               We're not for everyone, and we're not trying to be. Our core group is 30+ year-old
