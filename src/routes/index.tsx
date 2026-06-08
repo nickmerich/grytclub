@@ -863,7 +863,7 @@ function Index() {
               <Label className="text-bone">Still here?</Label>
               <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
               <p className="font-display text-3xl md:text-4xl leading-tight">
-                Reading about it is fine. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
+                Reading about it is fine. Showing up Saturday is <span className="underline-sky">the</span> <span className="underline-sky">real</span> <span className="underline-sky">thing.</span> Come do it with us.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
