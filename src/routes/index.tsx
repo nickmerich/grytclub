@@ -260,10 +260,11 @@ function Index() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.2, 0.7, 0.2, 1], delay: 0.1 }}
-            className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.85] tracking-tight max-w-6xl uppercase"
+            className="font-display font-black text-[18vw] md:text-[13vw] lg:text-[11vw] leading-[0.9] md:leading-[0.85] tracking-tight max-w-6xl uppercase [overflow-wrap:break-word]"
           >
             <span className="sr-only">GRYT Run Club, Pittsburgh - </span>
-            Do <span className="underline-sky">hard things</span> together.
+            Do <span className="underline-sky">hard</span>{" "}
+            <span className="underline-sky">things</span> together.
 
 
 
@@ -453,7 +454,7 @@ function Index() {
               </div>
               <div className="rule-thin bg-ink mb-5" />
               <p className="font-display text-xl md:text-2xl leading-tight mb-3">
-                this is what your <span className="underline-sky">Saturday looks like.</span>
+                this is what your <span className="underline-sky">Saturday</span> <span className="underline-sky">looks</span> <span className="underline-sky">like.</span>
               </p>
               <p className="text-ink/65 leading-snug text-sm mb-5">
                 Not on Strava? No problem - this is just our live receipt. Real people, real miles, every week. You can show up without an account.
@@ -549,7 +550,7 @@ function Index() {
             <Label>Who shows up</Label>
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-              If you're <span className="underline-sky">already choosing</span> discomfort - you're one of us.
+              If you're <span className="underline-sky">already</span> <span className="underline-sky">choosing</span> discomfort - you're one of us.
             </h2>
             <p className="mt-6 max-w-2xl text-ink/70 leading-snug text-base md:text-lg">
               We're not for everyone, and we're not trying to be. Our core group is 30+ year-old
@@ -712,7 +713,7 @@ function Index() {
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Here's exactly <span className="underline-sky">what to expect</span> when you show up.
+                Here's exactly <span className="underline-sky">what</span> <span className="underline-sky">to</span> <span className="underline-sky">expect</span> when you show up.
               </h2>
               <p className="max-w-md text-ink/70 leading-snug">
                 No mystery. No insider stuff. Read this once and you'll know more than half the
@@ -862,7 +863,7 @@ function Index() {
               <Label className="text-bone">Still here?</Label>
               <div className="rule-thin bg-bone mt-2 mb-4 max-w-[80px]" />
               <p className="font-display text-3xl md:text-4xl leading-tight">
-                Reading about it is fine. Showing up Saturday is <span className="underline-sky">the real thing.</span> Come do it with us.
+                Reading about it is fine. Showing up Saturday is <span className="underline-sky">the</span> <span className="underline-sky">real</span> <span className="underline-sky">thing.</span> Come do it with us.
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
