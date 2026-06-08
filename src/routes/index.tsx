@@ -444,18 +444,18 @@ function Index() {
               <div className="absolute top-16 left-4 z-[400] bg-sky-brand text-ink label-meta px-2.5 py-1.5 pointer-events-none border border-ink/80 shadow-[3px_3px_0_var(--ink)]">
                 ● MEET HERE · 7:00 AM
               </div>
-              <div className="absolute bottom-4 left-4 z-[400] bg-bone border border-ink/20 border-l-[3px] border-l-sky-brand px-3 py-2 flex items-center gap-4 label-meta text-ink pointer-events-none">
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-3 h-3 rounded-full bg-sky-brand border-2 border-ink" />
-                  START
+              <div className="absolute bottom-4 left-4 z-[400] bg-ink border border-sky-brand/40 px-4 py-3 flex items-center gap-5 label-meta text-bone pointer-events-none shadow-[4px_4px_0_0_var(--sky)]">
+                <span className="flex items-center gap-2.5">
+                  <span className="inline-block w-3.5 h-3.5 rounded-full bg-sky-brand border-2 border-bone shadow-[0_0_6px_rgba(137,207,240,0.5)]" />
+                  <span className="underline-sky underline-sky-sm">START</span>
                 </span>
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-3 h-3 bg-ink" />
-                  FINISH
+                <span className="flex items-center gap-2.5">
+                  <span className="inline-block w-3.5 h-3.5 bg-bone border-2 border-sky-brand" />
+                  <span className="underline-sky underline-sky-sm">FINISH</span>
                 </span>
-                <span className="flex items-center gap-2">
-                  <span className="inline-block w-4 h-[2px] bg-sky-brand" />
-                  ROUTE
+                <span className="flex items-center gap-2.5">
+                  <span className="inline-block w-5 h-[3px] bg-sky-brand shadow-[0_0_6px_rgba(137,207,240,0.5)]" />
+                  <span className="underline-sky underline-sky-sm">ROUTE</span>
                 </span>
               </div>
             </div>
