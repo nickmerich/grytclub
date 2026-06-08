@@ -6,11 +6,6 @@ import { CrewCarousel } from "@/components/CrewCarousel";
 import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
 import { trackCta, withUtm } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
-import lauraNick1 from "@/assets/laura-nick-1.png";
-import lauraNick2 from "@/assets/laura-nick-2.jpg";
-import lauraNick3 from "@/assets/laura-nick-3.jpg";
-import lauraNick4 from "@/assets/laura-nick-4.jpg";
-import lauraNick5 from "@/assets/laura-nick-5.jpg";
 import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
 
 
@@ -668,53 +663,6 @@ function Index() {
             </div>
           </Reveal>
 
-
-          {/* Photo gallery */}
-          <Reveal>
-            <div className="mt-px grid grid-cols-2 md:grid-cols-5 gap-px bg-ink/15">
-              {[
-                {
-                  src: lauraNick1,
-                  alt: "Laura and Nick at the Pittsburgh Marathon",
-                  position: "center 25%",
-                  filter: "grayscale(1)",
-                },
-                {
-                  src: lauraNick2,
-                  alt: "Laura and Nick on a trail run",
-                  position: "center 30%",
-                  filter: "grayscale(1)",
-                },
-                {
-                  src: lauraNick5,
-                  alt: "Laura and Nick running through downtown Pittsburgh",
-                  position: "center 70%",
-                  filter: "grayscale(1) contrast(1.05)",
-                },
-                {
-                  src: lauraNick3,
-                  alt: "The Merich family",
-                  position: "center 65%",
-                  filter: "grayscale(1) brightness(1.6) contrast(1.1)",
-                },
-                {
-                  src: lauraNick4,
-                  alt: "Laura and Nick at a race",
-                  position: "center 35%",
-                  filter: "grayscale(1)",
-                },
-              ].map((p) => (
-                <img
-                  key={p.src}
-                  src={p.src}
-                  alt={p.alt}
-                  className="w-full h-56 md:h-72 object-cover"
-                  style={{ objectPosition: p.position, filter: p.filter }}
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          </Reveal>
         </div>
       </section>
 

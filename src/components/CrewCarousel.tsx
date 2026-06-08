@@ -1,28 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
-import crew1 from "@/assets/crew-1.jpg";
-import crew2 from "@/assets/crew-2.jpg";
-import crew3 from "@/assets/crew-3.jpg";
-import crew4 from "@/assets/crew-4.jpg";
-import crew5 from "@/assets/crew-5.jpg";
-import crew6 from "@/assets/crew-6.jpg";
-import runGroup from "@/assets/run-group.jpg";
-import runTrail from "@/assets/run-trail.jpg";
-import runVibes from "@/assets/run-vibes.jpg";
-import runIndividual from "@/assets/run-individual.jpg";
+import lauraNick1 from "@/assets/laura-nick-1.png";
+import lauraNick2 from "@/assets/laura-nick-2.jpg";
+import lauraNick3 from "@/assets/laura-nick-3.jpg";
+import lauraNick4 from "@/assets/laura-nick-4.jpg";
+import lauraNick5 from "@/assets/laura-nick-5.jpg";
+import crewReal1 from "@/assets/crew-real-1.jpg.asset.json";
+import crewReal12 from "@/assets/crew-real-1-2.jpg.asset.json";
+import crewRealU from "@/assets/crew-real-unnamed.jpg.asset.json";
+import crewRealU2 from "@/assets/crew-real-unnamed-2.jpg.asset.json";
 
 const PHOTOS = [
-  { src: runGroup, alt: "GRYT Run Club crew on the Montour Trail at sunrise" },
-  { src: crew1, alt: "Crew members at the trailhead" },
-  { src: runTrail, alt: "Run Club out on the trail" },
-  { src: crew4, alt: "Race day faces in the crowd" },
-  { src: runVibes, alt: "Saturday morning crew" },
-  { src: crew6, alt: "Crew gathered before a long run" },
-  { src: runIndividual, alt: "A runner pushing through downtown" },
-  { src: crew2, alt: "Run club regulars at a race" },
-  { src: crew3, alt: "GRYT crew shield in the wild" },
-  { src: crew5, alt: "Moment from a recent Saturday" },
+  { src: crewRealU2.url, alt: "GRYT crew running through downtown Pittsburgh on race day" },
+  { src: crewReal1.url, alt: "Laura and Nick at a race start line" },
+  { src: lauraNick2, alt: "Laura and Nick on a trail run" },
+  { src: crewReal12.url, alt: "Laura and Nick hiking the coastal hills" },
+  { src: lauraNick5, alt: "Laura and Nick running through downtown Pittsburgh" },
+  { src: crewRealU.url, alt: "Laura and Nick at a mountain summit" },
+  { src: lauraNick1, alt: "Laura and Nick at the Pittsburgh Marathon" },
+  { src: lauraNick4, alt: "Laura and Nick at a race" },
+  { src: lauraNick3, alt: "The Merich family" },
 ];
 
 export function CrewCarousel() {
