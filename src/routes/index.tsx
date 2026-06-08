@@ -713,7 +713,7 @@ function Index() {
             <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
             <div className="flex flex-wrap items-end justify-between gap-6">
               <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
-                Here's exactly <span className="underline-sky">what to expect</span> when you show up.
+                Here's exactly <span className="underline-sky">what</span> <span className="underline-sky">to</span> <span className="underline-sky">expect</span> when you show up.
               </h2>
               <p className="max-w-md text-ink/70 leading-snug">
                 No mystery. No insider stuff. Read this once and you'll know more than half the
