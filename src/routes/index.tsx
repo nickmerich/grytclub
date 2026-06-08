@@ -6,11 +6,6 @@ import { CrewCarousel } from "@/components/CrewCarousel";
 import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
 import { trackCta, withUtm } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
-import lauraNick1 from "@/assets/laura-nick-1.png";
-import lauraNick2 from "@/assets/laura-nick-2.jpg";
-import lauraNick3 from "@/assets/laura-nick-3.jpg";
-import lauraNick4 from "@/assets/laura-nick-4.jpg";
-import lauraNick5 from "@/assets/laura-nick-5.jpg";
 import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
 
 
