@@ -155,7 +155,12 @@ function RunDetailPage() {
 
           <aside className="md:col-span-1">
             <div className="md:sticky md:top-6">
-              <RsvpForm />
+              <RsvpForm
+                eventKey={ev.slug}
+                eventDateLabel={formatLongDate(ev.event_date)}
+                eventTimeLabel={formatTime(ev.start_time)}
+                eventLocationLabel={ev.location_name}
+              />
             </div>
           </aside>
         </div>
