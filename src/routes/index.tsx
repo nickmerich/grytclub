@@ -705,6 +705,106 @@ function Index() {
         </div>
       </section>
 
+      {/* ═══════════════════════ HOW IT WORKS ═══════════════════════ */}
+      <section
+        id="how"
+        className="bg-ink text-bone py-20 md:py-28 border-t border-bone/10 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 dot-grid pointer-events-none" />
+        <div className="relative z-10 px-6 md:px-10">
+          <Reveal>
+            <Label className="text-bone">How GRYT works</Label>
+            <div className="rule-thin bg-bone mt-2 mb-6 max-w-xs" />
+            <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+              Three <span className="underline-sky">steps.</span> No app. No fee.
+            </h2>
+          </Reveal>
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-bone/15 border border-bone/20">
+            {[
+              {
+                n: "01",
+                title: "Show up",
+                body: "Saturday, 7 AM. 212 Valley Brook Road. We're the group stretching by the trailhead. Park, walk over, say hi.",
+              },
+              {
+                n: "02",
+                title: "Run your pace",
+                body: "Out and back, about 4 miles. Walk it, jog it, run it. Nobody gets dropped. You'll find someone moving your speed inside the first quarter mile.",
+              },
+              {
+                n: "03",
+                title: "Stay for coffee",
+                body: "Twenty minutes after, a few of us hang back at the cars or grab coffee nearby. That's where you actually meet people. That's the whole point.",
+              },
+            ].map((s, i) => (
+              <Reveal key={s.n} delay={i * 0.05}>
+                <div className="bg-ink p-7 md:p-10 h-full relative">
+                  <div className="absolute top-4 right-5 font-display text-7xl md:text-8xl leading-none text-bone/10 select-none pointer-events-none">
+                    {s.n}
+                  </div>
+                  <div className="label-meta text-sky-brand">STEP {s.n}</div>
+                  <div className="rule-thin bg-bone mt-2 mb-4 max-w-[40px]" />
+                  <h3 className="font-display text-3xl md:text-4xl leading-[1.05]">{s.title}</h3>
+                  <p className="mt-4 text-bone/75 leading-snug">{s.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════ VOICES ═══════════════════════ */}
+      <section
+        id="voices"
+        className="bg-bone text-ink py-20 md:py-28 border-t border-ink/10 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 dot-grid-bone pointer-events-none opacity-70" />
+        <div className="relative z-10 px-6 md:px-10">
+          <Reveal>
+            <Label>In their words</Label>
+            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+            <h2 className="font-display text-5xl md:text-7xl max-w-4xl">
+              People who keep <span className="underline-sky">showing</span> <span className="underline-sky">up.</span>
+            </h2>
+          </Reveal>
+          <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-px bg-ink/15 border border-ink/15">
+            {[
+              {
+                quote:
+                  "I hadn't run consistently in five years. Three Saturdays in, it's the thing I won't move on my calendar.",
+                name: "Matt P.",
+                meta: "MCMURRAY · DAD OF 2",
+              },
+              {
+                quote:
+                  "Showed up not knowing anyone. By mile two I was deep in a conversation about marathon training and parenting. That's the trick.",
+                name: "Laura M.",
+                meta: "PETERS TWP · MARATHONER",
+              },
+              {
+                quote:
+                  "I'm slow. Nobody cared. Somebody hung back and ran my pace the whole way. Came back the next week.",
+                name: "Aaron M.",
+                meta: "BETHEL PARK · BUILDING THE HABIT",
+              },
+            ].map((v, i) => (
+              <Reveal key={v.name} delay={i * 0.05}>
+                <div className="bg-bone p-7 md:p-10 h-full flex flex-col">
+                  <div className="font-display text-5xl text-sky-brand leading-none mb-4 select-none">"</div>
+                  <p className="text-ink/85 leading-snug text-lg flex-1">{v.quote}</p>
+                  <div className="mt-6">
+                    <div className="bubble-name-sm text-base">{v.name}</div>
+                    <div className="label-meta text-ink/55 mt-1" style={{ fontSize: "10px" }}>
+                      {v.meta}
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ═══════════════════════ FIRST SATURDAY ═══════════════════════ */}
       <section
         id="first-saturday"
