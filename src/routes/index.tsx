@@ -716,7 +716,7 @@ function Index() {
                 body: "You need one thing on the calendar that's just yours - early enough nobody else is affected, hard enough that it counts. Come make Saturday at 7 that thing.",
               },
               {
-                tag: "02 · IF YOU'RE 30+ & NEED A GROUP",
+                tag: "02 · IF YOU'RE 30-50 & NEED A GROUP",
                 title: "Former athletes who needed people to grind with.",
                 body: "You used to compete. You still have the engine, but you've been going alone - or not going at all. You don't need a plan or a Garmin. You need a crew that shows up. That's us.",
               },
