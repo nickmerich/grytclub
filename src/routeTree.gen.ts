@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RunsRouteImport } from './routes/runs'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RunsSlugRouteImport } from './routes/runs.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
@@ -33,6 +34,11 @@ const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const RunsSlugRoute = RunsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => RunsRoute,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -70,9 +76,10 @@ const LovableEmailQueueProcessRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/runs': typeof RunsRoute
+  '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/runs/$slug': typeof RunsSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -81,9 +88,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/runs': typeof RunsRoute
+  '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/runs/$slug': typeof RunsSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -93,9 +101,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/runs': typeof RunsRoute
+  '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/runs/$slug': typeof RunsSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/runs'
     | '/sitemap.xml'
     | '/email/unsubscribe'
+    | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -120,6 +130,7 @@ export interface FileRouteTypes {
     | '/runs'
     | '/sitemap.xml'
     | '/email/unsubscribe'
+    | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
     | '/runs'
     | '/sitemap.xml'
     | '/email/unsubscribe'
+    | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/lovable/email/queue/process'
@@ -140,7 +152,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  RunsRoute: typeof RunsRoute
+  RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
@@ -172,6 +184,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/runs/$slug': {
+      id: '/runs/$slug'
+      path: '/$slug'
+      fullPath: '/runs/$slug'
+      preLoaderRoute: typeof RunsSlugRouteImport
+      parentRoute: typeof RunsRoute
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -218,9 +237,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface RunsRouteChildren {
+  RunsSlugRoute: typeof RunsSlugRoute
+}
+
+const RunsRouteChildren: RunsRouteChildren = {
+  RunsSlugRoute: RunsSlugRoute,
+}
+
+const RunsRouteWithChildren = RunsRoute._addFileChildren(RunsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  RunsRoute: RunsRoute,
+  RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
@@ -232,12 +261,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}

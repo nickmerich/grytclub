@@ -1,4 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
+import { notFound } from "@tanstack/react-router";
+import { z } from "zod";
+
 
 export type EventListItem = {
   id: string;
@@ -40,3 +43,32 @@ export const listUpcomingEvents = createServerFn({ method: "GET" }).handler(
     return (data ?? []) as EventListItem[];
   },
 );
+
+export type EventDetail = EventListItem & {
+  capacity: number | null;
+};
+
+/**
+ * Fetch one published event by slug. Throws notFound() so the route's
+ * notFoundComponent renders for missing/unpublished slugs.
+ */
+export const getEventBySlug = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) =>
+    z.object({ slug: z.string().min(1).max(120) }).parse(data),
+  )
+  .handler(async ({ data }): Promise<EventDetail> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: row, error } = await supabaseAdmin
+      .from("events")
+      .select(
+        "id, slug, title, event_date, start_time, location_name, location_address, distance_mi, pace_label, host_name, description, capacity",
+      )
+      .eq("slug", data.slug)
+      .eq("published", true)
+      .maybeSingle();
+
+    if (error) throw new Error(error.message);
+    if (!row) throw notFound();
+    return row as EventDetail;
+  });
+
