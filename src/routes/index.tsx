@@ -394,6 +394,45 @@ function Index() {
         </div>
       </div>
 
+      {/* ═══════════════════════ NEXT RUN PREVIEW ═══════════════════════ */}
+      <section
+        id="next-run"
+        className="bg-bone text-ink py-16 md:py-24 border-t border-ink/10 relative overflow-hidden"
+      >
+        <div className="absolute inset-0 dot-grid-bone pointer-events-none opacity-70" />
+        <div className="relative z-10 px-6 md:px-10 max-w-6xl">
+          <Reveal>
+            <Label>This Saturday</Label>
+            <div className="rule-thin bg-ink mt-2 mb-6 max-w-xs" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+              <div>
+                <h2 className="font-display text-4xl md:text-6xl leading-[0.95]">
+                  Lock in <span className="underline-sky">your</span> <span className="underline-sky">spot.</span>
+                </h2>
+                <p className="mt-5 text-ink/70 leading-snug max-w-md">
+                  Drop your name and we'll send a short heads-up Friday with weather, parking,
+                  and who's coming. No spam. One email a week, tops.
+                </p>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <CountdownPill />
+                  <GoingCounter />
+                </div>
+                <ul className="mt-8 flex flex-col gap-2 label-meta text-ink/60">
+                  <li>● SAT · 7:00 AM · 212 VALLEY BROOK RD, MCMURRAY PA</li>
+                  <li>● ~4 MI · WALK · JOG · RUN · ANY PACE</li>
+                  <li>● COFFEE AFTER · NO ACCOUNT NEEDED</li>
+                </ul>
+              </div>
+              <div className="bg-ink text-bone p-6 md:p-8 shadow-[6px_6px_0_0_var(--ink)] border border-ink">
+                <Label className="text-bone">RSVP</Label>
+                <div className="rule-thin bg-bone mt-2 mb-5 max-w-[60px]" />
+                <RsvpForm />
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ═══════════════════════ 2. RUNS ═══════════════════════ */}
       <section
         id="runs"
