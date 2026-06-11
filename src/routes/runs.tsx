@@ -148,7 +148,7 @@ function RunsPage() {
                       </span>
                     </div>
                   </div>
-                </Link>
+                </a>
               </li>
             );
           })}
