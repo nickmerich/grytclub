@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
@@ -8,6 +8,81 @@ import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/Sticky
 import { trackCta, withUtm } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
 import grytLogoMark from "@/assets/gryt-logo-mark.jpg";
+
+/** Track which #section is currently in view for nav highlighting. */
+const NAV_SECTIONS = ["next-run", "runs", "how", "first-saturday", "who"] as const;
+type NavSectionId = (typeof NAV_SECTIONS)[number];
+
+function useActiveSection(): NavSectionId | null {
+  const [active, setActive] = useState<NavSectionId | null>(null);
+  useEffect(() => {
+    const visible = new Map<NavSectionId, number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = entry.target.id as NavSectionId;
+          if (entry.isIntersecting) visible.set(id, entry.intersectionRatio);
+          else visible.delete(id);
+        }
+        if (visible.size === 0) {
+          setActive(null);
+          return;
+        }
+        // Pick the section with the highest visible ratio; tie-break by NAV_SECTIONS order.
+        let best: NavSectionId | null = null;
+        let bestRatio = -1;
+        for (const id of NAV_SECTIONS) {
+          const r = visible.get(id);
+          if (r !== undefined && r > bestRatio) {
+            best = id;
+            bestRatio = r;
+          }
+        }
+        setActive(best);
+      },
+      { rootMargin: "-30% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    for (const id of NAV_SECTIONS) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+    return () => observer.disconnect();
+  }, []);
+  return active;
+}
+
+function NavLink({
+  href,
+  label,
+  active,
+}: {
+  href: string;
+  label: string;
+  active: boolean;
+}) {
+  const id = href.replace(/^#/, "");
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (history.replaceState) history.replaceState(null, "", href);
+  };
+  return (
+    <a
+      href={href}
+      onClick={handleClick}
+      aria-current={active ? "true" : undefined}
+      className={`shrink-0 snap-center transition-colors ${
+        active
+          ? "text-sky-brand underline underline-offset-[6px] decoration-2"
+          : "hover:text-sky-brand"
+      }`}
+    >
+      {label}
+    </a>
+  );
+}
 
 
 /** Restrained, athletic reveal - short fade + small rise, single pass on enter. */
@@ -200,6 +275,7 @@ const FAQ = [
 
 
 function Index() {
+  const activeSection = useActiveSection();
   return (
     <main className="bg-bone text-ink overflow-hidden pb-[88px] md:pb-0">
       {/* ═══════════════════════ 1. HERO ═══════════════════════ */}
@@ -213,11 +289,11 @@ function Index() {
           <GrytLogo className="text-bone" />
           <div className="relative flex flex-none mx-2 md:mx-0">
             <nav className="flex items-center gap-3 md:gap-8 label-meta overflow-x-auto scrollbar-hide whitespace-nowrap snap-x snap-mandatory">
-              <a href="#next-run" className="hover:text-sky-brand transition-colors shrink-0 snap-center">RSVP</a>
-              <a href="#runs" className="hover:text-sky-brand transition-colors shrink-0 snap-center">RUN</a>
-              <a href="#how" className="hover:text-sky-brand transition-colors shrink-0 snap-center">HOW</a>
-              <a href="#first-saturday" className="hover:text-sky-brand transition-colors shrink-0 snap-center">LEARN</a>
-              <a href="#who" className="hover:text-sky-brand transition-colors shrink-0 snap-center">CONNECT</a>
+              <NavLink href="#next-run" label="RSVP" active={activeSection === "next-run"} />
+              <NavLink href="#runs" label="RUN" active={activeSection === "runs"} />
+              <NavLink href="#how" label="HOW" active={activeSection === "how"} />
+              <NavLink href="#first-saturday" label="LEARN" active={activeSection === "first-saturday"} />
+              <NavLink href="#who" label="CONNECT" active={activeSection === "who"} />
             </nav>
             <div className="md:hidden absolute inset-y-0 right-0 w-5 bg-gradient-to-l from-sky-brand/30 to-transparent pointer-events-none" />
           </div>
