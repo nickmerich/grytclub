@@ -3,6 +3,7 @@ import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { RouteMap } from "@/components/RouteMap";
 import { CrewCarousel } from "@/components/CrewCarousel";
+import { RsvpForm } from "@/components/RsvpForm";
 import { CountdownPill, GoingCounter, RotatingTicker } from "@/components/StickyBits";
 import { trackCta, withUtm } from "@/lib/track";
 import foundersPhoto from "@/assets/founders.jpg";
@@ -852,6 +853,10 @@ function Index() {
                 JOIN THE CHAT →
               </a>
             </div>
+          </div>
+
+          <div className="mt-8">
+            <RsvpForm />
           </div>
         </div>
       </section>
