@@ -14,40 +14,61 @@ const NAV_SECTIONS = ["next-run", "runs", "how", "first-saturday", "who"] as con
 type NavSectionId = (typeof NAV_SECTIONS)[number];
 
 function useActiveSection(): NavSectionId | null {
-  const [active, setActive] = useState<NavSectionId | null>(null);
+  const initial = (() => {
+    if (typeof window === "undefined") return null;
+    const hash = window.location.hash.replace(/^#/, "") as NavSectionId;
+    return (NAV_SECTIONS as readonly string[]).includes(hash) ? hash : null;
+  })();
+  const [active, setActive] = useState<NavSectionId | null>(initial);
+
   useEffect(() => {
-    const visible = new Map<NavSectionId, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const id = entry.target.id as NavSectionId;
-          if (entry.isIntersecting) visible.set(id, entry.intersectionRatio);
-          else visible.delete(id);
+    const compute = () => {
+      // Anchor line ~30% down the viewport.
+      const line = window.innerHeight * 0.3;
+      let current: NavSectionId | null = null;
+      let bestTop = -Infinity;
+      for (const id of NAV_SECTIONS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        // Choose the section whose top is closest above the line.
+        if (top - line <= 0 && top > bestTop) {
+          bestTop = top;
+          current = id;
         }
-        if (visible.size === 0) {
-          setActive(null);
-          return;
-        }
-        // Pick the section with the highest visible ratio; tie-break by NAV_SECTIONS order.
-        let best: NavSectionId | null = null;
-        let bestRatio = -1;
-        for (const id of NAV_SECTIONS) {
-          const r = visible.get(id);
-          if (r !== undefined && r > bestRatio) {
-            best = id;
-            bestRatio = r;
-          }
-        }
-        setActive(best);
-      },
-      { rootMargin: "-30% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
-    );
-    for (const id of NAV_SECTIONS) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
-    return () => observer.disconnect();
+      }
+      // Bottom of page → force last nav section active.
+      if (
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 4
+      ) {
+        current = NAV_SECTIONS[NAV_SECTIONS.length - 1];
+      }
+      setActive(current);
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        compute();
+      });
+    };
+
+    compute();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    // Re-run after load so images/fonts settling don't leave stale offsets.
+    window.addEventListener("load", compute);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("load", compute);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
+
   return active;
 }
 
