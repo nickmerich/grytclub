@@ -90,6 +90,12 @@
 
   html {
     background-color: var(--ink);
+    scroll-behavior: smooth;
+  }
+
+  /* Account for any fixed UI above a hash target on mobile (sticky bottom CTA = ~88px). */
+  section[id] {
+    scroll-margin-top: 16px;
   }
 
   body {
