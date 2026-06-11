@@ -119,9 +119,9 @@ function RunsPage() {
             const { weekday, date } = formatDate(ev.event_date);
             return (
               <li key={ev.id}>
-                <Link
-                  to="/runs/$slug"
-                  params={{ slug: ev.slug }}
+                {/* TODO: swap to <Link to="/runs/$slug" params={{ slug: ev.slug }} /> once that route exists (Prompt 3). */}
+                <a
+                  href={`/runs/${ev.slug}`}
                   className="block border border-bone/20 hover:border-sky-brand transition-colors p-6 md:p-8 group"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-[160px_1fr_auto] gap-4 md:gap-8 items-start">
