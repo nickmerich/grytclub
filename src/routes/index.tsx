@@ -275,6 +275,7 @@ const FAQ = [
 
 
 function Index() {
+  const activeSection = useActiveSection();
   return (
     <main className="bg-bone text-ink overflow-hidden pb-[88px] md:pb-0">
       {/* ═══════════════════════ 1. HERO ═══════════════════════ */}
