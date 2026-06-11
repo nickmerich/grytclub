@@ -290,13 +290,11 @@ function Index() {
                 SIGN UP FOR SATURDAY →
               </a>
               <a
-                href={withUtm(HEYLO_URL, "heylo_hero")}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackCta("heylo_hero", withUtm(HEYLO_URL, "heylo_hero"))}
+                href="#next-run"
+                onClick={() => trackCta("next_run_hero", "#next-run")}
                 className="inline-flex items-center justify-center border border-bone/60 text-bone px-6 py-3.5 label-meta hover:bg-bone hover:text-ink transition-colors"
               >
-                JOIN THE CHAT →
+                SEE THIS SATURDAY →
               </a>
             </div>
 
