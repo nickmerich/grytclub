@@ -372,7 +372,7 @@ function Index() {
             className="mt-10 md:mt-12 max-w-2xl"
           >
             <p className="text-base md:text-lg text-bone/85 leading-snug">
-              A group of over 30 to 50 year old parents and former athletes who needed a group to grind with. We meet Saturday at 7 AM on the Montour/Peters Trail in McMurray. Come run a few miles. No prior experience needed.
+              A motivated group of 30 to 50 year old parents and former athletes who needed a group to grind with. We meet Saturday at 7 AM on the Montour/Peters Trail in McMurray. Come run a few miles. No prior experience needed.
               <span className="block mt-3 text-bone/65">
                 Sign up for this Saturday on Strava. Join our chat on Heylo so you know who's coming and where to meet.
               </span>
