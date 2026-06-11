@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from "react";
 import { z } from "zod";
-import { supabase } from "@/integrations/supabase/client";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name required").max(100),
@@ -22,16 +21,18 @@ export function RsvpForm() {
       return;
     }
     setStatus("loading");
-    const { error: dbError } = await supabase.from("rsvps").insert({
-      name: parsed.data.name,
-      email: parsed.data.email,
-    });
-    if (dbError) {
+    try {
+      const res = await fetch("/api/public/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+      if (!res.ok) throw new Error("request failed");
+      setStatus("success");
+    } catch {
       setStatus("error");
       setError("Something broke. Try again or email hi@gryt.club.");
-      return;
     }
-    setStatus("success");
   }
 
   if (status === "success") {
@@ -43,7 +44,7 @@ export function RsvpForm() {
           See you Saturday, {name.split(" ")[0]}. 7 AM. <span className="underline-sky">Trailhead.</span>
         </p>
         <p className="mt-3 text-bone/70 text-sm">
-          We'll send a heads-up to {email} before Saturday.
+          Check your inbox — we sent a confirmation to {email}.
         </p>
       </div>
     );
