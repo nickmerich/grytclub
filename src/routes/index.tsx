@@ -516,11 +516,29 @@ function Index() {
                   <CountdownPill />
                   <GoingCounter />
                 </div>
-                <ul className="mt-8 flex flex-col gap-2 label-meta text-ink/60">
-                  <li>● SAT · 7:00 AM · 212 VALLEY BROOK RD, MCMURRAY PA</li>
-                  <li>● ~4 MI · WALK · JOG · RUN · ANY PACE</li>
-                  <li>● COFFEE AFTER · NO ACCOUNT NEEDED</li>
-                </ul>
+                <div className="mt-8 grid grid-cols-2 gap-px bg-ink/15 border border-ink/15">
+                  {[
+                    { label: "DAY", value: "SATURDAY", sub: "WEEKLY" },
+                    { label: "TIME", value: "7:00 AM", sub: "AMERICA/NEW_YORK" },
+                    { label: "DISTANCE", value: "~4 MI", sub: "OUT & BACK" },
+                    { label: "PACE", value: "ALL", sub: "WALK · JOG · RUN" },
+                  ].map((s) => (
+                    <div key={s.label} className="bg-bone p-4 md:p-5">
+                      <div className="label-meta text-ink/50">{s.label}</div>
+                      <div className="font-display text-xl md:text-2xl mt-1 leading-none">
+                        {s.value}
+                      </div>
+                      {s.sub && (
+                        <div className="label-meta text-ink/50 mt-1.5" style={{ fontSize: "10px" }}>
+                          {s.sub}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-3 label-meta text-ink/50">
+                  ● 212 VALLEY BROOK RD, MCMURRAY · COFFEE AFTER · NO ACCOUNT NEEDED
+                </p>
               </div>
               <div className="bg-ink text-bone p-6 md:p-8 shadow-[6px_6px_0_0_var(--ink)] border border-ink">
                 <Label className="text-bone">RSVP</Label>
