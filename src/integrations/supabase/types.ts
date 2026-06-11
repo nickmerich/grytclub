@@ -134,6 +134,60 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          capacity: number | null
+          created_at: string
+          description: string | null
+          distance_mi: number | null
+          event_date: string
+          host_name: string | null
+          id: string
+          location_address: string | null
+          location_name: string
+          pace_label: string | null
+          published: boolean
+          slug: string
+          start_time: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          capacity?: number | null
+          created_at?: string
+          description?: string | null
+          distance_mi?: number | null
+          event_date: string
+          host_name?: string | null
+          id?: string
+          location_address?: string | null
+          location_name: string
+          pace_label?: string | null
+          published?: boolean
+          slug: string
+          start_time: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          capacity?: number | null
+          created_at?: string
+          description?: string | null
+          distance_mi?: number | null
+          event_date?: string
+          host_name?: string | null
+          id?: string
+          location_address?: string | null
+          location_name?: string
+          pace_label?: string | null
+          published?: boolean
+          slug?: string
+          start_time?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       rsvps: {
         Row: {
           created_at: string
