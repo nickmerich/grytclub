@@ -15,11 +15,13 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RunsSlugRouteImport } from './routes/runs.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as ApiPublicHooksGenerateRecapsRouteImport } from './routes/api/public/hooks/generate-recaps'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -51,6 +53,11 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RunsSlugRecapRoute = RunsSlugRecapRouteImport.update({
+  id: '/recap',
+  path: '/recap',
+  getParentRoute: () => RunsSlugRoute,
+} as any)
 const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   id: '/lovable/email/suppression',
   path: '/lovable/email/suppression',
@@ -79,6 +86,12 @@ const LovableEmailQueueProcessRoute =
     path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksGenerateRecapsRoute =
+  ApiPublicHooksGenerateRecapsRouteImport.update({
+    id: '/api/public/hooks/generate-recaps',
+    path: '/api/public/hooks/generate-recaps',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -86,9 +99,11 @@ export interface FileRoutesByFullPath {
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/runs/$slug': typeof RunsSlugRoute
+  '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -99,9 +114,11 @@ export interface FileRoutesByTo {
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/runs/$slug': typeof RunsSlugRoute
+  '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -113,9 +130,11 @@ export interface FileRoutesById {
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
-  '/runs/$slug': typeof RunsSlugRoute
+  '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
+  '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -131,6 +150,8 @@ export interface FileRouteTypes {
     | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
+    | '/runs/$slug/recap'
+    | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -144,6 +165,8 @@ export interface FileRouteTypes {
     | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
+    | '/runs/$slug/recap'
+    | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -157,6 +180,8 @@ export interface FileRouteTypes {
     | '/runs/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
+    | '/runs/$slug/recap'
+    | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -170,6 +195,7 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
+  ApiPublicHooksGenerateRecapsRoute: typeof ApiPublicHooksGenerateRecapsRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
   LovableEmailTransactionalSendRoute: typeof LovableEmailTransactionalSendRoute
@@ -219,6 +245,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/runs/$slug/recap': {
+      id: '/runs/$slug/recap'
+      path: '/recap'
+      fullPath: '/runs/$slug/recap'
+      preLoaderRoute: typeof RunsSlugRecapRouteImport
+      parentRoute: typeof RunsSlugRoute
+    }
     '/lovable/email/suppression': {
       id: '/lovable/email/suppression'
       path: '/lovable/email/suppression'
@@ -254,15 +287,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/generate-recaps': {
+      id: '/api/public/hooks/generate-recaps'
+      path: '/api/public/hooks/generate-recaps'
+      fullPath: '/api/public/hooks/generate-recaps'
+      preLoaderRoute: typeof ApiPublicHooksGenerateRecapsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface RunsSlugRouteChildren {
+  RunsSlugRecapRoute: typeof RunsSlugRecapRoute
+}
+
+const RunsSlugRouteChildren: RunsSlugRouteChildren = {
+  RunsSlugRecapRoute: RunsSlugRecapRoute,
+}
+
+const RunsSlugRouteWithChildren = RunsSlugRoute._addFileChildren(
+  RunsSlugRouteChildren,
+)
+
 interface RunsRouteChildren {
-  RunsSlugRoute: typeof RunsSlugRoute
+  RunsSlugRoute: typeof RunsSlugRouteWithChildren
 }
 
 const RunsRouteChildren: RunsRouteChildren = {
-  RunsSlugRoute: RunsSlugRoute,
+  RunsSlugRoute: RunsSlugRouteWithChildren,
 }
 
 const RunsRouteWithChildren = RunsRoute._addFileChildren(RunsRouteChildren)
@@ -275,6 +327,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
+  ApiPublicHooksGenerateRecapsRoute: ApiPublicHooksGenerateRecapsRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
   LovableEmailTransactionalSendRoute: LovableEmailTransactionalSendRoute,
@@ -282,3 +335,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
