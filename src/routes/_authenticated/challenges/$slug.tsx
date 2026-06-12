@@ -332,6 +332,15 @@ function ChallengeDetailPage() {
           >
             {exporting === "download" ? "Rendering…" : "↓ Download PNG"}
           </button>
+          <button
+            type="button"
+            onClick={shareInvite}
+            disabled={inviting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+            title="Invite friends to this challenge"
+          >
+            {inviting ? "Creating…" : "✦ Invite friends"}
+          </button>
         </div>
       </header>
 
