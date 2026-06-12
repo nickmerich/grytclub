@@ -67,13 +67,29 @@ export function GoingCounter({
   className?: string;
   variant?: "dark" | "light";
 }) {
-  const tone =
-    variant === "dark" ? "text-bone/70" : "text-ink/70";
+  const tone = variant === "dark" ? "text-bone/70" : "text-ink/70";
   const accent = variant === "dark" ? "text-sky-brand" : "text-ink";
+
+  const fetchStats = useServerFn(getRsvpStats);
+  const { data } = useQuery({
+    queryKey: ["rsvp-stats"],
+    queryFn: () => fetchStats(),
+    staleTime: 60_000,
+    refetchOnWindowFocus: true,
+  });
+
+  const going = data?.going ?? 0;
+  const joined = data?.joinedThisWeek ?? 0;
+
   return (
-    <span className={`inline-flex items-center gap-2 label-meta ${tone} ${className}`}>
-      <span className={`font-display text-base ${accent}`}>↑ 12</span>
-      <span>GOING SATURDAY · 3 JOINED THIS WEEK</span>
+    <span
+      className={`inline-flex items-center gap-2 label-meta ${tone} ${className}`}
+      aria-live="polite"
+    >
+      <span className={`font-display text-base ${accent}`}>↑ {going}</span>
+      <span>
+        GOING SATURDAY · {joined} JOINED THIS WEEK
+      </span>
     </span>
   );
 }
