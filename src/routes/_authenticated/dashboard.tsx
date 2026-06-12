@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMyProfile } from "@/lib/profiles.functions";
+import { getMyInviteStats } from "@/lib/social.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
