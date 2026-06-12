@@ -23,6 +23,7 @@ import { Route as AuthenticatedChallengesIndexRouteImport } from './routes/_auth
 import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
+import { Route as AuthenticatedChallengesSlugRouteImport } from './routes/_authenticated/challenges/$slug'
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
@@ -98,6 +99,12 @@ const ApiPublicRsvpRoute = ApiPublicRsvpRouteImport.update({
   path: '/api/public/rsvp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedChallengesSlugRoute =
+  AuthenticatedChallengesSlugRouteImport.update({
+    id: '/challenges/$slug',
+    path: '/challenges/$slug',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const LovableEmailTransactionalSendRoute =
   LovableEmailTransactionalSendRouteImport.update({
     id: '/lovable/email/transactional/send',
@@ -133,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
+  '/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
@@ -152,6 +160,7 @@ export interface FileRoutesByTo {
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
+  '/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
@@ -173,6 +182,7 @@ export interface FileRoutesById {
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
+  '/_authenticated/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
+    | '/challenges/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
+    | '/challenges/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
@@ -233,6 +245,7 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
+    | '/_authenticated/challenges/$slug'
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
@@ -358,6 +371,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicRsvpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/challenges/$slug': {
+      id: '/_authenticated/challenges/$slug'
+      path: '/challenges/$slug'
+      fullPath: '/challenges/$slug'
+      preLoaderRoute: typeof AuthenticatedChallengesSlugRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/lovable/email/transactional/send': {
       id: '/lovable/email/transactional/send'
       path: '/lovable/email/transactional/send'
@@ -393,6 +413,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedChallengesSlugRoute: typeof AuthenticatedChallengesSlugRoute
   AuthenticatedChallengesIndexRoute: typeof AuthenticatedChallengesIndexRoute
 }
 
@@ -400,6 +421,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedChallengesSlugRoute: AuthenticatedChallengesSlugRoute,
   AuthenticatedChallengesIndexRoute: AuthenticatedChallengesIndexRoute,
 }
 
