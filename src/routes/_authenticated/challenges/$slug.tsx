@@ -42,6 +42,7 @@ function ChallengeDetailPage() {
   const join = useServerFn(joinChallenge);
   const leave = useServerFn(leaveChallenge);
   const toggle = useServerFn(toggleStep);
+  const makeInvite = useServerFn(createInvite);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["challenge", slug],
