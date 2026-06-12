@@ -85,6 +85,20 @@ export const listChallenges = createServerFn({ method: "GET" })
     }));
   });
 
+export type ChallengeMe = {
+  user_id: string;
+  display_name: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  neighborhood: string | null;
+  athlete_alignment: string | null;
+  best_5k_seconds: number | null;
+  best_10k_seconds: number | null;
+  best_half_seconds: number | null;
+  best_marathon_seconds: number | null;
+};
+
 export type ChallengeDetail = {
   challenge: Challenge;
   steps: ChallengeStep[];
@@ -105,6 +119,7 @@ export type ChallengeDetail = {
   participantCount: number;
   joined: boolean;
   myCompletedStepIds: string[];
+  me: ChallengeMe | null;
 };
 
 export const getChallenge = createServerFn({ method: "GET" })
