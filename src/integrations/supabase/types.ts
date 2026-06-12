@@ -14,6 +14,67 @@ export type Database = {
   }
   public: {
     Tables: {
+      challenge_invite_acceptances: {
+        Row: {
+          accepted_at: string
+          id: string
+          invite_id: string
+          invitee_id: string
+        }
+        Insert: {
+          accepted_at?: string
+          id?: string
+          invite_id: string
+          invitee_id: string
+        }
+        Update: {
+          accepted_at?: string
+          id?: string
+          invite_id?: string
+          invitee_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_invite_acceptances_invite_id_fkey"
+            columns: ["invite_id"]
+            isOneToOne: false
+            referencedRelation: "challenge_invites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenge_invites: {
+        Row: {
+          challenge_id: string
+          created_at: string
+          id: string
+          inviter_id: string
+          token: string
+        }
+        Insert: {
+          challenge_id: string
+          created_at?: string
+          id?: string
+          inviter_id: string
+          token: string
+        }
+        Update: {
+          challenge_id?: string
+          created_at?: string
+          id?: string
+          inviter_id?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_invites_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       challenge_participants: {
         Row: {
           challenge_id: string
@@ -514,6 +575,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      accept_invite: {
+        Args: { _token: string }
+        Returns: {
+          challenge_slug: string
+        }[]
+      }
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
@@ -521,6 +588,22 @@ export type Database = {
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
         Returns: number
+      }
+      get_invite_preview: {
+        Args: { _token: string }
+        Returns: {
+          challenge_accent: string
+          challenge_id: string
+          challenge_slug: string
+          challenge_tagline: string
+          challenge_theme: string
+          challenge_title: string
+          invite_id: string
+          inviter_avatar_url: string
+          inviter_display_name: string
+          participant_count: number
+          step_count: number
+        }[]
       }
       move_to_dlq: {
         Args: {
