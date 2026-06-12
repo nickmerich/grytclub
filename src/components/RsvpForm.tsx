@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { z } from "zod";
+import { useQueryClient } from "@tanstack/react-query";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name required").max(100),
@@ -48,6 +49,7 @@ export function RsvpForm({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [stored, setStored] = useState<StoredRsvp | null>(null);
+  const queryClient = useQueryClient();
 
   // Hydrate after mount so SSR markup matches client.
   useEffect(() => {
@@ -87,6 +89,7 @@ export function RsvpForm({
       }
       setStored(record);
       setStatus("success");
+      queryClient.invalidateQueries({ queryKey: ["rsvp-stats"] });
     } catch {
       setStatus("error");
       setError("Something broke. Try again or email hi@gryt.club.");
