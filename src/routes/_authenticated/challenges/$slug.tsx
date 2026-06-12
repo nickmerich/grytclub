@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useRef, useState } from "react";
-import { toBlob, toPng } from "html-to-image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { toBlob } from "html-to-image";
 import { toast } from "sonner";
 import {
   getChallenge,
@@ -11,6 +11,12 @@ import {
   toggleStep,
 } from "@/lib/challenges.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
+import {
+  deleteSnapshot,
+  listSnapshots,
+  saveSnapshot,
+  type ProgressSnapshot,
+} from "@/lib/progress-gallery";
 
 export const Route = createFileRoute("/_authenticated/challenges/$slug")({
   head: () => ({
@@ -113,30 +119,59 @@ function ChallengeDetailPage() {
   const meAlignment = me ? alignmentFor(me.user_id, me.athlete_alignment) : null;
   const pngFilename = `gryt-challenge-${c.slug}-${pct}pct.png`;
 
+  const [gallery, setGallery] = useState<ProgressSnapshot[]>([]);
+  const galleryUrls = useMemo(() => {
+    const map = new Map<string, string>();
+    gallery.forEach((s) => map.set(s.id, URL.createObjectURL(s.blob)));
+    return map;
+  }, [gallery]);
+  useEffect(() => {
+    return () => {
+      galleryUrls.forEach((u) => URL.revokeObjectURL(u));
+    };
+  }, [galleryUrls]);
+
+  async function refreshGallery() {
+    try {
+      const items = await listSnapshots(slug);
+      setGallery(items);
+    } catch {
+      // ignore — gallery is best-effort, browser-only
+    }
+  }
+
+  useEffect(() => {
+    refreshGallery();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
   async function exportPng(mode: "download" | "share") {
     if (!cardRef.current || exporting) return;
     setExporting(mode);
     try {
-      if (mode === "download") {
-        const dataUrl = await toPng(cardRef.current, {
-          pixelRatio: 2,
-          cacheBust: true,
-          backgroundColor: "#0a0a0a",
-        });
-        const a = document.createElement("a");
-        a.href = dataUrl;
-        a.download = pngFilename;
-        a.click();
-        return;
-      }
       const blob = await toBlob(cardRef.current, {
         pixelRatio: 2,
         cacheBust: true,
         backgroundColor: "#0a0a0a",
       });
       if (!blob) throw new Error("Failed to render image");
+
+      // Persist to local gallery (best-effort, IndexedDB)
+      saveSnapshot({
+        slug,
+        pct,
+        completed: myCompleted,
+        stepCount,
+        source: mode,
+        blob,
+      })
+        .then(refreshGallery)
+        .catch(() => {});
+
       const file = new File([blob], pngFilename, { type: "image/png" });
+
       if (
+        mode === "share" &&
         typeof navigator !== "undefined" &&
         typeof navigator.canShare === "function" &&
         navigator.canShare({ files: [file] })
@@ -162,6 +197,21 @@ function ChallengeDetailPage() {
       setExporting(null);
     }
   }
+
+  async function downloadSnapshot(s: ProgressSnapshot) {
+    const url = URL.createObjectURL(s.blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `gryt-challenge-${s.slug}-${s.pct}pct-${s.capturedAt}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function removeSnapshot(id: string) {
+    await deleteSnapshot(id);
+    refreshGallery();
+  }
+
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -258,6 +308,78 @@ function ChallengeDetailPage() {
       {c.description && (
         <p className="mt-6 max-w-3xl text-muted-foreground">{c.description}</p>
       )}
+
+      {/* Recent progress cards — local, last 5 */}
+      {gallery.length > 0 && (
+        <section className="mt-8">
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="font-display text-xl">Your recent progress cards</h2>
+            <span className="text-xs text-muted-foreground">
+              Saved on this device · last {gallery.length} of 5
+            </span>
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {gallery.map((s) => {
+              const url = galleryUrls.get(s.id);
+              const when = new Date(s.capturedAt).toLocaleString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              });
+              return (
+                <li
+                  key={s.id}
+                  className="group relative overflow-hidden rounded-xl border border-border bg-card"
+                >
+                  {url && (
+                    <img
+                      src={url}
+                      alt={`Progress card · ${s.pct}%`}
+                      className="aspect-[4/5] w-full object-cover"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="p-2 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="font-semibold tabular-nums">{s.pct}%</div>
+                      <div className="text-muted-foreground">{when}</div>
+                    </div>
+                    <div className="flex gap-1">
+                      <button
+                        type="button"
+                        onClick={() => downloadSnapshot(s)}
+                        className="rounded-md border border-border px-2 py-1 hover:bg-accent"
+                        title="Download again"
+                        aria-label="Download again"
+                      >
+                        ↓
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeSnapshot(s.id)}
+                        className="rounded-md border border-border px-2 py-1 hover:bg-accent"
+                        title="Remove from gallery"
+                        aria-label="Remove from gallery"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                  <span
+                    className="absolute top-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide"
+                    style={{ backgroundColor: accent + "cc", color: "#fff" }}
+                  >
+                    {s.source}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+
 
       {/* Steps */}
       <section className="mt-10">
