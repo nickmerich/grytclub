@@ -210,7 +210,7 @@ function ChallengeDetailPage() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           {!data.joined ? (
             <button
               type="button"
@@ -231,6 +231,27 @@ function ChallengeDetailPage() {
               {leaveMut.isPending ? "Leaving…" : "Leave"}
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => exportPng("share")}
+            disabled={!!exporting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+            title={canShareFiles ? "Share progress image" : "Save progress image"}
+          >
+            {exporting === "share"
+              ? "Preparing…"
+              : canShareFiles
+                ? "↗ Share progress"
+                : "↗ Save progress PNG"}
+          </button>
+          <button
+            type="button"
+            onClick={() => exportPng("download")}
+            disabled={!!exporting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+          >
+            {exporting === "download" ? "Rendering…" : "↓ Download PNG"}
+          </button>
         </div>
       </header>
 
