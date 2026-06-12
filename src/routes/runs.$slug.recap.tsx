@@ -2,21 +2,36 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { getRecapBySlug, type RecapDetail } from "@/lib/recaps.functions";
+import { getRequestOrigin } from "@/lib/origin.functions";
 
 export const Route = createFileRoute("/runs/$slug/recap")({
-  loader: ({ params }) => getRecapBySlug({ data: { slug: params.slug } }),
-  head: ({ loaderData }) => {
-    const r = loaderData as RecapDetail | undefined;
+  loader: async ({ params }) => {
+    const [recap, origin] = await Promise.all([
+      getRecapBySlug({ data: { slug: params.slug } }),
+      getRequestOrigin(),
+    ]);
+    return { recap, origin };
+  },
+  head: ({ params, loaderData }) => {
+    const r = loaderData?.recap as RecapDetail | undefined;
+    const origin = loaderData?.origin as string | undefined;
     const title = r ? `Recap: ${r.title} — GRYT Run Club` : "Run recap — GRYT Run Club";
     const desc = r
       ? `${r.attendee_count} runners showed up on ${formatLongDate(r.event_date)} for ${r.title}. Tap to share.`
       : "GRYT run recap.";
+    const url = origin && r ? `${origin}/runs/${r.slug}/recap` : `/runs/${params.slug}/recap`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [
+        { rel: "canonical", href: url },
       ],
     };
   },
