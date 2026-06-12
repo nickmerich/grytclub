@@ -29,7 +29,13 @@ function AuthPage() {
     supabase.auth.getUser().then(({ data }) => {
       if (!active) return;
       if (data.user) {
-        navigate({ to: "/dashboard" });
+        const pending = typeof window !== "undefined" ? sessionStorage.getItem("pending-invite-token") : null;
+        if (pending) {
+          sessionStorage.removeItem("pending-invite-token");
+          navigate({ to: "/invite/$token", params: { token: pending } });
+        } else {
+          navigate({ to: "/dashboard" });
+        }
       } else {
         setChecking(false);
       }
