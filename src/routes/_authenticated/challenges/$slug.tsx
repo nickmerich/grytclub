@@ -1,0 +1,319 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { useMemo } from "react";
+import { toast } from "sonner";
+import {
+  getChallenge,
+  joinChallenge,
+  leaveChallenge,
+  toggleStep,
+} from "@/lib/challenges.functions";
+import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
+
+export const Route = createFileRoute("/_authenticated/challenges/$slug")({
+  head: () => ({
+    meta: [
+      { title: "Challenge — GRYT" },
+      { name: "robots", content: "noindex" },
+    ],
+  }),
+  component: ChallengeDetailPage,
+});
+
+function dateRange(a: string, b: string) {
+  const fmt = (d: string) =>
+    new Date(d + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+  return `${fmt(a)} – ${fmt(b)}`;
+}
+
+function ChallengeDetailPage() {
+  const { slug } = Route.useParams();
+  const queryClient = useQueryClient();
+  const fetchChallenge = useServerFn(getChallenge);
+  const join = useServerFn(joinChallenge);
+  const leave = useServerFn(leaveChallenge);
+  const toggle = useServerFn(toggleStep);
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["challenge", slug],
+    queryFn: () => fetchChallenge({ data: { slug } }),
+  });
+
+  const completedSet = useMemo(
+    () => new Set(data?.myCompletedStepIds ?? []),
+    [data?.myCompletedStepIds],
+  );
+
+  const stepCount = data?.steps.length ?? 0;
+  const myCompleted = data?.myCompletedStepIds.length ?? 0;
+  const pct = stepCount > 0 ? Math.round((myCompleted / stepCount) * 100) : 0;
+
+  const joinMut = useMutation({
+    mutationFn: (challenge_id: string) => join({ data: { challenge_id } }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["challenge", slug] });
+      queryClient.invalidateQueries({ queryKey: ["challenges"] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not join"),
+  });
+
+  const leaveMut = useMutation({
+    mutationFn: (challenge_id: string) => leave({ data: { challenge_id } }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["challenge", slug] });
+      queryClient.invalidateQueries({ queryKey: ["challenges"] });
+      toast.success("Left the challenge");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not leave"),
+  });
+
+  const toggleMut = useMutation({
+    mutationFn: (vars: { step_id: string; challenge_id: string; completed: boolean }) =>
+      toggle({ data: vars }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["challenge", slug] });
+      queryClient.invalidateQueries({ queryKey: ["challenges"] });
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Could not update"),
+  });
+
+  if (isLoading) {
+    return <main className="mx-auto max-w-6xl px-4 py-10"><p className="text-muted-foreground">Loading…</p></main>;
+  }
+  if (error || !data) {
+    return (
+      <main className="mx-auto max-w-6xl px-4 py-10">
+        <p className="text-muted-foreground">Couldn't load this challenge.</p>
+        <Link to="/challenges" className="text-sm underline">← Back to challenges</Link>
+      </main>
+    );
+  }
+
+  const c = data.challenge;
+  const accent = c.accent_color;
+
+  return (
+    <main className="mx-auto max-w-6xl px-4 py-8">
+      <Link to="/challenges" className="text-sm text-muted-foreground hover:text-foreground">← All challenges</Link>
+
+      {/* Hero */}
+      <header
+        className="mt-4 rounded-3xl p-8 md:p-10 border"
+        style={{
+          backgroundColor: accent + "12",
+          borderColor: accent + "55",
+        }}
+      >
+        <div
+          className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium"
+          style={{ backgroundColor: accent + "33", color: accent }}
+        >
+          <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
+          {c.theme.toUpperCase()}
+        </div>
+        <h1 className="font-display text-4xl md:text-5xl mt-3">{c.title}</h1>
+        {c.tagline && <p className="text-lg text-muted-foreground mt-2">{c.tagline}</p>}
+
+        {/* Key metrics row */}
+        <dl className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+          <Metric label="Window" value={dateRange(c.starts_on, c.ends_on)} />
+          <Metric
+            label={c.target_label ?? "Target"}
+            value={c.target_value != null ? `${c.target_value} ${c.unit ?? ""}`.trim() : "—"}
+          />
+          <Metric label="Joined" value={`${data.participantCount}`} />
+          <Metric label="Steps" value={`${stepCount}`} />
+        </dl>
+
+        {/* Progress bar */}
+        <div className="mt-8">
+          <div className="flex items-center justify-between text-sm mb-2">
+            <span className="font-medium">{data.joined ? "Your progress" : "Join to track progress"}</span>
+            <span className="tabular-nums">{myCompleted}/{stepCount} · {pct}%</span>
+          </div>
+          <div className="h-3 w-full rounded-full bg-background/60 overflow-hidden border" style={{ borderColor: accent + "55" }}>
+            <div
+              className="h-full rounded-full transition-all"
+              style={{ width: `${pct}%`, backgroundColor: accent }}
+            />
+          </div>
+        </div>
+
+        <div className="mt-6 flex items-center gap-3">
+          {!data.joined ? (
+            <button
+              type="button"
+              onClick={() => joinMut.mutate(c.id)}
+              disabled={joinMut.isPending}
+              className="inline-flex items-center rounded-md px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+              style={{ backgroundColor: accent }}
+            >
+              {joinMut.isPending ? "Joining…" : "Join challenge"}
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => leaveMut.mutate(c.id)}
+              disabled={leaveMut.isPending}
+              className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+            >
+              {leaveMut.isPending ? "Leaving…" : "Leave"}
+            </button>
+          )}
+        </div>
+      </header>
+
+      {c.description && (
+        <p className="mt-6 max-w-3xl text-muted-foreground">{c.description}</p>
+      )}
+
+      {/* Steps */}
+      <section className="mt-10">
+        <h2 className="font-display text-2xl mb-4">Steps</h2>
+        <ol className="space-y-3">
+          {data.steps.map((s) => {
+            const done = completedSet.has(s.id);
+            return (
+              <li
+                key={s.id}
+                className={
+                  "rounded-2xl border bg-card p-5 flex items-start gap-4 transition-colors " +
+                  (done ? "border-foreground/40" : "border-border")
+                }
+              >
+                <button
+                  type="button"
+                  onClick={() =>
+                    toggleMut.mutate({ step_id: s.id, challenge_id: c.id, completed: !done })
+                  }
+                  disabled={toggleMut.isPending}
+                  aria-pressed={done}
+                  className={
+                    "mt-0.5 h-6 w-6 shrink-0 rounded-md border flex items-center justify-center transition-all " +
+                    (done ? "text-white" : "bg-background hover:border-foreground/60 border-border")
+                  }
+                  style={done ? { backgroundColor: accent, borderColor: accent } : undefined}
+                >
+                  {done && (
+                    <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 5.296a1 1 0 010 1.408l-7.5 7.5a1 1 0 01-1.408 0l-3.5-3.5a1 1 0 011.408-1.408L8.5 12.092l6.796-6.796a1 1 0 011.408 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
+                </button>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className={"font-medium " + (done ? "line-through text-muted-foreground" : "")}>
+                      <span className="text-muted-foreground mr-2 tabular-nums">{String(s.ordinal).padStart(2, "0")}</span>
+                      {s.title}
+                    </p>
+                    {s.target_value != null && (
+                      <span className="text-xs text-muted-foreground shrink-0">
+                        {s.target_value} {s.unit}
+                      </span>
+                    )}
+                  </div>
+                  {s.description && (
+                    <p className="text-sm text-muted-foreground mt-1">{s.description}</p>
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      {/* Participants — each with unique athlete alignment */}
+      <section className="mt-12">
+        <div className="flex items-baseline justify-between mb-4">
+          <h2 className="font-display text-2xl">Who's in</h2>
+          <span className="text-sm text-muted-foreground">{data.participants.length} members</span>
+        </div>
+        {data.participants.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Be the first to join.</p>
+        ) : (
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {data.participants.map((p) => {
+              const a = alignmentFor(p.user_id, p.athlete_alignment);
+              const memberPct = stepCount > 0 ? Math.round((p.completed / stepCount) * 100) : 0;
+              return (
+                <li
+                  key={p.user_id}
+                  className={"rounded-2xl border bg-card p-5 ring-1 " + a.ring}
+                >
+                  <div className="flex items-start gap-3">
+                    {p.avatar_url ? (
+                      <img src={p.avatar_url} alt="" className="h-12 w-12 rounded-full object-cover" />
+                    ) : (
+                      <div
+                        className={"h-12 w-12 rounded-full flex items-center justify-center text-sm font-semibold " + a.bg + " " + a.text}
+                      >
+                        {displayName(p).slice(0, 1).toUpperCase()}
+                      </div>
+                    )}
+                    <div className="min-w-0 flex-1">
+                      <p className="font-display text-lg leading-tight truncate">{displayName(p)}</p>
+                      <p className="text-xs text-muted-foreground truncate">
+                        {p.neighborhood ?? "—"}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={"mt-4 rounded-lg px-3 py-2 " + a.bg}>
+                    <p className={"text-xs uppercase tracking-wide font-semibold " + a.text}>
+                      Aligned with
+                    </p>
+                    <p className="text-sm font-medium mt-0.5">{a.name}</p>
+                    <p className="text-xs text-muted-foreground">{a.discipline}</p>
+                  </div>
+
+                  <dl className="mt-4 grid grid-cols-2 gap-2 text-xs">
+                    <PrStat label="5K"  value={formatPr(p.best_5k_seconds)} />
+                    <PrStat label="10K" value={formatPr(p.best_10k_seconds)} />
+                    <PrStat label="Half"     value={formatPr(p.best_half_seconds)} />
+                    <PrStat label="Marathon" value={formatPr(p.best_marathon_seconds)} />
+                  </dl>
+
+                  <div className="mt-4">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                      <span>Progress</span>
+                      <span className="tabular-nums">{p.completed}/{stepCount} · {memberPct}%</span>
+                    </div>
+                    <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{ width: `${memberPct}%`, backgroundColor: a.accent }}
+                      />
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
+    </main>
+  );
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <dt className="text-xs uppercase tracking-wide text-muted-foreground">{label}</dt>
+      <dd className="font-display text-xl mt-0.5">{value}</dd>
+    </div>
+  );
+}
+
+function PrStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-md bg-muted/50 px-2 py-1.5">
+      <p className="text-[10px] uppercase tracking-wide text-muted-foreground">{label} PR</p>
+      <p className="text-sm tabular-nums">{value}</p>
+    </div>
+  );
+}
