@@ -12,9 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RunsRouteImport } from './routes/runs'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RunsSlugRouteImport } from './routes/runs.$slug'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
 import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
@@ -38,6 +42,10 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -52,6 +60,21 @@ const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
   path: '/email/unsubscribe',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const RunsSlugRecapRoute = RunsSlugRecapRouteImport.update({
   id: '/recap',
@@ -98,6 +121,9 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/community': typeof AuthenticatedCommunityRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
@@ -113,6 +139,9 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/community': typeof AuthenticatedCommunityRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
@@ -126,9 +155,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/_authenticated/community': typeof AuthenticatedCommunityRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
@@ -146,6 +179,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/community'
+    | '/dashboard'
+    | '/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
     | '/api/public/rsvp'
@@ -161,6 +197,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/community'
+    | '/dashboard'
+    | '/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
     | '/api/public/rsvp'
@@ -173,9 +212,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/_authenticated/community'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/onboarding'
     | '/email/unsubscribe'
     | '/runs/$slug'
     | '/api/public/rsvp'
@@ -189,6 +232,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -224,6 +268,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -244,6 +295,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/email/unsubscribe'
       preLoaderRoute: typeof EmailUnsubscribeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/community': {
+      id: '/_authenticated/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof AuthenticatedCommunityRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/runs/$slug/recap': {
       id: '/runs/$slug/recap'
@@ -297,6 +369,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 interface RunsSlugRouteChildren {
   RunsSlugRecapRoute: typeof RunsSlugRecapRoute
 }
@@ -321,6 +408,7 @@ const RunsRouteWithChildren = RunsRoute._addFileChildren(RunsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,

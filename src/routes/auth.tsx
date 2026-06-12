@@ -29,7 +29,7 @@ function AuthPage() {
     supabase.auth.getUser().then(({ data }) => {
       if (!active) return;
       if (data.user) {
-        navigate({ to: "/" });
+        navigate({ to: "/dashboard" });
       } else {
         setChecking(false);
       }
@@ -104,7 +104,7 @@ function SignInForm() {
     }
     toast.success("Welcome back");
     await router.invalidate();
-    navigate({ to: "/" });
+    navigate({ to: "/dashboard" });
   }
 
   return (
@@ -195,7 +195,7 @@ function GoogleButton() {
       return;
     }
     if (result.redirected) return;
-    window.location.href = "/";
+    window.location.href = "/dashboard";
   }
   return (
     <Button type="button" variant="outline" className="w-full" onClick={onClick} disabled={loading}>
