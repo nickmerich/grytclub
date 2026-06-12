@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import { toPng, toBlob } from "html-to-image";
 import { getRecapBySlug, type RecapDetail } from "@/lib/recaps.functions";
 import { getRequestOrigin } from "@/lib/origin.functions";
 
@@ -91,7 +91,21 @@ function RecapPage() {
   const { recap: r, origin } = Route.useLoaderData() as { recap: RecapDetail; origin: string };
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const canShareFiles =
+    typeof navigator !== "undefined" &&
+    typeof navigator.canShare === "function" &&
+    // feature-test with a tiny dummy file
+    (() => {
+      try {
+        return navigator.canShare({
+          files: [new File([new Blob([""], { type: "image/png" })], "t.png", { type: "image/png" })],
+        });
+      } catch {
+        return false;
+      }
+    })();
 
   const publicUrl = `${origin}/runs/${r.slug}/recap`;
 
@@ -110,6 +124,48 @@ function RecapPage() {
       a.click();
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function shareImage() {
+    if (!cardRef.current) return;
+    setSharing(true);
+    try {
+      const blob = await toBlob(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: "#0a0a0a",
+      });
+      if (!blob) throw new Error("Failed to render image");
+      const file = new File([blob], `gryt-recap-${r.slug}.png`, { type: "image/png" });
+
+      if (
+        typeof navigator !== "undefined" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: `Recap: ${r.title}`,
+          text: `${r.attendee_count} runners showed up for ${r.title}.`,
+          url: publicUrl,
+        });
+      } else {
+        // Fallback: download
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `gryt-recap-${r.slug}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      // AbortError = user dismissed; ignore
+      if ((err as Error)?.name !== "AbortError") {
+        console.error(err);
+      }
+    } finally {
+      setSharing(false);
     }
   }
 
@@ -241,6 +297,13 @@ function RecapPage() {
             className="bg-sky-brand text-ink px-8 py-4 label-meta hover:bg-bone transition-colors disabled:opacity-60"
           >
             {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
+          </button>
+          <button
+            onClick={shareImage}
+            disabled={sharing}
+            className="bg-bone text-ink px-8 py-4 label-meta hover:bg-sky-brand transition-colors disabled:opacity-60"
+          >
+            {sharing ? "PREPARING…" : canShareFiles ? "↗ SHARE IMAGE" : "↗ SHARE / SAVE PNG"}
           </button>
           <button
             onClick={copyLink}
