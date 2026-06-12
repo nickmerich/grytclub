@@ -104,6 +104,15 @@ function RunDetailPage() {
           <p className="mt-4 text-bone/70 text-lg">
             {formatTime(ev.start_time)} · {ev.location_name}
           </p>
+          {ev.event_date < new Date().toISOString().slice(0, 10) && (
+            <Link
+              to="/runs/$slug/recap"
+              params={{ slug: ev.slug }}
+              className="mt-6 inline-flex items-center bg-sky-brand text-ink px-6 py-3 label-meta hover:bg-bone transition-colors"
+            >
+              ↓ POST-RUN RECAP CARD
+            </Link>
+          )}
         </div>
       </header>
 

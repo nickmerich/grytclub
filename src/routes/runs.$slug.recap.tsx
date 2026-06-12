@@ -1,0 +1,231 @@
+import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
+import { useRef, useState } from "react";
+import { toPng } from "html-to-image";
+import { getRecapBySlug, type RecapDetail } from "@/lib/recaps.functions";
+
+export const Route = createFileRoute("/runs/$slug/recap")({
+  loader: ({ params }) => getRecapBySlug({ data: { slug: params.slug } }),
+  head: ({ loaderData }) => {
+    const r = loaderData as RecapDetail | undefined;
+    const title = r ? `Recap: ${r.title} — GRYT Run Club` : "Run recap — GRYT Run Club";
+    const desc = r
+      ? `${r.attendee_count} runners showed up on ${formatLongDate(r.event_date)} for ${r.title}. Tap to share.`
+      : "GRYT run recap.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+      ],
+    };
+  },
+  component: RecapPage,
+  errorComponent: RecapError,
+  notFoundComponent: RecapNotFound,
+});
+
+function RecapError({ error, reset }: { error: Error; reset: () => void }) {
+  const router = useRouter();
+  return (
+    <main className="min-h-screen bg-ink text-bone px-6 py-24">
+      <div className="mx-auto max-w-xl text-center">
+        <p className="label-meta text-sky-brand">● COULDN'T LOAD RECAP</p>
+        <div className="rule-thin bg-sky-brand mt-2 mb-4 mx-auto max-w-[60px]" />
+        <h1 className="font-display text-3xl">Something broke loading this recap.</h1>
+        {import.meta.env.DEV && (
+          <pre className="mt-4 text-left text-xs text-bone/60 overflow-auto">{error.message}</pre>
+        )}
+        <button
+          onClick={() => { router.invalidate(); reset(); }}
+          className="mt-6 inline-flex items-center bg-sky-brand text-ink px-6 py-3 label-meta hover:bg-bone transition-colors"
+        >
+          TRY AGAIN
+        </button>
+      </div>
+    </main>
+  );
+}
+
+function RecapNotFound() {
+  return (
+    <main className="min-h-screen bg-ink text-bone px-6 py-24">
+      <div className="mx-auto max-w-xl text-center">
+        <p className="label-meta text-sky-brand">● NO RECAP YET</p>
+        <div className="rule-thin bg-sky-brand mt-2 mb-4 mx-auto max-w-[60px]" />
+        <h1 className="font-display text-3xl">This run doesn't have a recap.</h1>
+        <p className="mt-3 text-bone/70">Recaps are auto-generated the day after each run.</p>
+        <Link to="/runs" className="mt-6 inline-flex items-center border border-bone/40 text-bone px-6 py-3 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors">
+          ← ALL RUNS
+        </Link>
+      </div>
+    </main>
+  );
+}
+
+function formatLongDate(iso: string): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  return d.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+}
+function formatShortDate(iso: string): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).toUpperCase();
+}
+
+function RecapPage() {
+  const r = Route.useLoaderData() as RecapDetail;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [busy, setBusy] = useState(false);
+
+  async function download() {
+    if (!cardRef.current) return;
+    setBusy(true);
+    try {
+      const dataUrl = await toPng(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: "#0a0a0a",
+      });
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = `gryt-recap-${r.slug}.png`;
+      a.click();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  return (
+    <main className="min-h-screen bg-ink text-bone px-6 py-12 md:py-16">
+      <div className="mx-auto max-w-3xl">
+        <Link to="/runs/$slug" params={{ slug: r.slug }} className="label-meta text-bone/60 hover:text-sky-brand">
+          ← BACK TO RUN
+        </Link>
+
+        <p className="label-meta text-sky-brand mt-8">● POST-RUN RECAP</p>
+        <div className="rule-thin bg-sky-brand mt-2 mb-4 max-w-[60px]" />
+        <h1 className="font-display text-4xl md:text-5xl leading-[0.95]">Shareable card</h1>
+        <p className="mt-3 text-bone/70">
+          Download and post to Instagram, Strava, or anywhere else. 1080×1080 PNG.
+        </p>
+
+        <div className="mt-8 flex justify-center">
+          {/* Shareable card — fixed 1080x1080 at scale; scaled down for preview via wrapper */}
+          <div className="origin-top" style={{ transform: "scale(min(1, calc((100vw - 48px) / 1080)))" }}>
+            <div
+              ref={cardRef}
+              className="relative overflow-hidden text-bone"
+              style={{
+                width: 1080,
+                height: 1080,
+                background: "linear-gradient(155deg, #0a0a0a 0%, #0a0a0a 55%, #112233 100%)",
+                fontFamily: "var(--font-display, ui-sans-serif)",
+              }}
+            >
+              {/* Diagonal sky-brand bar */}
+              <div
+                className="absolute"
+                style={{
+                  top: -80, right: -120, width: 600, height: 160,
+                  background: "hsl(200 95% 58%)",
+                  transform: "rotate(-12deg)",
+                  opacity: 0.95,
+                }}
+              />
+              {/* Big watermark mileage */}
+              {r.distance_mi != null && (
+                <div
+                  className="absolute select-none"
+                  style={{
+                    right: 40, bottom: -60,
+                    fontSize: 720, lineHeight: 1, fontWeight: 900,
+                    color: "rgba(255,255,255,0.04)",
+                    letterSpacing: "-0.05em",
+                  }}
+                >
+                  {r.distance_mi}
+                </div>
+              )}
+
+              <div className="relative h-full flex flex-col justify-between p-20">
+                <div>
+                  <div className="flex items-center gap-4">
+                    <span style={{ width: 18, height: 18, background: "hsl(200 95% 58%)", borderRadius: 999, display: "inline-block" }} />
+                    <span style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 22, letterSpacing: "0.2em", color: "rgba(255,255,255,0.7)" }}>
+                      GRYT RUN CLUB · {formatShortDate(r.event_date)}
+                    </span>
+                  </div>
+                  <div style={{ height: 4, width: 90, background: "hsl(200 95% 58%)", marginTop: 16 }} />
+                  <h2
+                    style={{
+                      fontFamily: "var(--font-display, ui-sans-serif)",
+                      fontSize: 132, fontWeight: 900, lineHeight: 0.92,
+                      marginTop: 40, letterSpacing: "-0.02em",
+                    }}
+                  >
+                    {r.attendee_count}
+                    <span style={{ fontSize: 56, fontWeight: 700, marginLeft: 18, color: "rgba(255,255,255,0.65)" }}>
+                      SHOWED UP
+                    </span>
+                  </h2>
+                  <p
+                    style={{
+                      marginTop: 28, fontSize: 44, fontWeight: 700, lineHeight: 1.1,
+                      maxWidth: 800,
+                    }}
+                  >
+                    {r.hero_caption ?? r.title}
+                  </p>
+                </div>
+
+                <div>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 32, borderTop: "1px solid rgba(255,255,255,0.18)", paddingTop: 36 }}>
+                    <Stat label="DISTANCE" value={r.distance_mi != null ? `${r.distance_mi} mi` : "—"} />
+                    <Stat label="PACE" value={r.pace_label ?? "All paces"} />
+                    <Stat label="WHERE" value={r.location_name} />
+                  </div>
+                  <div style={{ marginTop: 36, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 20, letterSpacing: "0.2em", color: "rgba(255,255,255,0.55)" }}>
+                      GRYT.CLUB
+                    </span>
+                    <span style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 20, letterSpacing: "0.2em", color: "hsl(200 95% 58%)" }}>
+                      SATURDAYS · 7 AM
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            onClick={download}
+            disabled={busy}
+            className="bg-sky-brand text-ink px-8 py-4 label-meta hover:bg-bone transition-colors disabled:opacity-60"
+          >
+            {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
+          </button>
+          <Link
+            to="/runs/$slug"
+            params={{ slug: r.slug }}
+            className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center"
+          >
+            BACK TO RUN
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <div style={{ fontFamily: "ui-monospace, SFMono-Regular, monospace", fontSize: 18, letterSpacing: "0.2em", color: "rgba(255,255,255,0.55)" }}>
+        {label}
+      </div>
+      <div style={{ fontSize: 36, fontWeight: 800, marginTop: 8, lineHeight: 1.1 }}>{value}</div>
+    </div>
+  );
+}

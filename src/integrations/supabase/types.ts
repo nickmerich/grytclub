@@ -257,6 +257,47 @@ export type Database = {
         }
         Relationships: []
       }
+      run_recaps: {
+        Row: {
+          attendee_count: number
+          created_at: string
+          distance_mi: number | null
+          event_id: string
+          hero_caption: string | null
+          published: boolean
+          updated_at: string
+          vibe_word: string | null
+        }
+        Insert: {
+          attendee_count?: number
+          created_at?: string
+          distance_mi?: number | null
+          event_id: string
+          hero_caption?: string | null
+          published?: boolean
+          updated_at?: string
+          vibe_word?: string | null
+        }
+        Update: {
+          attendee_count?: number
+          created_at?: string
+          distance_mi?: number | null
+          event_id?: string
+          hero_caption?: string | null
+          published?: boolean
+          updated_at?: string
+          vibe_word?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "run_recaps_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: true
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       suppressed_emails: {
         Row: {
           created_at: string
