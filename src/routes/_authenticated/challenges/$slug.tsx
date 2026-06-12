@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useRef, useState } from "react";
-import { toBlob, toPng } from "html-to-image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { toBlob } from "html-to-image";
 import { toast } from "sonner";
 import {
   getChallenge,
@@ -11,6 +11,12 @@ import {
   toggleStep,
 } from "@/lib/challenges.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
+import {
+  deleteSnapshot,
+  listSnapshots,
+  saveSnapshot,
+  type ProgressSnapshot,
+} from "@/lib/progress-gallery";
 
 export const Route = createFileRoute("/_authenticated/challenges/$slug")({
   head: () => ({
