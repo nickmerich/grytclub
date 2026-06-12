@@ -28,6 +28,9 @@ function AuthenticatedLayout() {
             <Link to="/dashboard" className="hover:text-sky-brand transition-colors" activeProps={{ className: "text-sky-brand underline" }}>
               Dashboard
             </Link>
+            <Link to="/challenges" className="hover:text-sky-brand transition-colors" activeProps={{ className: "text-sky-brand underline" }}>
+              Challenges
+            </Link>
             <Link to="/community" className="hover:text-sky-brand transition-colors" activeProps={{ className: "text-sky-brand underline" }}>
               Members
             </Link>
