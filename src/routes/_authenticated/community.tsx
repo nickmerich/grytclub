@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -146,6 +146,22 @@ function CommunityPage() {
                   ))}
                 </div>
               )}
+              <div className="mt-4 flex gap-2">
+                <Link
+                  to="/members/$id"
+                  params={{ id: m.id }}
+                  className="flex-1 inline-flex items-center justify-center rounded-md border border-border px-3 py-1.5 text-xs hover:bg-accent"
+                >
+                  View profile
+                </Link>
+                <Link
+                  to="/compare/$otherId"
+                  params={{ otherId: m.id }}
+                  className="flex-1 inline-flex items-center justify-center rounded-md bg-foreground px-3 py-1.5 text-xs font-medium text-background hover:bg-foreground/90"
+                >
+                  Compare
+                </Link>
+              </div>
             </li>
           ))}
         </ul>

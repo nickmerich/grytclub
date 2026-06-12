@@ -10,6 +10,7 @@ import {
   leaveChallenge,
   toggleStep,
 } from "@/lib/challenges.functions";
+import { createInvite } from "@/lib/social.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
 import {
   deleteSnapshot,
@@ -41,6 +42,7 @@ function ChallengeDetailPage() {
   const join = useServerFn(joinChallenge);
   const leave = useServerFn(leaveChallenge);
   const toggle = useServerFn(toggleStep);
+  const makeInvite = useServerFn(createInvite);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["challenge", slug],
@@ -212,6 +214,34 @@ function ChallengeDetailPage() {
     refreshGallery();
   }
 
+  const [inviting, setInviting] = useState(false);
+  async function shareInvite() {
+    if (inviting) return;
+    setInviting(true);
+    try {
+      const { token } = await makeInvite({ data: { challenge_id: c.id } });
+      const url = `${window.location.origin}/invite/${token}`;
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        try {
+          await navigator.share({
+            title: `Join "${c.title}" on GRYT`,
+            text: `${meName} invited you to ${c.title}`,
+            url,
+          });
+        } catch (e) {
+          if ((e as Error)?.name !== "AbortError") throw e;
+        }
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast.success("Invite link copied");
+      }
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't create invite");
+    } finally {
+      setInviting(false);
+    }
+  }
+
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -301,6 +331,15 @@ function ChallengeDetailPage() {
             className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
           >
             {exporting === "download" ? "Rendering…" : "↓ Download PNG"}
+          </button>
+          <button
+            type="button"
+            onClick={shareInvite}
+            disabled={inviting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+            title="Invite friends to this challenge"
+          >
+            {inviting ? "Creating…" : "✦ Invite friends"}
           </button>
         </div>
       </header>

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMyProfile } from "@/lib/profiles.functions";
+import { getMyInviteStats } from "@/lib/social.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -30,9 +31,11 @@ function formatTime(t: string) {
 function DashboardPage() {
   const fetchDashboard = useServerFn(getDashboard);
   const fetchProfile = useServerFn(getMyProfile);
+  const fetchInviteStats = useServerFn(getMyInviteStats);
 
   const dashboard = useQuery({ queryKey: ["dashboard"], queryFn: () => fetchDashboard() });
   const profile = useQuery({ queryKey: ["my-profile"], queryFn: () => fetchProfile() });
+  const inviteStats = useQuery({ queryKey: ["my-invite-stats"], queryFn: () => fetchInviteStats() });
 
   const needsOnboarding = profile.data && !profile.data.onboarded_at;
 
@@ -102,9 +105,13 @@ function DashboardPage() {
           <p className="label-meta text-muted-foreground">Streak</p>
           <p className="font-display text-5xl mt-2">{dashboard.data?.attendanceCount ?? 0}</p>
           <p className="text-sm text-muted-foreground mt-1">RSVPs on record</p>
-          <p className="text-xs text-muted-foreground mt-4">
-            Real attendance streaks unlock when check-in ships.
-          </p>
+          <div className="mt-4 pt-4 border-t border-border">
+            <p className="label-meta text-muted-foreground">Invites accepted</p>
+            <p className="font-display text-2xl mt-1 tabular-nums">{inviteStats.data?.accepted_count ?? 0}</p>
+            <Link to="/leaderboard" className="mt-3 inline-block text-xs text-sky-brand hover:underline">
+              See leaderboard →
+            </Link>
+          </div>
         </section>
       </div>
 
