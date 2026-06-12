@@ -89,6 +89,7 @@ export function RsvpForm({
       }
       setStored(record);
       setStatus("success");
+      queryClient.invalidateQueries({ queryKey: ["rsvp-stats"] });
     } catch {
       setStatus("error");
       setError("Something broke. Try again or email hi@gryt.club.");
