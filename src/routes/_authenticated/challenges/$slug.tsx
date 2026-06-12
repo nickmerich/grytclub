@@ -50,6 +50,21 @@ function ChallengeDetailPage() {
   const myCompleted = data?.myCompletedStepIds.length ?? 0;
   const pct = stepCount > 0 ? Math.round((myCompleted / stepCount) * 100) : 0;
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [exporting, setExporting] = useState<null | "download" | "share">(null);
+  const canShareFiles =
+    typeof navigator !== "undefined" &&
+    typeof navigator.canShare === "function" &&
+    (() => {
+      try {
+        return navigator.canShare({
+          files: [new File([new Blob([""], { type: "image/png" })], "t.png", { type: "image/png" })],
+        });
+      } catch {
+        return false;
+      }
+    })();
+
   const joinMut = useMutation({
     mutationFn: (challenge_id: string) => join({ data: { challenge_id } }),
     onSuccess: () => {
