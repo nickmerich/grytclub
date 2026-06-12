@@ -576,7 +576,7 @@ export type Database = {
     }
     Functions: {
       accept_invite: {
-        Args: { _token: string }
+        Args: { _token: string; _user_id: string }
         Returns: {
           challenge_slug: string
         }[]
