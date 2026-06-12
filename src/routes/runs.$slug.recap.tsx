@@ -242,6 +242,12 @@ function RecapPage() {
           >
             {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
           </button>
+          <button
+            onClick={copyLink}
+            className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center"
+          >
+            {copied ? "✓ LINK COPIED" : "↗ COPY LINK"}
+          </button>
           <Link
             to="/runs/$slug"
             params={{ slug: r.slug }}
