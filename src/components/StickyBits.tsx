@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useQuery } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
+import { getRsvpStats } from "@/lib/rsvps.functions";
 
 /** Returns ms until next Saturday 7:00 AM America/New_York (close enough using local). */
 function getNextSaturday7am(): Date {
