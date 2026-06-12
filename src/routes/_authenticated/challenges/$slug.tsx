@@ -214,6 +214,34 @@ function ChallengeDetailPage() {
     refreshGallery();
   }
 
+  const [inviting, setInviting] = useState(false);
+  async function shareInvite() {
+    if (inviting) return;
+    setInviting(true);
+    try {
+      const { token } = await makeInvite({ data: { challenge_id: c.id } });
+      const url = `${window.location.origin}/invite/${token}`;
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        try {
+          await navigator.share({
+            title: `Join "${c.title}" on GRYT`,
+            text: `${meName} invited you to ${c.title}`,
+            url,
+          });
+        } catch (e) {
+          if ((e as Error)?.name !== "AbortError") throw e;
+        }
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast.success("Invite link copied");
+      }
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Couldn't create invite");
+    } finally {
+      setInviting(false);
+    }
+  }
+
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
