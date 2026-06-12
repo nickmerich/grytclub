@@ -10,6 +10,7 @@ import {
   leaveChallenge,
   toggleStep,
 } from "@/lib/challenges.functions";
+import { createInvite } from "@/lib/social.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
 import {
   deleteSnapshot,
