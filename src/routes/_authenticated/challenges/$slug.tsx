@@ -309,6 +309,78 @@ function ChallengeDetailPage() {
         <p className="mt-6 max-w-3xl text-muted-foreground">{c.description}</p>
       )}
 
+      {/* Recent progress cards — local, last 5 */}
+      {gallery.length > 0 && (
+        <section className="mt-8">
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="font-display text-xl">Your recent progress cards</h2>
+            <span className="text-xs text-muted-foreground">
+              Saved on this device · last {gallery.length} of 5
+            </span>
+          </div>
+          <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {gallery.map((s) => {
+              const url = galleryUrls.get(s.id);
+              const when = new Date(s.capturedAt).toLocaleString(undefined, {
+                month: "short",
+                day: "numeric",
+                hour: "numeric",
+                minute: "2-digit",
+              });
+              return (
+                <li
+                  key={s.id}
+                  className="group relative overflow-hidden rounded-xl border border-border bg-card"
+                >
+                  {url && (
+                    <img
+                      src={url}
+                      alt={`Progress card · ${s.pct}%`}
+                      className="aspect-[4/5] w-full object-cover"
+                      loading="lazy"
+                    />
+                  )}
+                  <div className="p-2 flex items-center justify-between text-xs">
+                    <div>
+                      <div className="font-semibold tabular-nums">{s.pct}%</div>
+                      <div className="text-muted-foreground">{when}</div>
+                    </div>
+                    <div className="flex gap-1">
+                      <button
+                        type="button"
+                        onClick={() => downloadSnapshot(s)}
+                        className="rounded-md border border-border px-2 py-1 hover:bg-accent"
+                        title="Download again"
+                        aria-label="Download again"
+                      >
+                        ↓
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeSnapshot(s.id)}
+                        className="rounded-md border border-border px-2 py-1 hover:bg-accent"
+                        title="Remove from gallery"
+                        aria-label="Remove from gallery"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  </div>
+                  <span
+                    className="absolute top-2 left-2 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide"
+                    style={{ backgroundColor: accent + "cc", color: "#fff" }}
+                  >
+                    {s.source}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
+
+
       {/* Steps */}
       <section className="mt-10">
         <h2 className="font-display text-2xl mb-4">Steps</h2>
