@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RunsSlugRouteImport } from './routes/runs.$slug'
+import { Route as InviteTokenRouteImport } from './routes/invite/$token'
 import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe'
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedLeaderboardRouteImport } from './routes/_authenticated/leaderboard'
@@ -60,6 +61,11 @@ const RunsSlugRoute = RunsSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => RunsRoute,
+} as any)
+const InviteTokenRoute = InviteTokenRouteImport.update({
+  id: '/invite/$token',
+  path: '/invite/$token',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EmailUnsubscribeRoute = EmailUnsubscribeRouteImport.update({
   id: '/email/unsubscribe',
@@ -160,6 +166,7 @@ export interface FileRoutesByFullPath {
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
@@ -183,6 +190,7 @@ export interface FileRoutesByTo {
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
   '/email/unsubscribe': typeof EmailUnsubscribeRoute
+  '/invite/$token': typeof InviteTokenRoute
   '/runs/$slug': typeof RunsSlugRouteWithChildren
   '/_authenticated/challenges/$slug': typeof AuthenticatedChallengesSlugRoute
   '/_authenticated/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
@@ -233,6 +242,7 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/onboarding'
     | '/email/unsubscribe'
+    | '/invite/$token'
     | '/runs/$slug'
     | '/challenges/$slug'
     | '/compare/$otherId'
@@ -256,6 +266,7 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/onboarding'
     | '/email/unsubscribe'
+    | '/invite/$token'
     | '/runs/$slug'
     | '/challenges/$slug'
     | '/compare/$otherId'
@@ -280,6 +291,7 @@ export interface FileRouteTypes {
     | '/_authenticated/leaderboard'
     | '/_authenticated/onboarding'
     | '/email/unsubscribe'
+    | '/invite/$token'
     | '/runs/$slug'
     | '/_authenticated/challenges/$slug'
     | '/_authenticated/compare/$otherId'
@@ -301,6 +313,7 @@ export interface RootRouteChildren {
   RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
+  InviteTokenRoute: typeof InviteTokenRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksGenerateRecapsRoute: typeof ApiPublicHooksGenerateRecapsRoute
@@ -352,6 +365,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/runs/$slug'
       preLoaderRoute: typeof RunsSlugRouteImport
       parentRoute: typeof RunsRoute
+    }
+    '/invite/$token': {
+      id: '/invite/$token'
+      path: '/invite/$token'
+      fullPath: '/invite/$token'
+      preLoaderRoute: typeof InviteTokenRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/email/unsubscribe': {
       id: '/email/unsubscribe'
@@ -522,6 +542,7 @@ const rootRouteChildren: RootRouteChildren = {
   RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
+  InviteTokenRoute: InviteTokenRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksGenerateRecapsRoute: ApiPublicHooksGenerateRecapsRoute,
