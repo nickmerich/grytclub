@@ -2,21 +2,36 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { toPng } from "html-to-image";
 import { getRecapBySlug, type RecapDetail } from "@/lib/recaps.functions";
+import { getRequestOrigin } from "@/lib/origin.functions";
 
 export const Route = createFileRoute("/runs/$slug/recap")({
-  loader: ({ params }) => getRecapBySlug({ data: { slug: params.slug } }),
-  head: ({ loaderData }) => {
-    const r = loaderData as RecapDetail | undefined;
+  loader: async ({ params }) => {
+    const [recap, origin] = await Promise.all([
+      getRecapBySlug({ data: { slug: params.slug } }),
+      getRequestOrigin(),
+    ]);
+    return { recap, origin };
+  },
+  head: ({ params, loaderData }) => {
+    const r = loaderData?.recap as RecapDetail | undefined;
+    const origin = loaderData?.origin as string | undefined;
     const title = r ? `Recap: ${r.title} — GRYT Run Club` : "Run recap — GRYT Run Club";
     const desc = r
       ? `${r.attendee_count} runners showed up on ${formatLongDate(r.event_date)} for ${r.title}. Tap to share.`
       : "GRYT run recap.";
+    const url = origin && r ? `${origin}/runs/${r.slug}/recap` : `/runs/${params.slug}/recap`;
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         { property: "og:title", content: title },
         { property: "og:description", content: desc },
+        { property: "og:url", content: url },
+        { property: "og:type", content: "article" },
+        { name: "twitter:card", content: "summary_large_image" },
+      ],
+      links: [
+        { rel: "canonical", href: url },
       ],
     };
   },
@@ -73,9 +88,12 @@ function formatShortDate(iso: string): string {
 }
 
 function RecapPage() {
-  const r = Route.useLoaderData() as RecapDetail;
+  const { recap: r, origin } = Route.useLoaderData() as { recap: RecapDetail; origin: string };
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const publicUrl = `${origin}/runs/${r.slug}/recap`;
 
   async function download() {
     if (!cardRef.current) return;
@@ -92,6 +110,24 @@ function RecapPage() {
       a.click();
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(publicUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for browsers that block clipboard
+      const input = document.createElement("input");
+      input.value = publicUrl;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   }
 
@@ -205,6 +241,12 @@ function RecapPage() {
             className="bg-sky-brand text-ink px-8 py-4 label-meta hover:bg-bone transition-colors disabled:opacity-60"
           >
             {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
+          </button>
+          <button
+            onClick={copyLink}
+            className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center"
+          >
+            {copied ? "✓ LINK COPIED" : "↗ COPY LINK"}
           </button>
           <Link
             to="/runs/$slug"
