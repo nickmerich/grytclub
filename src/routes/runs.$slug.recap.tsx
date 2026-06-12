@@ -145,6 +145,7 @@ function RecapPage() {
     })();
 
   const publicUrl = `${origin}/runs/${r.slug}/recap`;
+  const pngFilename = `gryt-${filenameDate(r.event_date)}-${r.slug}.png`;
 
   async function download() {
     if (!cardRef.current || isExporting) return;
