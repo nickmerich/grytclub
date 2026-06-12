@@ -19,6 +19,7 @@ import { Route as EmailUnsubscribeRouteImport } from './routes/email/unsubscribe
 import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCommunityRouteImport } from './routes/_authenticated/community'
+import { Route as AuthenticatedChallengesIndexRouteImport } from './routes/_authenticated/challenges/index'
 import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
@@ -76,6 +77,12 @@ const AuthenticatedCommunityRoute = AuthenticatedCommunityRouteImport.update({
   path: '/community',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedChallengesIndexRoute =
+  AuthenticatedChallengesIndexRouteImport.update({
+    id: '/challenges/',
+    path: '/challenges/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const RunsSlugRecapRoute = RunsSlugRecapRouteImport.update({
   id: '/recap',
   path: '/recap',
@@ -129,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/challenges/': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -147,6 +155,7 @@ export interface FileRoutesByTo {
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/challenges': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -167,6 +176,7 @@ export interface FileRoutesById {
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
+  '/_authenticated/challenges/': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
+    | '/challenges/'
     | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
+    | '/challenges'
     | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -224,6 +236,7 @@ export interface FileRouteTypes {
     | '/api/public/rsvp'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
+    | '/_authenticated/challenges/'
     | '/api/public/hooks/generate-recaps'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
@@ -317,6 +330,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCommunityRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/challenges/': {
+      id: '/_authenticated/challenges/'
+      path: '/challenges'
+      fullPath: '/challenges/'
+      preLoaderRoute: typeof AuthenticatedChallengesIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/runs/$slug/recap': {
       id: '/runs/$slug/recap'
       path: '/recap'
@@ -373,12 +393,14 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCommunityRoute: typeof AuthenticatedCommunityRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedChallengesIndexRoute: typeof AuthenticatedChallengesIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCommunityRoute: AuthenticatedCommunityRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedChallengesIndexRoute: AuthenticatedChallengesIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -423,3 +445,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
+}
