@@ -14,6 +14,172 @@ export type Database = {
   }
   public: {
     Tables: {
+      challenge_participants: {
+        Row: {
+          challenge_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_participants_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenge_step_completions: {
+        Row: {
+          challenge_id: string
+          completed_at: string
+          id: string
+          step_id: string
+          user_id: string
+          value: number | null
+        }
+        Insert: {
+          challenge_id: string
+          completed_at?: string
+          id?: string
+          step_id: string
+          user_id: string
+          value?: number | null
+        }
+        Update: {
+          challenge_id?: string
+          completed_at?: string
+          id?: string
+          step_id?: string
+          user_id?: string
+          value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_step_completions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "challenge_step_completions_step_id_fkey"
+            columns: ["step_id"]
+            isOneToOne: false
+            referencedRelation: "challenge_steps"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenge_steps: {
+        Row: {
+          challenge_id: string
+          created_at: string
+          description: string | null
+          id: string
+          ordinal: number
+          target_value: number | null
+          title: string
+          unit: string | null
+        }
+        Insert: {
+          challenge_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          ordinal: number
+          target_value?: number | null
+          title: string
+          unit?: string | null
+        }
+        Update: {
+          challenge_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          ordinal?: number
+          target_value?: number | null
+          title?: string
+          unit?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_steps_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      challenges: {
+        Row: {
+          accent_color: string
+          created_at: string
+          description: string | null
+          ends_on: string
+          id: string
+          published: boolean
+          slug: string
+          starts_on: string
+          tagline: string | null
+          target_label: string | null
+          target_value: number | null
+          theme: string
+          title: string
+          unit: string | null
+          updated_at: string
+        }
+        Insert: {
+          accent_color?: string
+          created_at?: string
+          description?: string | null
+          ends_on: string
+          id?: string
+          published?: boolean
+          slug: string
+          starts_on: string
+          tagline?: string | null
+          target_label?: string | null
+          target_value?: number | null
+          theme?: string
+          title: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Update: {
+          accent_color?: string
+          created_at?: string
+          description?: string | null
+          ends_on?: string
+          id?: string
+          published?: boolean
+          slug?: string
+          starts_on?: string
+          tagline?: string | null
+          target_label?: string | null
+          target_value?: number | null
+          theme?: string
+          title?: string
+          unit?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cta_clicks: {
         Row: {
           created_at: string
@@ -190,13 +356,20 @@ export type Database = {
       }
       profiles: {
         Row: {
+          athlete_alignment: string | null
           avatar_url: string | null
+          best_10k_seconds: number | null
+          best_5k_seconds: number | null
+          best_half_seconds: number | null
+          best_marathon_seconds: number | null
           city: string | null
           created_at: string
           display_name: string | null
+          first_name: string | null
           goals: string[]
           id: string
           is_public: boolean
+          last_name: string | null
           neighborhood: string | null
           onboarded_at: string | null
           pace_max_per_mi: number | null
@@ -205,13 +378,20 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          athlete_alignment?: string | null
           avatar_url?: string | null
+          best_10k_seconds?: number | null
+          best_5k_seconds?: number | null
+          best_half_seconds?: number | null
+          best_marathon_seconds?: number | null
           city?: string | null
           created_at?: string
           display_name?: string | null
+          first_name?: string | null
           goals?: string[]
           id: string
           is_public?: boolean
+          last_name?: string | null
           neighborhood?: string | null
           onboarded_at?: string | null
           pace_max_per_mi?: number | null
@@ -220,13 +400,20 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          athlete_alignment?: string | null
           avatar_url?: string | null
+          best_10k_seconds?: number | null
+          best_5k_seconds?: number | null
+          best_half_seconds?: number | null
+          best_marathon_seconds?: number | null
           city?: string | null
           created_at?: string
           display_name?: string | null
+          first_name?: string | null
           goals?: string[]
           id?: string
           is_public?: boolean
+          last_name?: string | null
           neighborhood?: string | null
           onboarded_at?: string | null
           pace_max_per_mi?: number | null
