@@ -88,9 +88,12 @@ function formatShortDate(iso: string): string {
 }
 
 function RecapPage() {
-  const r = Route.useLoaderData() as RecapDetail;
+  const { recap: r, origin } = Route.useLoaderData() as { recap: RecapDetail; origin: string };
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const publicUrl = `${origin}/runs/${r.slug}/recap`;
 
   async function download() {
     if (!cardRef.current) return;
@@ -107,6 +110,24 @@ function RecapPage() {
       a.click();
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(publicUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for browsers that block clipboard
+      const input = document.createElement("input");
+      input.value = publicUrl;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     }
   }
 
