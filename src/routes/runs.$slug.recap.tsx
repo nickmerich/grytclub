@@ -299,6 +299,13 @@ function RecapPage() {
             {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
           </button>
           <button
+            onClick={shareImage}
+            disabled={sharing}
+            className="bg-bone text-ink px-8 py-4 label-meta hover:bg-sky-brand transition-colors disabled:opacity-60"
+          >
+            {sharing ? "PREPARING…" : canShareFiles ? "↗ SHARE IMAGE" : "↗ SHARE / SAVE PNG"}
+          </button>
+          <button
             onClick={copyLink}
             className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center"
           >
