@@ -85,6 +85,20 @@ export const listChallenges = createServerFn({ method: "GET" })
     }));
   });
 
+export type ChallengeMe = {
+  user_id: string;
+  display_name: string | null;
+  first_name: string | null;
+  last_name: string | null;
+  avatar_url: string | null;
+  neighborhood: string | null;
+  athlete_alignment: string | null;
+  best_5k_seconds: number | null;
+  best_10k_seconds: number | null;
+  best_half_seconds: number | null;
+  best_marathon_seconds: number | null;
+};
+
 export type ChallengeDetail = {
   challenge: Challenge;
   steps: ChallengeStep[];
@@ -105,6 +119,7 @@ export type ChallengeDetail = {
   participantCount: number;
   joined: boolean;
   myCompletedStepIds: string[];
+  me: ChallengeMe | null;
 };
 
 export const getChallenge = createServerFn({ method: "GET" })
@@ -199,6 +214,46 @@ export const getChallenge = createServerFn({ method: "GET" })
       })
       .sort((a, b) => b.completed - a.completed);
 
+    const myProfile = profilesById.get(context.userId) ?? null;
+    const me: ChallengeMe | null = myProfile
+      ? {
+          user_id: context.userId,
+          display_name: myProfile.display_name,
+          first_name: myProfile.first_name,
+          last_name: myProfile.last_name,
+          avatar_url: myProfile.avatar_url,
+          neighborhood: myProfile.neighborhood,
+          athlete_alignment: myProfile.athlete_alignment,
+          best_5k_seconds: myProfile.best_5k_seconds,
+          best_10k_seconds: myProfile.best_10k_seconds,
+          best_half_seconds: myProfile.best_half_seconds,
+          best_marathon_seconds: myProfile.best_marathon_seconds,
+        }
+      : await (async () => {
+          const { data: p } = await context.supabase
+            .from("profiles")
+            .select(
+              "id, display_name, first_name, last_name, avatar_url, neighborhood, athlete_alignment, best_5k_seconds, best_10k_seconds, best_half_seconds, best_marathon_seconds",
+            )
+            .eq("id", context.userId)
+            .maybeSingle();
+          return p
+            ? {
+                user_id: context.userId,
+                display_name: p.display_name,
+                first_name: p.first_name,
+                last_name: p.last_name,
+                avatar_url: p.avatar_url,
+                neighborhood: p.neighborhood,
+                athlete_alignment: p.athlete_alignment,
+                best_5k_seconds: p.best_5k_seconds,
+                best_10k_seconds: p.best_10k_seconds,
+                best_half_seconds: p.best_half_seconds,
+                best_marathon_seconds: p.best_marathon_seconds,
+              }
+            : null;
+        })();
+
     return {
       challenge: challenge as Challenge,
       steps: (stepsRes.data ?? []) as ChallengeStep[],
@@ -206,6 +261,7 @@ export const getChallenge = createServerFn({ method: "GET" })
       participantCount: (partsRes.data ?? []).length,
       joined,
       myCompletedStepIds,
+      me,
     };
   });
 

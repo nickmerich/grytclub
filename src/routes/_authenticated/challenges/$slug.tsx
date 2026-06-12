@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
+import { toBlob, toPng } from "html-to-image";
 import { toast } from "sonner";
 import {
   getChallenge,
@@ -49,6 +50,21 @@ function ChallengeDetailPage() {
   const myCompleted = data?.myCompletedStepIds.length ?? 0;
   const pct = stepCount > 0 ? Math.round((myCompleted / stepCount) * 100) : 0;
 
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [exporting, setExporting] = useState<null | "download" | "share">(null);
+  const canShareFiles =
+    typeof navigator !== "undefined" &&
+    typeof navigator.canShare === "function" &&
+    (() => {
+      try {
+        return navigator.canShare({
+          files: [new File([new Blob([""], { type: "image/png" })], "t.png", { type: "image/png" })],
+        });
+      } catch {
+        return false;
+      }
+    })();
+
   const joinMut = useMutation({
     mutationFn: (challenge_id: string) => join({ data: { challenge_id } }),
     onSuccess: () => {
@@ -92,6 +108,60 @@ function ChallengeDetailPage() {
 
   const c = data.challenge;
   const accent = c.accent_color;
+  const me = data.me;
+  const meName = me ? displayName(me) : "Member";
+  const meAlignment = me ? alignmentFor(me.user_id, me.athlete_alignment) : null;
+  const pngFilename = `gryt-challenge-${c.slug}-${pct}pct.png`;
+
+  async function exportPng(mode: "download" | "share") {
+    if (!cardRef.current || exporting) return;
+    setExporting(mode);
+    try {
+      if (mode === "download") {
+        const dataUrl = await toPng(cardRef.current, {
+          pixelRatio: 2,
+          cacheBust: true,
+          backgroundColor: "#0a0a0a",
+        });
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = pngFilename;
+        a.click();
+        return;
+      }
+      const blob = await toBlob(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: "#0a0a0a",
+      });
+      if (!blob) throw new Error("Failed to render image");
+      const file = new File([blob], pngFilename, { type: "image/png" });
+      if (
+        typeof navigator !== "undefined" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: `${c.title} — ${pct}% complete`,
+          text: `${meName} · ${myCompleted}/${stepCount} steps · ${pct}% on ${c.title}`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = pngFilename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      if ((err as Error)?.name !== "AbortError") {
+        toast.error(err instanceof Error ? err.message : "Couldn't render image");
+      }
+    } finally {
+      setExporting(null);
+    }
+  }
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -140,7 +210,7 @@ function ChallengeDetailPage() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-3">
+        <div className="mt-6 flex flex-wrap items-center gap-3">
           {!data.joined ? (
             <button
               type="button"
@@ -161,6 +231,27 @@ function ChallengeDetailPage() {
               {leaveMut.isPending ? "Leaving…" : "Leave"}
             </button>
           )}
+          <button
+            type="button"
+            onClick={() => exportPng("share")}
+            disabled={!!exporting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+            title={canShareFiles ? "Share progress image" : "Save progress image"}
+          >
+            {exporting === "share"
+              ? "Preparing…"
+              : canShareFiles
+                ? "↗ Share progress"
+                : "↗ Save progress PNG"}
+          </button>
+          <button
+            type="button"
+            onClick={() => exportPng("download")}
+            disabled={!!exporting}
+            className="inline-flex items-center rounded-md border border-border px-4 py-2 text-sm font-medium hover:bg-accent disabled:opacity-60"
+          >
+            {exporting === "download" ? "Rendering…" : "↓ Download PNG"}
+          </button>
         </div>
       </header>
 
@@ -296,7 +387,292 @@ function ChallengeDetailPage() {
           </ul>
         )}
       </section>
+
+      {/* Off-screen shareable card — rendered at 1080x1350 (4:5, Insta-friendly) */}
+      <div
+        aria-hidden
+        style={{
+          position: "fixed",
+          left: -10000,
+          top: 0,
+          pointerEvents: "none",
+          opacity: 0,
+        }}
+      >
+        <div
+          ref={cardRef}
+          style={{
+            width: 1080,
+            height: 1350,
+            background: `linear-gradient(155deg, #0a0a0a 0%, #0a0a0a 55%, ${accent}33 100%)`,
+            color: "#f5f5f0",
+            position: "relative",
+            overflow: "hidden",
+            fontFamily: "ui-sans-serif, system-ui",
+            padding: 80,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* Accent bar */}
+          <div
+            style={{
+              position: "absolute",
+              top: -80,
+              right: -120,
+              width: 700,
+              height: 180,
+              background: accent,
+              transform: "rotate(-12deg)",
+              opacity: 0.95,
+            }}
+          />
+          {/* Watermark % */}
+          <div
+            style={{
+              position: "absolute",
+              right: 60,
+              bottom: -140,
+              fontSize: 720,
+              lineHeight: 1,
+              fontWeight: 900,
+              color: "rgba(255,255,255,0.05)",
+              letterSpacing: "-0.05em",
+              userSelect: "none",
+            }}
+          >
+            {pct}
+          </div>
+
+          <div style={{ position: "relative" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <span
+                style={{
+                  width: 18,
+                  height: 18,
+                  background: accent,
+                  borderRadius: 999,
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                  fontSize: 22,
+                  letterSpacing: "0.2em",
+                  color: "rgba(255,255,255,0.7)",
+                }}
+              >
+                GRYT · CHALLENGE PROGRESS
+              </span>
+            </div>
+            <div style={{ height: 4, width: 90, background: accent, marginTop: 16 }} />
+            <p
+              style={{
+                marginTop: 28,
+                fontSize: 28,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "rgba(255,255,255,0.55)",
+              }}
+            >
+              {c.theme}
+            </p>
+            <h2
+              style={{
+                fontSize: 84,
+                fontWeight: 900,
+                lineHeight: 0.95,
+                marginTop: 10,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {c.title}
+            </h2>
+            {c.tagline && (
+              <p
+                style={{
+                  marginTop: 18,
+                  fontSize: 30,
+                  fontWeight: 500,
+                  color: "rgba(255,255,255,0.75)",
+                  maxWidth: 880,
+                }}
+              >
+                {c.tagline}
+              </p>
+            )}
+          </div>
+
+          {/* Big % + name */}
+          <div style={{ position: "relative" }}>
+            <div
+              style={{
+                fontSize: 36,
+                fontWeight: 700,
+                color: "rgba(255,255,255,0.7)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {meName}
+            </div>
+            {meAlignment && (
+              <div
+                style={{
+                  marginTop: 8,
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                  fontSize: 22,
+                  letterSpacing: "0.18em",
+                  color: meAlignment.accent,
+                }}
+              >
+                ALIGNED · {meAlignment.name.toUpperCase()}
+              </div>
+            )}
+            <div style={{ display: "flex", alignItems: "baseline", gap: 24, marginTop: 24 }}>
+              <span
+                style={{
+                  fontSize: 280,
+                  fontWeight: 900,
+                  lineHeight: 0.85,
+                  letterSpacing: "-0.04em",
+                  color: accent,
+                }}
+              >
+                {pct}
+                <span style={{ fontSize: 120, color: "rgba(255,255,255,0.85)" }}>%</span>
+              </span>
+              <div style={{ paddingBottom: 24 }}>
+                <div
+                  style={{
+                    fontSize: 30,
+                    fontWeight: 800,
+                    color: "rgba(255,255,255,0.9)",
+                  }}
+                >
+                  {myCompleted}/{stepCount}
+                </div>
+                <div
+                  style={{
+                    fontSize: 20,
+                    letterSpacing: "0.18em",
+                    color: "rgba(255,255,255,0.55)",
+                    marginTop: 4,
+                  }}
+                >
+                  STEPS COMPLETE
+                </div>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div
+              style={{
+                marginTop: 24,
+                height: 18,
+                width: "100%",
+                borderRadius: 999,
+                background: "rgba(255,255,255,0.08)",
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  height: "100%",
+                  width: `${pct}%`,
+                  background: accent,
+                  borderRadius: 999,
+                }}
+              />
+            </div>
+          </div>
+
+          {/* PRs */}
+          <div style={{ position: "relative", borderTop: "1px solid rgba(255,255,255,0.18)", paddingTop: 32 }}>
+            <div
+              style={{
+                fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                fontSize: 20,
+                letterSpacing: "0.2em",
+                color: "rgba(255,255,255,0.55)",
+                marginBottom: 18,
+              }}
+            >
+              PERSONAL RECORDS
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 24 }}>
+              <PrCard label="5K" value={formatPr(me?.best_5k_seconds ?? null)} />
+              <PrCard label="10K" value={formatPr(me?.best_10k_seconds ?? null)} />
+              <PrCard label="HALF" value={formatPr(me?.best_half_seconds ?? null)} />
+              <PrCard label="MARATHON" value={formatPr(me?.best_marathon_seconds ?? null)} />
+            </div>
+            <div
+              style={{
+                marginTop: 32,
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                  fontSize: 20,
+                  letterSpacing: "0.2em",
+                  color: "rgba(255,255,255,0.55)",
+                }}
+              >
+                GRYT.CLUB
+              </span>
+              <span
+                style={{
+                  fontFamily: "ui-monospace, SFMono-Regular, monospace",
+                  fontSize: 20,
+                  letterSpacing: "0.2em",
+                  color: accent,
+                }}
+              >
+                {dateRange(c.starts_on, c.ends_on).toUpperCase()}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
+  );
+}
+
+function PrCard({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      style={{
+        background: "rgba(255,255,255,0.06)",
+        borderRadius: 16,
+        padding: "18px 20px",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "ui-monospace, SFMono-Regular, monospace",
+          fontSize: 16,
+          letterSpacing: "0.2em",
+          color: "rgba(255,255,255,0.55)",
+        }}
+      >
+        {label}
+      </div>
+      <div
+        style={{
+          fontSize: 40,
+          fontWeight: 800,
+          marginTop: 6,
+          fontVariantNumeric: "tabular-nums",
+        }}
+      >
+        {value}
+      </div>
+    </div>
   );
 }
 
