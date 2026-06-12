@@ -159,7 +159,7 @@ function RecapPage() {
       });
       const a = document.createElement("a");
       a.href = dataUrl;
-      a.download = `gryt-recap-${r.slug}.png`;
+      a.download = pngFilename;
       a.click();
     } finally {
       stopProgress();
@@ -178,7 +178,7 @@ function RecapPage() {
         backgroundColor: "#0a0a0a",
       });
       if (!blob) throw new Error("Failed to render image");
-      const file = new File([blob], `gryt-recap-${r.slug}.png`, { type: "image/png" });
+      const file = new File([blob], pngFilename, { type: "image/png" });
 
       if (
         typeof navigator !== "undefined" &&
@@ -196,7 +196,7 @@ function RecapPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `gryt-recap-${r.slug}.png`;
+        a.download = pngFilename;
         a.click();
         URL.revokeObjectURL(url);
       }
