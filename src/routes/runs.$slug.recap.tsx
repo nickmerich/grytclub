@@ -127,6 +127,48 @@ function RecapPage() {
     }
   }
 
+  async function shareImage() {
+    if (!cardRef.current) return;
+    setSharing(true);
+    try {
+      const blob = await toBlob(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: "#0a0a0a",
+      });
+      if (!blob) throw new Error("Failed to render image");
+      const file = new File([blob], `gryt-recap-${r.slug}.png`, { type: "image/png" });
+
+      if (
+        typeof navigator !== "undefined" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: `Recap: ${r.title}`,
+          text: `${r.attendee_count} runners showed up for ${r.title}.`,
+          url: publicUrl,
+        });
+      } else {
+        // Fallback: download
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `gryt-recap-${r.slug}.png`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      // AbortError = user dismissed; ignore
+      if ((err as Error)?.name !== "AbortError") {
+        console.error(err);
+      }
+    } finally {
+      setSharing(false);
+    }
+  }
+
   async function copyLink() {
     try {
       await navigator.clipboard.writeText(publicUrl);
