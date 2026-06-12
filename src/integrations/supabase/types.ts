@@ -188,6 +188,54 @@ export type Database = {
         }
         Relationships: []
       }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          city: string | null
+          created_at: string
+          display_name: string | null
+          goals: string[]
+          id: string
+          is_public: boolean
+          neighborhood: string | null
+          onboarded_at: string | null
+          pace_max_per_mi: number | null
+          pace_min_per_mi: number | null
+          preferred_times: string[]
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          goals?: string[]
+          id: string
+          is_public?: boolean
+          neighborhood?: string | null
+          onboarded_at?: string | null
+          pace_max_per_mi?: number | null
+          pace_min_per_mi?: number | null
+          preferred_times?: string[]
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          city?: string | null
+          created_at?: string
+          display_name?: string | null
+          goals?: string[]
+          id?: string
+          is_public?: boolean
+          neighborhood?: string | null
+          onboarded_at?: string | null
+          pace_max_per_mi?: number | null
+          pace_min_per_mi?: number | null
+          preferred_times?: string[]
+          updated_at?: string
+        }
+        Relationships: []
+      }
       rsvps: {
         Row: {
           created_at: string
