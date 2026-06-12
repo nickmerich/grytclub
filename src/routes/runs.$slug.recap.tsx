@@ -86,6 +86,13 @@ function formatShortDate(iso: string): string {
   const d = new Date(`${iso}T12:00:00Z`);
   return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }).toUpperCase();
 }
+function filenameDate(iso: string): string {
+  const d = new Date(`${iso}T12:00:00Z`);
+  const yyyy = d.getUTCFullYear();
+  const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(d.getUTCDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
 
 function RecapPage() {
   const { recap: r, origin } = Route.useLoaderData() as { recap: RecapDetail; origin: string };
