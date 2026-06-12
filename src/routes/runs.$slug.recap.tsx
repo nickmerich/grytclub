@@ -93,6 +93,36 @@ function RecapPage() {
   const [busy, setBusy] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const progressRef = useRef<number>(0);
+  const rafRef = useRef<number | null>(null);
+
+  const isExporting = busy || sharing;
+
+  function startProgress() {
+    setProgress(0);
+    progressRef.current = 0;
+    const start = performance.now();
+    const duration = 2500; // ms — typical render time for 1080@2x
+
+    function tick(now: number) {
+      const elapsed = now - start;
+      const p = Math.min((elapsed / duration) * 100, 99);
+      progressRef.current = p;
+      setProgress(p);
+      if (p < 99) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    }
+    rafRef.current = requestAnimationFrame(tick);
+  }
+
+  function stopProgress() {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    setProgress(100);
+    setTimeout(() => setProgress(0), 400);
+  }
+
   const canShareFiles =
     typeof navigator !== "undefined" &&
     typeof navigator.canShare === "function" &&
@@ -110,8 +140,9 @@ function RecapPage() {
   const publicUrl = `${origin}/runs/${r.slug}/recap`;
 
   async function download() {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isExporting) return;
     setBusy(true);
+    startProgress();
     try {
       const dataUrl = await toPng(cardRef.current, {
         pixelRatio: 2,
@@ -123,13 +154,15 @@ function RecapPage() {
       a.download = `gryt-recap-${r.slug}.png`;
       a.click();
     } finally {
+      stopProgress();
       setBusy(false);
     }
   }
 
   async function shareImage() {
-    if (!cardRef.current) return;
+    if (!cardRef.current || isExporting) return;
     setSharing(true);
+    startProgress();
     try {
       const blob = await toBlob(cardRef.current, {
         pixelRatio: 2,
@@ -165,6 +198,7 @@ function RecapPage() {
         console.error(err);
       }
     } finally {
+      stopProgress();
       setSharing(false);
     }
   }
@@ -293,21 +327,22 @@ function RecapPage() {
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <button
             onClick={download}
-            disabled={busy}
+            disabled={isExporting}
             className="bg-sky-brand text-ink px-8 py-4 label-meta hover:bg-bone transition-colors disabled:opacity-60"
           >
             {busy ? "RENDERING…" : "↓ DOWNLOAD PNG"}
           </button>
           <button
             onClick={shareImage}
-            disabled={sharing}
+            disabled={isExporting}
             className="bg-bone text-ink px-8 py-4 label-meta hover:bg-sky-brand transition-colors disabled:opacity-60"
           >
             {sharing ? "PREPARING…" : canShareFiles ? "↗ SHARE IMAGE" : "↗ SHARE / SAVE PNG"}
           </button>
           <button
             onClick={copyLink}
-            className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center"
+            disabled={isExporting}
+            className="border border-bone/40 text-bone px-8 py-4 label-meta hover:border-sky-brand hover:text-sky-brand transition-colors text-center disabled:opacity-40"
           >
             {copied ? "✓ LINK COPIED" : "↗ COPY LINK"}
           </button>
@@ -319,6 +354,26 @@ function RecapPage() {
             BACK TO RUN
           </Link>
         </div>
+
+        {/* Export progress bar */}
+        {isExporting && (
+          <div className="mt-6 mx-auto max-w-xl">
+            <div className="flex justify-between items-center mb-2">
+              <span className="label-meta text-bone/70">
+                {busy ? "RENDERING CARD" : "PREPARING SHARE"}
+              </span>
+              <span className="label-meta text-sky-brand">
+                {Math.round(progress)}%
+              </span>
+            </div>
+            <div className="h-1.5 w-full bg-bone/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-sky-brand transition-[width] duration-100 ease-linear rounded-full"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </main>
   );
