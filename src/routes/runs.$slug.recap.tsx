@@ -91,7 +91,21 @@ function RecapPage() {
   const { recap: r, origin } = Route.useLoaderData() as { recap: RecapDetail; origin: string };
   const cardRef = useRef<HTMLDivElement>(null);
   const [busy, setBusy] = useState(false);
+  const [sharing, setSharing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const canShareFiles =
+    typeof navigator !== "undefined" &&
+    typeof navigator.canShare === "function" &&
+    // feature-test with a tiny dummy file
+    (() => {
+      try {
+        return navigator.canShare({
+          files: [new File([new Blob([""], { type: "image/png" })], "t.png", { type: "image/png" })],
+        });
+      } catch {
+        return false;
+      }
+    })();
 
   const publicUrl = `${origin}/runs/${r.slug}/recap`;
 
