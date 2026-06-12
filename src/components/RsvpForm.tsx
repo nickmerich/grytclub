@@ -49,6 +49,7 @@ export function RsvpForm({
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
   const [stored, setStored] = useState<StoredRsvp | null>(null);
+  const queryClient = useQueryClient();
 
   // Hydrate after mount so SSR markup matches client.
   useEffect(() => {
