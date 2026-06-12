@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { useRef, useState } from "react";
-import { toPng } from "html-to-image";
+import { toPng, toBlob } from "html-to-image";
 import { getRecapBySlug, type RecapDetail } from "@/lib/recaps.functions";
 import { getRequestOrigin } from "@/lib/origin.functions";
 
