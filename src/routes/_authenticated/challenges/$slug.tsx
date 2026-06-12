@@ -108,6 +108,60 @@ function ChallengeDetailPage() {
 
   const c = data.challenge;
   const accent = c.accent_color;
+  const me = data.me;
+  const meName = me ? displayName(me) : "Member";
+  const meAlignment = me ? alignmentFor(me.user_id, me.athlete_alignment) : null;
+  const pngFilename = `gryt-challenge-${c.slug}-${pct}pct.png`;
+
+  async function exportPng(mode: "download" | "share") {
+    if (!cardRef.current || exporting) return;
+    setExporting(mode);
+    try {
+      if (mode === "download") {
+        const dataUrl = await toPng(cardRef.current, {
+          pixelRatio: 2,
+          cacheBust: true,
+          backgroundColor: "#0a0a0a",
+        });
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = pngFilename;
+        a.click();
+        return;
+      }
+      const blob = await toBlob(cardRef.current, {
+        pixelRatio: 2,
+        cacheBust: true,
+        backgroundColor: "#0a0a0a",
+      });
+      if (!blob) throw new Error("Failed to render image");
+      const file = new File([blob], pngFilename, { type: "image/png" });
+      if (
+        typeof navigator !== "undefined" &&
+        typeof navigator.canShare === "function" &&
+        navigator.canShare({ files: [file] })
+      ) {
+        await navigator.share({
+          files: [file],
+          title: `${c.title} — ${pct}% complete`,
+          text: `${meName} · ${myCompleted}/${stepCount} steps · ${pct}% on ${c.title}`,
+        });
+      } else {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = pngFilename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+    } catch (err) {
+      if ((err as Error)?.name !== "AbortError") {
+        toast.error(err instanceof Error ? err.message : "Couldn't render image");
+      }
+    } finally {
+      setExporting(null);
+    }
+  }
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
