@@ -119,30 +119,59 @@ function ChallengeDetailPage() {
   const meAlignment = me ? alignmentFor(me.user_id, me.athlete_alignment) : null;
   const pngFilename = `gryt-challenge-${c.slug}-${pct}pct.png`;
 
+  const [gallery, setGallery] = useState<ProgressSnapshot[]>([]);
+  const galleryUrls = useMemo(() => {
+    const map = new Map<string, string>();
+    gallery.forEach((s) => map.set(s.id, URL.createObjectURL(s.blob)));
+    return map;
+  }, [gallery]);
+  useEffect(() => {
+    return () => {
+      galleryUrls.forEach((u) => URL.revokeObjectURL(u));
+    };
+  }, [galleryUrls]);
+
+  async function refreshGallery() {
+    try {
+      const items = await listSnapshots(slug);
+      setGallery(items);
+    } catch {
+      // ignore — gallery is best-effort, browser-only
+    }
+  }
+
+  useEffect(() => {
+    refreshGallery();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug]);
+
   async function exportPng(mode: "download" | "share") {
     if (!cardRef.current || exporting) return;
     setExporting(mode);
     try {
-      if (mode === "download") {
-        const dataUrl = await toPng(cardRef.current, {
-          pixelRatio: 2,
-          cacheBust: true,
-          backgroundColor: "#0a0a0a",
-        });
-        const a = document.createElement("a");
-        a.href = dataUrl;
-        a.download = pngFilename;
-        a.click();
-        return;
-      }
       const blob = await toBlob(cardRef.current, {
         pixelRatio: 2,
         cacheBust: true,
         backgroundColor: "#0a0a0a",
       });
       if (!blob) throw new Error("Failed to render image");
+
+      // Persist to local gallery (best-effort, IndexedDB)
+      saveSnapshot({
+        slug,
+        pct,
+        completed: myCompleted,
+        stepCount,
+        source: mode,
+        blob,
+      })
+        .then(refreshGallery)
+        .catch(() => {});
+
       const file = new File([blob], pngFilename, { type: "image/png" });
+
       if (
+        mode === "share" &&
         typeof navigator !== "undefined" &&
         typeof navigator.canShare === "function" &&
         navigator.canShare({ files: [file] })
@@ -168,6 +197,21 @@ function ChallengeDetailPage() {
       setExporting(null);
     }
   }
+
+  async function downloadSnapshot(s: ProgressSnapshot) {
+    const url = URL.createObjectURL(s.blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `gryt-challenge-${s.slug}-${s.pct}pct-${s.capturedAt}.png`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  async function removeSnapshot(id: string) {
+    await deleteSnapshot(id);
+    refreshGallery();
+  }
+
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
