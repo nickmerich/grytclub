@@ -33,10 +33,12 @@ function DashboardPage() {
   const fetchDashboard = useServerFn(getDashboard);
   const fetchProfile = useServerFn(getMyProfile);
   const fetchInviteStats = useServerFn(getMyInviteStats);
+  const fetchAttendance = useServerFn(getMyAttendance);
 
   const dashboard = useQuery({ queryKey: ["dashboard"], queryFn: () => fetchDashboard() });
   const profile = useQuery({ queryKey: ["my-profile"], queryFn: () => fetchProfile() });
   const inviteStats = useQuery({ queryKey: ["my-invite-stats"], queryFn: () => fetchInviteStats() });
+  const attendance = useQuery({ queryKey: ["my-attendance"], queryFn: () => fetchAttendance() });
 
   const needsOnboarding = profile.data && !profile.data.onboarded_at;
 
