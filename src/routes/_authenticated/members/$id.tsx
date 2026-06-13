@@ -18,9 +18,15 @@ export const Route = createFileRoute("/_authenticated/members/$id")({
 function MemberPage() {
   const { id } = Route.useParams();
   const fetchMember = useServerFn(getMemberProfile);
+  const fetchAttendance = useServerFn(getMemberAttendance);
   const { data, isLoading } = useQuery({
     queryKey: ["member", id],
     queryFn: () => fetchMember({ data: { id } }),
+  });
+  const attendance = useQuery({
+    queryKey: ["member-attendance", id],
+    queryFn: () => fetchAttendance({ data: { user_id: id } }),
+    enabled: !!data,
   });
 
   if (isLoading) {
