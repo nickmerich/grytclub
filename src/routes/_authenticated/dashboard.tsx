@@ -105,9 +105,17 @@ function DashboardPage() {
         </section>
 
         <section className="rounded-2xl border border-border bg-card p-6">
-          <p className="label-meta text-muted-foreground">Streak</p>
-          <p className="font-display text-5xl mt-2">{dashboard.data?.attendanceCount ?? 0}</p>
-          <p className="text-sm text-muted-foreground mt-1">RSVPs on record</p>
+          <p className="label-meta text-muted-foreground">Attendance</p>
+          <p className="font-display text-5xl mt-2 tabular-nums">{attendance.data?.total_runs ?? 0}</p>
+          <p className="text-sm text-muted-foreground mt-1">
+            runs checked in
+            {attendance.data?.current_streak ? ` · 🔥 ${attendance.data.current_streak} Sat streak` : ""}
+          </p>
+          {attendance.data?.last_run_date && (
+            <p className="text-xs text-muted-foreground mt-1">
+              Last: {formatDate(attendance.data.last_run_date)}
+            </p>
+          )}
           <div className="mt-4 pt-4 border-t border-border">
             <p className="label-meta text-muted-foreground">Invites accepted</p>
             <p className="font-display text-2xl mt-1 tabular-nums">{inviteStats.data?.accepted_count ?? 0}</p>
