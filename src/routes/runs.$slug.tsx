@@ -2,6 +2,7 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { getEventBySlug, type EventDetail } from "@/lib/events.functions";
 import { RsvpForm } from "@/components/RsvpForm";
 import { RouteMap } from "@/components/RouteMap";
+import { CheckinPanel } from "@/components/CheckinPanel";
 
 export const Route = createFileRoute("/runs/$slug")({
   loader: ({ params }) => getEventBySlug({ data: { slug: params.slug } }),
