@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getMemberProfile } from "@/lib/social.functions";
+import { getMemberAttendance } from "@/lib/checkins.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
 
 export const Route = createFileRoute("/_authenticated/members/$id")({
