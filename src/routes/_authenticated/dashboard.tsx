@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getDashboard } from "@/lib/dashboard.functions";
 import { getMyProfile } from "@/lib/profiles.functions";
 import { getMyInviteStats } from "@/lib/social.functions";
+import { getMyAttendance } from "@/lib/checkins.functions";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
