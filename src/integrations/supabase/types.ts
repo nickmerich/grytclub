@@ -626,6 +626,12 @@ export type Database = {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
       }
+      emails_opted_out_of_reminders: {
+        Args: { _emails: string[] }
+        Returns: {
+          email: string
+        }[]
+      }
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
         Returns: number
