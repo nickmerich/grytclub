@@ -161,6 +161,8 @@ function RunDetailPage() {
                 <RouteMap />
               </div>
             </div>
+
+            <CheckinPanel eventId={ev.id} eventDate={ev.event_date} />
           </div>
 
           <aside className="md:col-span-1">
