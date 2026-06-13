@@ -31,6 +31,7 @@ import { Route as AuthenticatedChallengesSlugRouteImport } from './routes/_authe
 import { Route as LovableEmailTransactionalSendRouteImport } from './routes/lovable/email/transactional/send'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/email/queue/process'
+import { Route as ApiPublicHooksSendSaturdayRemindersRouteImport } from './routes/api/public/hooks/send-saturday-reminders'
 import { Route as ApiPublicHooksGenerateRecapsRouteImport } from './routes/api/public/hooks/generate-recaps'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -149,6 +150,12 @@ const LovableEmailQueueProcessRoute =
     path: '/lovable/email/queue/process',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicHooksSendSaturdayRemindersRoute =
+  ApiPublicHooksSendSaturdayRemindersRouteImport.update({
+    id: '/api/public/hooks/send-saturday-reminders',
+    path: '/api/public/hooks/send-saturday-reminders',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicHooksGenerateRecapsRoute =
   ApiPublicHooksGenerateRecapsRouteImport.update({
     id: '/api/public/hooks/generate-recaps',
@@ -176,6 +183,7 @@ export interface FileRoutesByFullPath {
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges/': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
+  '/api/public/hooks/send-saturday-reminders': typeof ApiPublicHooksSendSaturdayRemindersRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -200,6 +208,7 @@ export interface FileRoutesByTo {
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
+  '/api/public/hooks/send-saturday-reminders': typeof ApiPublicHooksSendSaturdayRemindersRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -226,6 +235,7 @@ export interface FileRoutesById {
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/_authenticated/challenges/': typeof AuthenticatedChallengesIndexRoute
   '/api/public/hooks/generate-recaps': typeof ApiPublicHooksGenerateRecapsRoute
+  '/api/public/hooks/send-saturday-reminders': typeof ApiPublicHooksSendSaturdayRemindersRoute
   '/lovable/email/queue/process': typeof LovableEmailQueueProcessRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
   '/lovable/email/transactional/send': typeof LovableEmailTransactionalSendRoute
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/runs/$slug/recap'
     | '/challenges/'
     | '/api/public/hooks/generate-recaps'
+    | '/api/public/hooks/send-saturday-reminders'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/runs/$slug/recap'
     | '/challenges'
     | '/api/public/hooks/generate-recaps'
+    | '/api/public/hooks/send-saturday-reminders'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -301,6 +313,7 @@ export interface FileRouteTypes {
     | '/runs/$slug/recap'
     | '/_authenticated/challenges/'
     | '/api/public/hooks/generate-recaps'
+    | '/api/public/hooks/send-saturday-reminders'
     | '/lovable/email/queue/process'
     | '/lovable/email/transactional/preview'
     | '/lovable/email/transactional/send'
@@ -317,6 +330,7 @@ export interface RootRouteChildren {
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksGenerateRecapsRoute: typeof ApiPublicHooksGenerateRecapsRoute
+  ApiPublicHooksSendSaturdayRemindersRoute: typeof ApiPublicHooksSendSaturdayRemindersRoute
   LovableEmailQueueProcessRoute: typeof LovableEmailQueueProcessRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
   LovableEmailTransactionalSendRoute: typeof LovableEmailTransactionalSendRoute
@@ -478,6 +492,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LovableEmailQueueProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/hooks/send-saturday-reminders': {
+      id: '/api/public/hooks/send-saturday-reminders'
+      path: '/api/public/hooks/send-saturday-reminders'
+      fullPath: '/api/public/hooks/send-saturday-reminders'
+      preLoaderRoute: typeof ApiPublicHooksSendSaturdayRemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/hooks/generate-recaps': {
       id: '/api/public/hooks/generate-recaps'
       path: '/api/public/hooks/generate-recaps'
@@ -546,6 +567,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksGenerateRecapsRoute: ApiPublicHooksGenerateRecapsRoute,
+  ApiPublicHooksSendSaturdayRemindersRoute:
+    ApiPublicHooksSendSaturdayRemindersRoute,
   LovableEmailQueueProcessRoute: LovableEmailQueueProcessRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
   LovableEmailTransactionalSendRoute: LovableEmailTransactionalSendRoute,
@@ -553,13 +576,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

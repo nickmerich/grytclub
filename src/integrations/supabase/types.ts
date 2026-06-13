@@ -464,6 +464,7 @@ export type Database = {
           city: string | null
           created_at: string
           display_name: string | null
+          email_reminders_enabled: boolean
           first_name: string | null
           goals: string[]
           id: string
@@ -486,6 +487,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           display_name?: string | null
+          email_reminders_enabled?: boolean
           first_name?: string | null
           goals?: string[]
           id: string
@@ -508,6 +510,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           display_name?: string | null
+          email_reminders_enabled?: boolean
           first_name?: string | null
           goals?: string[]
           id?: string
@@ -622,6 +625,12 @@ export type Database = {
       delete_email: {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
+      }
+      emails_opted_out_of_reminders: {
+        Args: { _emails: string[] }
+        Returns: {
+          email: string
+        }[]
       }
       enqueue_email: {
         Args: { payload: Json; queue_name: string }
