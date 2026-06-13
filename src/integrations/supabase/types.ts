@@ -361,6 +361,41 @@ export type Database = {
         }
         Relationships: []
       }
+      event_checkins: {
+        Row: {
+          checked_in_at: string
+          checked_in_by: string
+          event_id: string
+          id: string
+          user_id: string | null
+          walkup_name: string | null
+        }
+        Insert: {
+          checked_in_at?: string
+          checked_in_by: string
+          event_id: string
+          id?: string
+          user_id?: string | null
+          walkup_name?: string | null
+        }
+        Update: {
+          checked_in_at?: string
+          checked_in_by?: string
+          event_id?: string
+          id?: string
+          user_id?: string | null
+          walkup_name?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_checkins_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       events: {
         Row: {
           capacity: number | null
@@ -369,6 +404,7 @@ export type Database = {
           distance_mi: number | null
           event_date: string
           host_name: string | null
+          host_user_id: string | null
           id: string
           location_address: string | null
           location_name: string
@@ -386,6 +422,7 @@ export type Database = {
           distance_mi?: number | null
           event_date: string
           host_name?: string | null
+          host_user_id?: string | null
           id?: string
           location_address?: string | null
           location_name: string
@@ -403,6 +440,7 @@ export type Database = {
           distance_mi?: number | null
           event_date?: string
           host_name?: string | null
+          host_user_id?: string | null
           id?: string
           location_address?: string | null
           location_name?: string
@@ -604,6 +642,10 @@ export type Database = {
           participant_count: number
           step_count: number
         }[]
+      }
+      has_event_host: {
+        Args: { _event_id: string; _user_id: string }
+        Returns: boolean
       }
       move_to_dlq: {
         Args: {

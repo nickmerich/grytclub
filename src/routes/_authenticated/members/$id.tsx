@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { getMemberProfile } from "@/lib/social.functions";
+import { getMemberAttendance } from "@/lib/checkins.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
 
 export const Route = createFileRoute("/_authenticated/members/$id")({
@@ -17,9 +18,15 @@ export const Route = createFileRoute("/_authenticated/members/$id")({
 function MemberPage() {
   const { id } = Route.useParams();
   const fetchMember = useServerFn(getMemberProfile);
+  const fetchAttendance = useServerFn(getMemberAttendance);
   const { data, isLoading } = useQuery({
     queryKey: ["member", id],
     queryFn: () => fetchMember({ data: { id } }),
+  });
+  const attendance = useQuery({
+    queryKey: ["member-attendance", id],
+    queryFn: () => fetchAttendance({ data: { user_id: id } }),
+    enabled: !!data,
   });
 
   if (isLoading) {
@@ -84,6 +91,12 @@ function MemberPage() {
         <BigStat label="Joined" value={data.stats.challenges_joined} />
       </section>
 
+      <section className="mt-4 grid grid-cols-3 gap-3">
+        <BigStat label="Runs attended" value={attendance.data?.total_runs ?? 0} />
+        <BigStat label="Saturday streak" value={attendance.data?.current_streak ?? 0} />
+        <BigStat label="Last run" value={attendance.data?.last_run_date ? new Date(attendance.data.last_run_date + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "—"} />
+      </section>
+
       <section className="mt-8 rounded-2xl border border-border bg-card p-6">
         <h2 className="font-display text-xl">Personal records</h2>
         <dl className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -124,7 +137,7 @@ function MemberPage() {
   );
 }
 
-function BigStat({ label, value }: { label: string; value: number }) {
+function BigStat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5 text-center">
       <div className="font-display text-3xl tabular-nums">{value}</div>

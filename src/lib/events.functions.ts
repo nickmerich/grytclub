@@ -46,6 +46,7 @@ export const listUpcomingEvents = createServerFn({ method: "GET" }).handler(
 
 export type EventDetail = EventListItem & {
   capacity: number | null;
+  host_user_id: string | null;
 };
 
 /**
@@ -61,7 +62,7 @@ export const getEventBySlug = createServerFn({ method: "GET" })
     const { data: row, error } = await supabaseAdmin
       .from("events")
       .select(
-        "id, slug, title, event_date, start_time, location_name, location_address, distance_mi, pace_label, host_name, description, capacity",
+        "id, slug, title, event_date, start_time, location_name, location_address, distance_mi, pace_label, host_name, description, capacity, host_user_id",
       )
       .eq("slug", data.slug)
       .eq("published", true)
