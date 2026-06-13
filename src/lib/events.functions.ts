@@ -46,6 +46,7 @@ export const listUpcomingEvents = createServerFn({ method: "GET" }).handler(
 
 export type EventDetail = EventListItem & {
   capacity: number | null;
+  host_user_id: string | null;
 };
 
 /**
