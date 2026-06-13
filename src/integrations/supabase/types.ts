@@ -464,6 +464,7 @@ export type Database = {
           city: string | null
           created_at: string
           display_name: string | null
+          email_reminders_enabled: boolean
           first_name: string | null
           goals: string[]
           id: string
@@ -486,6 +487,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           display_name?: string | null
+          email_reminders_enabled?: boolean
           first_name?: string | null
           goals?: string[]
           id: string
@@ -508,6 +510,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           display_name?: string | null
+          email_reminders_enabled?: boolean
           first_name?: string | null
           goals?: string[]
           id?: string
