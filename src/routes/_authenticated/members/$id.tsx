@@ -137,7 +137,7 @@ function MemberPage() {
   );
 }
 
-function BigStat({ label, value }: { label: string; value: number }) {
+function BigStat({ label, value }: { label: string; value: number | string }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5 text-center">
       <div className="font-display text-3xl tabular-nums">{value}</div>
