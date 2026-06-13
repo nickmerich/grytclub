@@ -5,6 +5,7 @@ import { getDashboard } from "@/lib/dashboard.functions";
 import { getMyProfile } from "@/lib/profiles.functions";
 import { getMyInviteStats } from "@/lib/social.functions";
 import { getMyAttendance } from "@/lib/checkins.functions";
+import { EmailRemindersToggle } from "@/components/EmailRemindersToggle";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -158,6 +159,11 @@ function DashboardPage() {
         ) : (
           <p className="mt-3 text-sm text-muted-foreground">No runs on the calendar.</p>
         )}
+      </section>
+
+      <section className="mt-8 rounded-2xl border border-border bg-card p-6">
+        <p className="label-meta text-muted-foreground mb-4">Notifications</p>
+        <EmailRemindersToggle />
       </section>
     </main>
   );
