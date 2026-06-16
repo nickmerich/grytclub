@@ -21,6 +21,7 @@ export type LeaderboardRow = {
 export type LeaderboardResponse = {
   top: LeaderboardRow[];
   me: (LeaderboardRow & { rank: number }) | null;
+  chasing: (LeaderboardRow & { rank: number; gap: number }) | null;
 };
 
 const windowSchema = z.object({
