@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import { getMemberProfile } from "@/lib/social.functions";
 import { getMemberAttendance } from "@/lib/checkins.functions";
 import { alignmentFor, displayName, formatPr } from "@/lib/athlete-alignment";
+import { PropsRow } from "@/components/PropsRow";
 
 export const Route = createFileRoute("/_authenticated/members/$id")({
   head: () => ({
@@ -19,6 +23,12 @@ function MemberPage() {
   const { id } = Route.useParams();
   const fetchMember = useServerFn(getMemberProfile);
   const fetchAttendance = useServerFn(getMemberAttendance);
+  const [myId, setMyId] = useState<string | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setMyId(data.user?.id ?? null));
+  }, []);
+
   const { data, isLoading } = useQuery({
     queryKey: ["member", id],
     queryFn: () => fetchMember({ data: { id } }),
@@ -30,17 +40,30 @@ function MemberPage() {
   });
 
   if (isLoading) {
-    return <main className="mx-auto max-w-3xl px-4 py-10"><p className="text-muted-foreground">Loading…</p></main>;
+    return (
+      <main className="mx-auto max-w-3xl px-4 py-10">
+        <div className="h-44 rounded-3xl bg-muted/40 animate-pulse" />
+        <div className="mt-6 grid grid-cols-3 gap-3">
+          <div className="h-24 rounded-2xl bg-muted/30 animate-pulse" />
+          <div className="h-24 rounded-2xl bg-muted/30 animate-pulse" />
+          <div className="h-24 rounded-2xl bg-muted/30 animate-pulse" />
+        </div>
+      </main>
+    );
   }
   if (!data) {
     return (
       <main className="mx-auto max-w-3xl px-4 py-10">
-        <p className="text-muted-foreground">This member's profile isn't public.</p>
-        <Link to="/community" className="text-sm underline">← Back to members</Link>
+        <div className="rounded-2xl border border-dashed border-border p-10 text-center">
+          <p className="font-display text-xl">This profile is private.</p>
+          <p className="mt-1 text-muted-foreground">Only the owner can see it.</p>
+          <Link to="/community" className="mt-4 inline-flex text-sm underline">← Back to members</Link>
+        </div>
       </main>
     );
   }
 
+  const isSelf = myId === data.id;
   const a = alignmentFor(data.id, data.athlete_alignment);
   const prs = [
     { label: "5K", value: data.best_5k_seconds },
@@ -49,21 +72,40 @@ function MemberPage() {
     { label: "Marathon", value: data.best_marathon_seconds },
   ];
 
+  const onShare = async () => {
+    const url = `${window.location.origin}/members/${data.id}`;
+    const name = displayName(data);
+    try {
+      if (typeof navigator !== "undefined" && (navigator as any).share) {
+        await (navigator as any).share({ title: `${name} on GRYT`, url });
+        return;
+      }
+      await navigator.clipboard.writeText(url);
+      toast.success("Profile link copied");
+    } catch {
+      // user cancelled, no-op
+    }
+  };
+
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
+    <main className="mx-auto max-w-3xl px-4 py-8 animate-fade-in">
       <Link to="/community" className="text-sm text-muted-foreground hover:text-foreground">← All members</Link>
 
       <header
-        className={"mt-4 rounded-3xl border p-8 ring-1 " + a.ring}
-        style={{ backgroundColor: a.bg.includes("bg-") ? undefined : undefined }}
+        className={"mt-4 rounded-3xl border p-8 ring-1 relative overflow-hidden " + a.ring}
       >
-        <div className="flex items-start gap-5">
+        <div
+          aria-hidden
+          className="absolute -top-20 -right-20 h-56 w-56 rounded-full opacity-20 blur-3xl"
+          style={{ background: "currentColor" }}
+        />
+        <div className="relative flex items-start gap-5">
           {data.avatar_url ? (
-            <img src={data.avatar_url} alt="" className="h-20 w-20 rounded-full object-cover" />
+            <img src={data.avatar_url} alt="" className="h-20 w-20 rounded-full object-cover ring-2 ring-background" />
           ) : (
             <div className="h-20 w-20 rounded-full bg-muted" />
           )}
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h1 className="font-display text-3xl">{displayName(data)}</h1>
             <p className="text-sm text-muted-foreground">
               {data.neighborhood ?? data.city ?? "—"}
@@ -74,14 +116,33 @@ function MemberPage() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link
-            to="/compare/$otherId"
-            params={{ otherId: data.id }}
-            className="inline-flex items-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background hover:bg-foreground/90"
+        <div className="relative mt-6 flex flex-wrap items-center gap-3">
+          {!isSelf && (
+            <Link
+              to="/compare/$otherId"
+              params={{ otherId: data.id }}
+              className="inline-flex items-center rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-all hover:bg-foreground/90 hover:-translate-y-0.5"
+            >
+              Compare with me
+            </Link>
+          )}
+          <button
+            type="button"
+            onClick={onShare}
+            className="inline-flex items-center gap-1.5 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium hover:border-foreground/40 hover:-translate-y-0.5 transition-all"
           >
-            Compare with me
-          </Link>
+            <ShareIcon /> Share
+          </button>
+          {isSelf && (
+            <span className="text-xs text-muted-foreground">This is how others see you.</span>
+          )}
+        </div>
+
+        <div className="relative mt-5 pt-5 border-t border-border/60">
+          <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+            {isSelf ? "Props received" : "Send props"}
+          </p>
+          <PropsRow recipientId={data.id} isSelf={isSelf} />
         </div>
       </header>
 
@@ -93,8 +154,26 @@ function MemberPage() {
 
       <section className="mt-4 grid grid-cols-3 gap-3">
         <BigStat label="Runs attended" value={attendance.data?.total_runs ?? 0} />
-        <BigStat label="Saturday streak" value={attendance.data?.current_streak ?? 0} />
-        <BigStat label="Last run" value={attendance.data?.last_run_date ? new Date(attendance.data.last_run_date + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" }) : "—"} />
+        <BigStat
+          label="Saturday streak"
+          value={
+            attendance.data?.current_streak
+              ? `🔥 ${attendance.data.current_streak}`
+              : "0"
+          }
+        />
+        <BigStat
+          label="Last run"
+          value={
+            attendance.data?.last_run_date
+              ? new Date(attendance.data.last_run_date + "T12:00:00Z").toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  timeZone: "UTC",
+                })
+              : "—"
+          }
+        />
       </section>
 
       <section className="mt-8 rounded-2xl border border-border bg-card p-6">
@@ -139,9 +218,19 @@ function MemberPage() {
 
 function BigStat({ label, value }: { label: string; value: number | string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 text-center">
+    <div className="rounded-2xl border border-border bg-card p-5 text-center transition-all hover:border-foreground/30 hover:-translate-y-0.5">
       <div className="font-display text-3xl tabular-nums">{value}</div>
       <div className="text-xs uppercase tracking-wide text-muted-foreground mt-1">{label}</div>
     </div>
+  );
+}
+
+function ShareIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+      <polyline points="16 6 12 2 8 6" />
+      <line x1="12" y1="2" x2="12" y2="15" />
+    </svg>
   );
 }

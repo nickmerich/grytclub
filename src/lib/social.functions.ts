@@ -21,6 +21,7 @@ export type LeaderboardRow = {
 export type LeaderboardResponse = {
   top: LeaderboardRow[];
   me: (LeaderboardRow & { rank: number }) | null;
+  chasing: (LeaderboardRow & { rank: number; gap: number }) | null;
 };
 
 const windowSchema = z.object({
@@ -129,8 +130,16 @@ export const getGlobalLeaderboard = createServerFn({ method: "GET" })
       myIndex === -1
         ? null
         : { ...rows[myIndex], rank: myIndex + 1 };
+    const chasing =
+      myIndex > 0
+        ? {
+            ...rows[myIndex - 1],
+            rank: myIndex,
+            gap: rows[myIndex - 1].steps_completed - rows[myIndex].steps_completed,
+          }
+        : null;
 
-    return { top, me };
+    return { top, me, chasing };
   });
 
 export type PublicMemberDetail = {
@@ -451,3 +460,98 @@ export const getMyInviteStats = createServerFn({ method: "GET" })
   });
 // Silence unused import warning for shared field list
 void PROFILE_FIELDS;
+
+// ---- Props (lightweight reactions) ----
+
+export type PropKind = "clap" | "fire" | "muscle";
+const PROP_KINDS: PropKind[] = ["clap", "fire", "muscle"];
+
+export type MemberPropsState = {
+  counts: Record<PropKind, number>;
+  mine: Record<PropKind, boolean>;
+};
+
+export const getMemberProps = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ recipient_id: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }): Promise<MemberPropsState> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await supabaseAdmin
+      .from("member_props" as any)
+      .select("kind, sender_id")
+      .eq("recipient_id", data.recipient_id);
+    if (error) throw new Error(error.message);
+    const counts: Record<PropKind, number> = { clap: 0, fire: 0, muscle: 0 };
+    const mine: Record<PropKind, boolean> = { clap: false, fire: false, muscle: false };
+    ((rows ?? []) as unknown as Array<{ kind: PropKind; sender_id: string }>).forEach((r) => {
+      counts[r.kind] = (counts[r.kind] ?? 0) + 1;
+      if (r.sender_id === context.userId) mine[r.kind] = true;
+    });
+    return { counts, mine };
+  });
+
+export const toggleProp = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) =>
+    z.object({
+      recipient_id: z.string().uuid(),
+      kind: z.enum(["clap", "fire", "muscle"]),
+    }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    if (data.recipient_id === context.userId) {
+      throw new Error("You can't prop yourself");
+    }
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const existing = await supabaseAdmin
+      .from("member_props" as any)
+      .select("id")
+      .eq("sender_id", context.userId)
+      .eq("recipient_id", data.recipient_id)
+      .eq("kind", data.kind)
+      .maybeSingle();
+    if (existing.data) {
+      const { error } = await supabaseAdmin
+        .from("member_props" as any)
+        .delete()
+        .eq("id", (existing.data as any).id);
+      if (error) throw new Error(error.message);
+      return { active: false };
+    }
+    const { error } = await supabaseAdmin
+      .from("member_props" as any)
+      .insert({
+        sender_id: context.userId,
+        recipient_id: data.recipient_id,
+        kind: data.kind,
+      });
+    if (error) throw new Error(error.message);
+    return { active: true };
+  });
+
+void PROP_KINDS;
+
+// ---- Recent activity ----
+
+export type RecentActivityRow = {
+  kind: "completion" | "checkin";
+  user_id: string;
+  display_name: string | null;
+  first_name: string | null;
+  avatar_url: string | null;
+  athlete_alignment: string | null;
+  title: string;
+  slug: string;
+  accent_color: string;
+  occurred_at: string;
+};
+
+export const getRecentActivity = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((data: unknown) => z.object({ limit: z.number().int().min(1).max(50).default(12) }).parse(data ?? {}))
+  .handler(async ({ data }): Promise<RecentActivityRow[]> => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: rows, error } = await supabaseAdmin.rpc("get_recent_activity" as any, { _limit: data.limit });
+    if (error) throw new Error(error.message);
+    return ((rows ?? []) as RecentActivityRow[]);
+  });
