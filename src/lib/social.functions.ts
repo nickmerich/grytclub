@@ -130,8 +130,16 @@ export const getGlobalLeaderboard = createServerFn({ method: "GET" })
       myIndex === -1
         ? null
         : { ...rows[myIndex], rank: myIndex + 1 };
+    const chasing =
+      myIndex > 0
+        ? {
+            ...rows[myIndex - 1],
+            rank: myIndex,
+            gap: rows[myIndex - 1].steps_completed - rows[myIndex].steps_completed,
+          }
+        : null;
 
-    return { top, me };
+    return { top, me, chasing };
   });
 
 export type PublicMemberDetail = {
