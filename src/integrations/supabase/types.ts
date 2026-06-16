@@ -453,6 +453,30 @@ export type Database = {
         }
         Relationships: []
       }
+      member_props: {
+        Row: {
+          created_at: string
+          id: string
+          kind: Database["public"]["Enums"]["prop_kind"]
+          recipient_id: string
+          sender_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: Database["public"]["Enums"]["prop_kind"]
+          recipient_id: string
+          sender_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["prop_kind"]
+          recipient_id?: string
+          sender_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           athlete_alignment: string | null
@@ -652,6 +676,21 @@ export type Database = {
           step_count: number
         }[]
       }
+      get_recent_activity: {
+        Args: { _limit?: number }
+        Returns: {
+          accent_color: string
+          athlete_alignment: string
+          avatar_url: string
+          display_name: string
+          first_name: string
+          kind: string
+          occurred_at: string
+          slug: string
+          title: string
+          user_id: string
+        }[]
+      }
       has_event_host: {
         Args: { _event_id: string; _user_id: string }
         Returns: boolean
@@ -675,7 +714,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      prop_kind: "clap" | "fire" | "muscle"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -802,6 +841,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      prop_kind: ["clap", "fire", "muscle"],
+    },
   },
 } as const
