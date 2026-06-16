@@ -474,7 +474,7 @@ export const getMemberProps = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     const counts: Record<PropKind, number> = { clap: 0, fire: 0, muscle: 0 };
     const mine: Record<PropKind, boolean> = { clap: false, fire: false, muscle: false };
-    ((rows ?? []) as Array<{ kind: PropKind; sender_id: string }>).forEach((r) => {
+    ((rows ?? []) as unknown as Array<{ kind: PropKind; sender_id: string }>).forEach((r) => {
       counts[r.kind] = (counts[r.kind] ?? 0) + 1;
       if (r.sender_id === context.userId) mine[r.kind] = true;
     });
