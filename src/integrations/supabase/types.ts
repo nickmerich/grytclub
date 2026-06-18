@@ -635,6 +635,54 @@ export type Database = {
         }
         Relationships: []
       }
+      welcome_signups: {
+        Row: {
+          created_at: string
+          email: string
+          event_id: string | null
+          id: string
+          inviter_freeform: string | null
+          inviter_user_id: string | null
+          name: string
+          source: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          event_id?: string | null
+          id?: string
+          inviter_freeform?: string | null
+          inviter_user_id?: string | null
+          name: string
+          source?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          event_id?: string | null
+          id?: string
+          inviter_freeform?: string | null
+          inviter_user_id?: string | null
+          name?: string
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "welcome_signups_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "welcome_signups_inviter_user_id_fkey"
+            columns: ["inviter_user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
