@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RunsRouteImport } from './routes/runs'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -35,6 +36,11 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as ApiPublicHooksSendSaturdayRemindersRouteImport } from './routes/api/public/hooks/send-saturday-reminders'
 import { Route as ApiPublicHooksGenerateRecapsRouteImport } from './routes/api/public/hooks/generate-recaps'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -174,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -200,6 +207,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -228,6 +236,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -256,6 +265,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/community'
     | '/dashboard'
     | '/leaderboard'
@@ -282,6 +292,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/community'
     | '/dashboard'
     | '/leaderboard'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/_authenticated/community'
     | '/_authenticated/dashboard'
     | '/_authenticated/leaderboard'
@@ -337,6 +349,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WelcomeRoute: typeof WelcomeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   InviteTokenRoute: typeof InviteTokenRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
@@ -351,6 +364,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -582,6 +602,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WelcomeRoute: WelcomeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   InviteTokenRoute: InviteTokenRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
