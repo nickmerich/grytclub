@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RunsRouteImport } from './routes/runs'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -24,6 +25,7 @@ import { Route as AuthenticatedCommunityRouteImport } from './routes/_authentica
 import { Route as AuthenticatedChallengesIndexRouteImport } from './routes/_authenticated/challenges/index'
 import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as ApiPublicWelcomeRouteImport } from './routes/api/public/welcome'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
 import { Route as AuthenticatedMembersIdRouteImport } from './routes/_authenticated/members/$id'
 import { Route as AuthenticatedCompareOtherIdRouteImport } from './routes/_authenticated/compare/$otherId'
@@ -34,6 +36,11 @@ import { Route as LovableEmailQueueProcessRouteImport } from './routes/lovable/e
 import { Route as ApiPublicHooksSendSaturdayRemindersRouteImport } from './routes/api/public/hooks/send-saturday-reminders'
 import { Route as ApiPublicHooksGenerateRecapsRouteImport } from './routes/api/public/hooks/generate-recaps'
 
+const WelcomeRoute = WelcomeRouteImport.update({
+  id: '/welcome',
+  path: '/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -110,6 +117,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicWelcomeRoute = ApiPublicWelcomeRouteImport.update({
+  id: '/api/public/welcome',
+  path: '/api/public/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicRsvpRoute = ApiPublicRsvpRouteImport.update({
   id: '/api/public/rsvp',
   path: '/api/public/rsvp',
@@ -168,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -179,6 +192,7 @@ export interface FileRoutesByFullPath {
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges/': typeof AuthenticatedChallengesIndexRoute
@@ -193,6 +207,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/community': typeof AuthenticatedCommunityRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -204,6 +219,7 @@ export interface FileRoutesByTo {
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges': typeof AuthenticatedChallengesIndexRoute
@@ -220,6 +236,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/welcome': typeof WelcomeRoute
   '/_authenticated/community': typeof AuthenticatedCommunityRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/leaderboard': typeof AuthenticatedLeaderboardRoute
@@ -231,6 +248,7 @@ export interface FileRoutesById {
   '/_authenticated/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/_authenticated/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/_authenticated/challenges/': typeof AuthenticatedChallengesIndexRoute
@@ -247,6 +265,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/community'
     | '/dashboard'
     | '/leaderboard'
@@ -258,6 +277,7 @@ export interface FileRouteTypes {
     | '/compare/$otherId'
     | '/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/challenges/'
@@ -272,6 +292,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/community'
     | '/dashboard'
     | '/leaderboard'
@@ -283,6 +304,7 @@ export interface FileRouteTypes {
     | '/compare/$otherId'
     | '/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/challenges'
@@ -298,6 +320,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/runs'
     | '/sitemap.xml'
+    | '/welcome'
     | '/_authenticated/community'
     | '/_authenticated/dashboard'
     | '/_authenticated/leaderboard'
@@ -309,6 +332,7 @@ export interface FileRouteTypes {
     | '/_authenticated/compare/$otherId'
     | '/_authenticated/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/_authenticated/challenges/'
@@ -325,9 +349,11 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  WelcomeRoute: typeof WelcomeRoute
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   InviteTokenRoute: typeof InviteTokenRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
+  ApiPublicWelcomeRoute: typeof ApiPublicWelcomeRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksGenerateRecapsRoute: typeof ApiPublicHooksGenerateRecapsRoute
   ApiPublicHooksSendSaturdayRemindersRoute: typeof ApiPublicHooksSendSaturdayRemindersRoute
@@ -338,6 +364,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/welcome': {
+      id: '/welcome'
+      path: '/welcome'
+      fullPath: '/welcome'
+      preLoaderRoute: typeof WelcomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -441,6 +474,13 @@ declare module '@tanstack/react-router' {
       path: '/lovable/email/suppression'
       fullPath: '/lovable/email/suppression'
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/welcome': {
+      id: '/api/public/welcome'
+      path: '/api/public/welcome'
+      fullPath: '/api/public/welcome'
+      preLoaderRoute: typeof ApiPublicWelcomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/rsvp': {
@@ -562,9 +602,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  WelcomeRoute: WelcomeRoute,
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   InviteTokenRoute: InviteTokenRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
+  ApiPublicWelcomeRoute: ApiPublicWelcomeRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksGenerateRecapsRoute: ApiPublicHooksGenerateRecapsRoute,
   ApiPublicHooksSendSaturdayRemindersRoute:
@@ -576,13 +618,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
