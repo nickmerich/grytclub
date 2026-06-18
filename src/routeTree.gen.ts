@@ -24,6 +24,7 @@ import { Route as AuthenticatedCommunityRouteImport } from './routes/_authentica
 import { Route as AuthenticatedChallengesIndexRouteImport } from './routes/_authenticated/challenges/index'
 import { Route as RunsSlugRecapRouteImport } from './routes/runs.$slug.recap'
 import { Route as LovableEmailSuppressionRouteImport } from './routes/lovable/email/suppression'
+import { Route as ApiPublicWelcomeRouteImport } from './routes/api/public/welcome'
 import { Route as ApiPublicRsvpRouteImport } from './routes/api/public/rsvp'
 import { Route as AuthenticatedMembersIdRouteImport } from './routes/_authenticated/members/$id'
 import { Route as AuthenticatedCompareOtherIdRouteImport } from './routes/_authenticated/compare/$otherId'
@@ -110,6 +111,11 @@ const LovableEmailSuppressionRoute = LovableEmailSuppressionRouteImport.update({
   path: '/lovable/email/suppression',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicWelcomeRoute = ApiPublicWelcomeRouteImport.update({
+  id: '/api/public/welcome',
+  path: '/api/public/welcome',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicRsvpRoute = ApiPublicRsvpRouteImport.update({
   id: '/api/public/rsvp',
   path: '/api/public/rsvp',
@@ -179,6 +185,7 @@ export interface FileRoutesByFullPath {
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges/': typeof AuthenticatedChallengesIndexRoute
@@ -204,6 +211,7 @@ export interface FileRoutesByTo {
   '/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/challenges': typeof AuthenticatedChallengesIndexRoute
@@ -231,6 +239,7 @@ export interface FileRoutesById {
   '/_authenticated/compare/$otherId': typeof AuthenticatedCompareOtherIdRoute
   '/_authenticated/members/$id': typeof AuthenticatedMembersIdRoute
   '/api/public/rsvp': typeof ApiPublicRsvpRoute
+  '/api/public/welcome': typeof ApiPublicWelcomeRoute
   '/lovable/email/suppression': typeof LovableEmailSuppressionRoute
   '/runs/$slug/recap': typeof RunsSlugRecapRoute
   '/_authenticated/challenges/': typeof AuthenticatedChallengesIndexRoute
@@ -258,6 +267,7 @@ export interface FileRouteTypes {
     | '/compare/$otherId'
     | '/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/challenges/'
@@ -283,6 +293,7 @@ export interface FileRouteTypes {
     | '/compare/$otherId'
     | '/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/challenges'
@@ -309,6 +320,7 @@ export interface FileRouteTypes {
     | '/_authenticated/compare/$otherId'
     | '/_authenticated/members/$id'
     | '/api/public/rsvp'
+    | '/api/public/welcome'
     | '/lovable/email/suppression'
     | '/runs/$slug/recap'
     | '/_authenticated/challenges/'
@@ -328,6 +340,7 @@ export interface RootRouteChildren {
   EmailUnsubscribeRoute: typeof EmailUnsubscribeRoute
   InviteTokenRoute: typeof InviteTokenRoute
   ApiPublicRsvpRoute: typeof ApiPublicRsvpRoute
+  ApiPublicWelcomeRoute: typeof ApiPublicWelcomeRoute
   LovableEmailSuppressionRoute: typeof LovableEmailSuppressionRoute
   ApiPublicHooksGenerateRecapsRoute: typeof ApiPublicHooksGenerateRecapsRoute
   ApiPublicHooksSendSaturdayRemindersRoute: typeof ApiPublicHooksSendSaturdayRemindersRoute
@@ -441,6 +454,13 @@ declare module '@tanstack/react-router' {
       path: '/lovable/email/suppression'
       fullPath: '/lovable/email/suppression'
       preLoaderRoute: typeof LovableEmailSuppressionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/welcome': {
+      id: '/api/public/welcome'
+      path: '/api/public/welcome'
+      fullPath: '/api/public/welcome'
+      preLoaderRoute: typeof ApiPublicWelcomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/rsvp': {
@@ -565,6 +585,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmailUnsubscribeRoute: EmailUnsubscribeRoute,
   InviteTokenRoute: InviteTokenRoute,
   ApiPublicRsvpRoute: ApiPublicRsvpRoute,
+  ApiPublicWelcomeRoute: ApiPublicWelcomeRoute,
   LovableEmailSuppressionRoute: LovableEmailSuppressionRoute,
   ApiPublicHooksGenerateRecapsRoute: ApiPublicHooksGenerateRecapsRoute,
   ApiPublicHooksSendSaturdayRemindersRoute:
