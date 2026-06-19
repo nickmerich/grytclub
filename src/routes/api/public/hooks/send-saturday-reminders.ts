@@ -38,8 +38,15 @@ export const Route = createFileRoute('/api/public/hooks/send-saturday-reminders'
       POST: async ({ request }) => {
         const supabaseUrl = process.env.SUPABASE_URL
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-        if (!supabaseUrl || !serviceKey) {
+        const expectedKey = process.env.SUPABASE_PUBLISHABLE_KEY
+        if (!supabaseUrl || !serviceKey || !expectedKey) {
           return Response.json({ error: 'Server misconfigured' }, { status: 500 })
+        }
+        const providedKey =
+          request.headers.get('apikey') ??
+          request.headers.get('authorization')?.replace('Bearer ', '')
+        if (!providedKey || providedKey !== expectedKey) {
+          return Response.json({ error: 'Unauthorized' }, { status: 401 })
         }
         const supabase = createClient(supabaseUrl, serviceKey, {
           auth: { autoRefreshToken: false, persistSession: false },
