@@ -12,9 +12,12 @@ export const Route = createFileRoute("/api/public/hooks/generate-recaps")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const authHeader = request.headers.get("apikey") ?? request.headers.get("authorization")?.replace("Bearer ", "");
-        if (!authHeader) {
-          return new Response(JSON.stringify({ error: "Missing apikey" }), { status: 401 });
+        const expected = process.env.SUPABASE_PUBLISHABLE_KEY;
+        const provided =
+          request.headers.get("apikey") ??
+          request.headers.get("authorization")?.replace("Bearer ", "");
+        if (!expected || !provided || provided !== expected) {
+          return new Response(JSON.stringify({ error: "Unauthorized" }), { status: 401 });
         }
 
         const url = process.env.SUPABASE_URL!;
