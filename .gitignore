@@ -16,6 +16,12 @@ dist-ssr
 .nitro
 *.local
 
+# Environment files — keep secrets out of version control.
+# `.env.example` is the tracked template; everything else is local-only.
+.env
+.env.*
+!.env.example
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars
