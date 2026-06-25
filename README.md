@@ -70,7 +70,9 @@ Postgres managed by Supabase. Core tables (from `supabase/migrations/`): `profil
 
 ### Email & background jobs
 
-React Email templates (`src/lib/email-templates/`) are rendered and dispatched through the Lovable email service. Cron-style hooks under `src/routes/api/public/hooks/` (e.g. `send-saturday-reminders`, `generate-recaps`) are triggered externally and authenticated via a `Bearer` token checked against an expected key.
+React Email templates (`src/lib/email-templates/`) are rendered and dispatched through the Lovable email service. Cron-style hooks (e.g. the email-queue processor and hooks under `src/routes/api/public/hooks/` such as `send-saturday-reminders`, `generate-recaps`) are triggered externally and authenticated via a `Bearer` token compared against an expected key.
+
+> **Cron auth hardening:** today these hooks accept a Supabase key (the service-role key for the email-queue processor) as the `Bearer` token. A Supabase **publishable/anon** key is _not_ a real secret and must never be relied on as a cron credential, and reusing the **service-role** key as a long-lived bearer gives every scheduler the keys to the whole database. Prefer a dedicated, rotatable **server-only cron secret** (e.g. `CRON_SECRET`) stored in the secret manager / vault and compared in constant time, so it can be rotated independently without touching Supabase keys.
 
 ---
 
@@ -88,9 +90,9 @@ React Email templates (`src/lib/email-templates/`) are rendered and dispatched t
 # 1. Install dependencies
 bun install            # or: npm install
 
-# 2. Create your environment file
-cp .env .env.local     # then fill in the values described below
-                       # (do NOT commit real secrets)
+# 2. Create your environment file from the tracked template
+cp .env.example .env.local   # then fill in the values described below
+                             # (.env.local is gitignored — do NOT commit real secrets)
 
 # 3. Start the dev server
 bun run dev            # or: npm run dev
@@ -115,7 +117,7 @@ The app will start on the Vite dev server (port is managed by the Lovable/TanSta
 
 ## Environment Variables
 
-Environment values are read from `.env` (and `.env.local`). Two parallel sets exist: **`VITE_`-prefixed** variables are inlined into the **client bundle at build time** (publicly visible), while the **unprefixed** variables are read from `process.env` on the **server only**.
+Environment values are read from `.env.local` (and any platform-provided environment). The repo tracks **`.env.example`** as the canonical template — copy it to `.env.local` and fill in the values. Real `.env*` files (other than `.env.example`) are gitignored and must never be committed. Two parallel sets exist: **`VITE_`-prefixed** variables are inlined into the **client bundle at build time** (publicly visible), while the **unprefixed** variables are read from `process.env` on the **server only**.
 
 > **Security:** Treat the service role key as a top secret. It bypasses Row Level Security and grants full database access. It must **only** ever exist server-side and must never be given a `VITE_` prefix.
 
@@ -143,7 +145,7 @@ Environment values are read from `.env` (and `.env.local`). Two parallel sets ex
 | `LOVABLE_API_KEY`           | ✅ (for email sending)                              | API key for the Lovable email service             |
 | `LOVABLE_SEND_URL`          | ⛅ optional                                         | Override URL for the email send endpoint          |
 
-The committed `.env` contains only the **publishable** Supabase values needed to boot the client. Secret values (service role key, `LOVABLE_API_KEY`) are **not** stored in this repo — obtain them from the team secrets manager and place them in `.env.local` (gitignored) or your deployment platform's secret store. For Cloudflare, use `.dev.vars` locally (gitignored) and Wrangler secrets in production.
+No real environment values are committed to this repo. Start from `.env.example` (placeholders only) and fill in the publishable Supabase values plus any server-only secrets you need locally. **Server-only secrets** — `SUPABASE_SERVICE_ROLE_KEY`, `LOVABLE_API_KEY`, and any cron secret — must be supplied locally in `.env.local` (gitignored) or your deployment platform's secret store; obtain them from the team secrets manager. For Cloudflare, use `.dev.vars` locally (gitignored) and Wrangler secrets in production. Never give a server-only secret a `VITE_` prefix.
 
 ---
 
@@ -249,10 +251,10 @@ An honest snapshot of areas to improve, based on the current state of the repo:
 
 - **Two lockfiles.** Both `bun.lockb` and `package-lock.json` are committed. Pick one package manager as the source of truth to avoid dependency drift between contributors and CI.
 - **Generated files are version-controlled and editable-by-accident.** The Supabase clients, `types.ts`, and `routeTree.gen.ts` are auto-generated; there is no guard preventing manual edits from being committed.
-- **Publishable Supabase values are committed in `.env`.** While these are anon-tier (RLS-protected) keys, baking environment values into the repo blurs the line for newcomers about what is and isn't a secret. Consider a committed `.env.example` with placeholders instead.
+- **Environment template via `.env.example`.** A placeholder-only `.env.example` is committed as the canonical template; real `.env*` files are gitignored so no environment values (even anon-tier keys) land in version control. If the previously-committed anon key needs to be treated as compromised, rotate it in Supabase.
 - **No automated test suite.** There are no unit/integration/e2e tests; correctness relies on type-checking, linting, and manual QA. The only automated guards are build-time sitemap/domain redirect scripts.
 - **No CI configuration in-repo.** Lint/build/type checks are run manually; there is no committed CI workflow to enforce them on PRs.
-- **Cron hook auth is lightweight.** Background hooks authenticate via a `Bearer` token compared against the publishable key; a dedicated, rotatable cron secret would be more robust.
+- **Cron hook auth reuses Supabase keys.** Background hooks authenticate via a `Bearer` token compared against a Supabase key (the service-role key for the email-queue processor). An anon/publishable key is not a real secret, and the service-role key is too broad and hard to rotate for this purpose — a dedicated, rotatable server-only cron secret (e.g. `CRON_SECRET`) compared in constant time would be more robust.
 - **Email send reliability.** Email dispatch depends on the external Lovable service; failure handling, retries, and the suppression/queue lifecycle deserve a focused review.
 - **Tooling churn.** Several dependencies are on beta/edge versions (e.g. `nitro` beta, React 19, Tailwind 4); expect occasional breakage on upgrades.
 
@@ -269,7 +271,7 @@ An honest snapshot of areas to improve, based on the current state of the repo:
 - **Run recaps automation (proposed).** Harden the `generate-recaps` hook and the recap publishing flow (`runs.$slug.recap`).
 - **Notifications (proposed).** Extend beyond Saturday email reminders (e.g. captain Slack pings on signup, configurable per-member preferences).
 - **Observability (proposed).** Add structured logging/metrics for email delivery and cron hooks, plus error monitoring.
-- **Secrets/config hardening (proposed).** Replace committed `.env` with `.env.example`, introduce a dedicated cron secret, and document the deployment secret store.
+- **Secrets/config hardening (proposed).** `.env.example` now replaces the committed `.env`; remaining steps are to introduce a dedicated rotatable cron secret (replacing the Supabase-key bearer) and to fully document the deployment secret store.
 
 ---
 
