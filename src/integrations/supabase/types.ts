@@ -698,6 +698,7 @@ export type Database = {
         Args: { message_id: number; queue_name: string }
         Returns: boolean
       }
+      email_queue_dispatch: { Args: never; Returns: undefined }
       emails_opted_out_of_reminders: {
         Args: { _emails: string[] }
         Returns: {
