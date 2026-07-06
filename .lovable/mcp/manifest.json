@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "sdk_version": "0.20.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "grytclub-mcp",
+      "version": "0.1.0",
+      "title": "grytclub MCP"
+    },
+    "tools": [
+      {
+        "name": "list_upcoming_runs",
+        "title": "List upcoming runs",
+        "description": "List upcoming published grytclub group runs (title, date, start time, location, distance, pace, host). Returns runs scheduled today or later, soonest first.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "description": "Max runs to return (default 10).",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 25
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_challenges",
+        "title": "List challenges",
+        "description": "List published grytclub challenges (title, tagline, target, dates). Optionally filter to those active today.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "active_only": {
+              "description": "Only return challenges active today (default false).",
+              "type": "boolean"
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 25
+            }
+          }
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "recent_activity",
+        "title": "Recent community activity",
+        "description": "Latest public grytclub community activity: challenge step completions and event check-ins by public members. Returns display name, first name, activity kind (completion or checkin), the related run/challenge title, and when it happened.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "limit": {
+              "description": "Default 12.",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
