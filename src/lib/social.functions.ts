@@ -396,11 +396,13 @@ export const createInvite = createServerFn({ method: "POST" })
     return { token };
   });
 
-function makeToken() {
-  // 16-char base36 token
-  const a = Math.random().toString(36).slice(2, 10);
-  const b = Math.random().toString(36).slice(2, 10);
-  return (a + b).slice(0, 16);
+function makeToken(): string {
+  // 32-char hex token backed by a CSPRNG (128 bits of entropy).
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }
 
 export const getInvitePreview = createServerFn({ method: "GET" })
