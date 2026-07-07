@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WelcomeRouteImport } from './routes/welcome'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RunsRouteImport } from './routes/runs'
+import { Route as PittsburghRunClubsComparisonRouteImport } from './routes/pittsburgh-run-clubs-comparison'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ConnectRouteImport } from './routes/connect'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -56,6 +57,12 @@ const RunsRoute = RunsRouteImport.update({
   path: '/runs',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PittsburghRunClubsComparisonRoute =
+  PittsburghRunClubsComparisonRouteImport.update({
+    id: '/pittsburgh-run-clubs-comparison',
+    path: '/pittsburgh-run-clubs-comparison',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const McpRoute = McpRouteImport.update({
   id: '/mcp',
   path: '/mcp',
@@ -213,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/connect': typeof ConnectRoute
   '/mcp': typeof McpRoute
+  '/pittsburgh-run-clubs-comparison': typeof PittsburghRunClubsComparisonRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/welcome': typeof WelcomeRoute
@@ -245,6 +253,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/connect': typeof ConnectRoute
   '/mcp': typeof McpRoute
+  '/pittsburgh-run-clubs-comparison': typeof PittsburghRunClubsComparisonRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/welcome': typeof WelcomeRoute
@@ -279,6 +288,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/connect': typeof ConnectRoute
   '/mcp': typeof McpRoute
+  '/pittsburgh-run-clubs-comparison': typeof PittsburghRunClubsComparisonRoute
   '/runs': typeof RunsRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/welcome': typeof WelcomeRoute
@@ -313,6 +323,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/connect'
     | '/mcp'
+    | '/pittsburgh-run-clubs-comparison'
     | '/runs'
     | '/sitemap.xml'
     | '/welcome'
@@ -345,6 +356,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/connect'
     | '/mcp'
+    | '/pittsburgh-run-clubs-comparison'
     | '/runs'
     | '/sitemap.xml'
     | '/welcome'
@@ -378,6 +390,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/connect'
     | '/mcp'
+    | '/pittsburgh-run-clubs-comparison'
     | '/runs'
     | '/sitemap.xml'
     | '/welcome'
@@ -412,6 +425,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   ConnectRoute: typeof ConnectRoute
   McpRoute: typeof McpRoute
+  PittsburghRunClubsComparisonRoute: typeof PittsburghRunClubsComparisonRoute
   RunsRoute: typeof RunsRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   WelcomeRoute: typeof WelcomeRoute
@@ -451,6 +465,13 @@ declare module '@tanstack/react-router' {
       path: '/runs'
       fullPath: '/runs'
       preLoaderRoute: typeof RunsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pittsburgh-run-clubs-comparison': {
+      id: '/pittsburgh-run-clubs-comparison'
+      path: '/pittsburgh-run-clubs-comparison'
+      fullPath: '/pittsburgh-run-clubs-comparison'
+      preLoaderRoute: typeof PittsburghRunClubsComparisonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcp': {
@@ -705,6 +726,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   ConnectRoute: ConnectRoute,
   McpRoute: McpRoute,
+  PittsburghRunClubsComparisonRoute: PittsburghRunClubsComparisonRoute,
   RunsRoute: RunsRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   WelcomeRoute: WelcomeRoute,
