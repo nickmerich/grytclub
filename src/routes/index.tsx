@@ -1125,6 +1125,7 @@ function Index() {
             <a href={withUtm(STRAVA_URL, "strava_footer")} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("strava_footer", withUtm(STRAVA_URL, "strava_footer"))} className="hover:text-sky-brand">STRAVA</a>
             <a href={withUtm(HEYLO_URL, "heylo_footer")} target="_blank" rel="noopener noreferrer" onClick={() => trackCta("heylo_footer", withUtm(HEYLO_URL, "heylo_footer"))} className="hover:text-sky-brand">HEYLO</a>
             <a href="mailto:hi@gryt.club" className="hover:text-sky-brand">CONTACT</a>
+            <a href="/connect" className="hover:text-sky-brand">CONNECT AI</a>
           </div>
         </div>
         <div className="mt-6 pt-6 border-t border-ink/10 flex flex-wrap items-center justify-between gap-3">
