@@ -141,7 +141,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GRYT is a run club for adults 30+ in the Pittsburgh metro. Saturdays at 7:00 AM at 212 Valley Brook Road, McMurray, PA on the Montour/Peters Trail. All paces welcome.",
+          "Run club for adults 30+ in the Pittsburgh metro. Saturdays 7 AM on the Montour/Peters Trail in McMurray, PA. All paces welcome.",
       },
       { property: "og:title", content: "GRYT Run Club - Do Hard Things Together" },
       {
@@ -191,6 +191,18 @@ export const Route = createFileRoute("/")({
             },
           },
           sameAs: ["https://www.strava.com/clubs/1708552"],
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQ.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+          })),
         }),
       },
     ],
