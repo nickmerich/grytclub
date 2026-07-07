@@ -141,7 +141,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "GRYT is a run club for adults 30+ in the Pittsburgh metro. Saturdays at 7:00 AM at 212 Valley Brook Road, McMurray, PA on the Montour/Peters Trail. All paces welcome.",
+          "Run club for adults 30+ in the Pittsburgh metro. Saturdays 7 AM on the Montour/Peters Trail in McMurray, PA. All paces welcome.",
       },
       { property: "og:title", content: "GRYT Run Club - Do Hard Things Together" },
       {
